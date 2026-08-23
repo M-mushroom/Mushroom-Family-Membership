@@ -1,1 +1,843 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Mushroom Family Membership V2 - Integrated Loyalty & Rewards Suite</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+/* =========================
+   ROOT & VARIABLES
+========================= */
+:root {
+  --green: #2e7d32;
+  --green-dark: #14591a;
+  --green-light: #eaf7ec;
+  --orange: #ff8f00;
+  --orange-light: #fff3df;
+  --pink: #e91e63;
+  --purple: #673ab7;
+  --blue: #1976d2;
+  --gold: #ffd54f;
+  --red: #d32f2f;
+  --bg: #f5f7f6;
+  --white: #ffffff;
+  --text: #202124;
+  --muted: #70757a;
+  --border: #e5e7eb;
+  --shadow: 0 6px 20px rgba(0,0,0,.07);
+}
+
+/* =========================
+   RESET & LAYOUT
+========================= */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Noto Sans Bengali", "Segoe UI", sans-serif; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); padding-bottom: 90px; }
+button, input { font-family: inherit; }
+button { cursor: pointer; }
+.app { width: 100%; max-width: 650px; margin: auto; }
+
+/* KEYFRAME ANIMATIONS */
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0 0 rgba(46,125,50,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(46,125,50,0); }
+  100% { box-shadow: 0 0 0 0 rgba(46,125,50,0); }
+}
+
+/* =========================
+   HEADER & PROFILE
+========================= */
+.header {
+  background: radial-gradient(circle at 90% 10%, rgba(255,255,255,.15), transparent 35%), linear-gradient(135deg, var(--green), var(--green-dark));
+  color: white; padding: 18px 16px 25px; border-radius: 0 0 26px 26px; position: relative; overflow: hidden;
+}
+.header-top { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-icon { width: 44px; height: 44px; border-radius: 14px; background: rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.brand h1 { font-size: 20px; font-weight: 800; }
+.brand small { display: block; opacity: .8; font-size: 11px; }
+
+.header-actions { display: flex; gap: 8px; }
+.icon-btn { width: 42px; height: 42px; border-radius: 13px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.12); color: white; font-size: 18px; position: relative; }
+.notification-dot { position: absolute; top: 7px; right: 7px; width: 8px; height: 8px; background: #ff5252; border: 2px solid var(--green); border-radius: 50%; }
+
+.profile { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+.avatar { width: 54px; height: 54px; border-radius: 18px; background: white; color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 25px; font-weight: 800; box-shadow: 0 5px 15px rgba(0,0,0,.15); }
+.profile-info { flex: 1; }
+.profile-info h2 { font-size: 17px; font-weight: 800; }
+.profile-info p { font-size: 11px; opacity: .8; margin-top: 2px; }
+.member-badge { background: var(--gold); color: #4a3a00; padding: 5px 9px; border-radius: 20px; font-size: 10px; font-weight: 800; }
+
+/* =========================
+   MAIN & WALLET CARDS
+========================= */
+.main { padding: 0 14px; margin-top: -12px; position: relative; }
+.wallet-card { background: white; border-radius: 20px; padding: 18px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.wallet-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.wallet-title h3 { font-size: 14px; }
+.wallet-title span { font-size: 11px; color: var(--green); font-weight: 700; cursor: pointer; }
+.wallet-main { background: linear-gradient(135deg, #effaf0, #e0f2e2); border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; }
+.wallet-main small { color: var(--muted); font-size: 11px; }
+.wallet-amount { font-size: 29px; font-weight: 800; color: var(--green-dark); margin-top: 2px; }
+.wallet-action { width: 44px; height: 44px; border: 0; border-radius: 14px; background: var(--green); color: white; font-size: 17px; transition: 0.2s; }
+.wallet-action:active { transform: scale(0.95); }
+
+.wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.mini-wallet { border: 1px solid var(--border); border-radius: 14px; padding: 12px; background: #fff; }
+.mini-wallet-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+.icon-orange { background: var(--orange-light); color: var(--orange); }
+.icon-purple { background: #f0eaff; color: var(--purple); }
+.mini-wallet small { display: block; color: var(--muted); font-size: 10px; }
+.mini-wallet strong { display: block; font-size: 17px; margin-top: 2px; }
+
+/* =========================
+   SHOP REDIRECT BANNER
+========================= */
+.shop-banner {
+  margin-top: 15px; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white;
+  border-radius: 18px; padding: 15px; display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 5px 15px rgba(46,125,50,0.25);
+}
+.shop-banner-info h4 { font-size: 14px; font-weight: 800; }
+.shop-banner-info p { font-size: 10px; opacity: 0.9; margin-top: 2px; }
+.shop-btn {
+  background: var(--gold); color: #3d2c00; border: 0; border-radius: 12px;
+  padding: 10px 14px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px;
+}
+
+/* =========================
+   USER GUIDE / STEPS
+========================= */
+.guide-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 15px; margin-top: 17px; }
+.guide-steps { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+.guide-step { display: flex; align-items: flex-start; gap: 10px; font-size: 11px; opacity: 0.5; transition: 0.3s; }
+.guide-step.active { opacity: 1; font-weight: 700; }
+.step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--green-light); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; }
+
+/* =========================
+   SECTIONS & QUICK ACTIONS
+========================= */
+.section { margin-top: 17px; }
+.section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.section-head h3 { font-size: 15px; font-weight: 800; }
+.section-head button { background: none; border: 0; color: var(--green); font-size: 11px; font-weight: 700; }
+
+.quick-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.quick { background: white; border: 1px solid var(--border); border-radius: 15px; padding: 12px 5px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,.035); transition: .2s; }
+.quick:active { transform: scale(.96); }
+.quick-icon { width: 39px; height: 39px; border-radius: 12px; margin: auto auto 6px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+.quick p { font-size: 10px; font-weight: 700; }
+
+.green-icon { background: #e8f5e9; color: var(--green); }
+.orange-icon { background: #fff3e0; color: var(--orange); }
+.pink-icon { background: #fce4ec; color: var(--pink); }
+.blue-icon { background: #e3f2fd; color: var(--blue); }
+
+/* =========================
+   REWARDS & VERIFICATION
+========================= */
+.reward-card {
+  background: radial-gradient(circle at 90% 10%, rgba(255,255,255,.3), transparent 30%), linear-gradient(135deg, #ff9800, #f57c00);
+  color: white; border-radius: 20px; padding: 18px; position: relative; overflow: hidden; box-shadow: 0 7px 20px rgba(245,124,0,.2);
+}
+.reward-top { display: flex; align-items: center; gap: 10px; }
+.reward-icon { width: 46px; height: 46px; border-radius: 15px; background: rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center; font-size: 23px; }
+.reward-card h3 { font-size: 16px; }
+.reward-card p { font-size: 10px; opacity: .9; margin-top: 2px; }
+.reward-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
+.reward-btn { border: 0; border-radius: 11px; padding: 10px; font-weight: 800; font-size: 11px; }
+.reward-btn.white { background: white; color: #e65100; }
+.reward-btn.dark { background: rgba(0,0,0,.16); color: white; border: 1px solid rgba(255,255,255,.3); }
+
+.verify-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 17px; box-shadow: var(--shadow); }
+.verify-head { display: flex; align-items: center; gap: 10px; }
+.verify-icon { width: 42px; height: 42px; border-radius: 13px; background: #e8f5e9; color: var(--green); display: flex; align-items: center; justify-content: center; }
+.verify-head h3 { font-size: 14px; }
+.verify-head p { color: var(--muted); font-size: 10px; }
+.verify-input { width: 100%; border: 1px solid var(--border); padding: 12px; border-radius: 12px; margin-top: 13px; outline: none; font-size: 13px; }
+.verify-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(46,125,50,.08); }
+.primary-btn { width: 100%; margin-top: 9px; border: 0; background: var(--green); color: white; border-radius: 12px; padding: 12px; font-weight: 800; font-size: 12px; }/* =========================
+   MISSIONS, FAMILY, ACTIVITY
+========================= */
+.mission-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 14px; }
+.mission { display: flex; align-items: center; gap: 11px; padding: 10px 0; }
+.mission:not(:last-child) { border-bottom: 1px solid #eee; }
+.mission-icon { width: 42px; height: 42px; border-radius: 13px; background: #fff8e1; color: #f9a825; display: flex; align-items: center; justify-content: center; }
+.mission-content { flex: 1; }
+.mission-content strong { font-size: 12px; display: block; }
+.mission-content small { color: var(--muted); font-size: 10px; }
+.progress { height: 5px; background: #eee; border-radius: 10px; margin-top: 6px; overflow: hidden; }
+.progress span { display: block; height: 100%; background: var(--green); border-radius: 10px; }
+.mission-btn { border: 0; background: var(--green-light); color: var(--green); padding: 7px 9px; border-radius: 9px; font-size: 10px; font-weight: 800; }
+
+.family { background: linear-gradient(135deg,#fff0f6,#fff7fa); border: 1px solid #f8bbd0; border-radius: 19px; padding: 16px; }
+.family-top { display: flex; align-items: center; gap: 10px; }
+.family-icon { width: 43px; height: 43px; border-radius: 14px; background: #fce4ec; color: var(--pink); display: flex; align-items: center; justify-content: center; font-size: 19px; }
+.family h3 { color: #ad1457; font-size: 14px; }
+.family p { color: #666; font-size: 10px; margin-top: 2px; }
+.family-status { margin-top: 13px; display: flex; justify-content: space-between; font-size: 10px; }
+.family-bar { height: 6px; background: #f8bbd0; border-radius: 10px; margin-top: 6px; overflow: hidden; }
+.family-bar span { display: block; width: 72%; height: 100%; background: var(--pink); }
+
+.activity { background: white; border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+.activity-item { display: flex; align-items: center; gap: 11px; padding: 13px; border-bottom: 1px solid #eee; animation: popIn 0.3s ease; }
+.activity-item:last-child { border-bottom: 0; }
+.activity-icon { width: 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.activity-info { flex: 1; }
+.activity-info strong { display: block; font-size: 11px; }
+.activity-info small { color: var(--muted); font-size: 9px; }
+.amount { font-size: 12px; font-weight: 800; color: var(--green); }
+
+.guarantee { margin-top: 17px; background: linear-gradient(135deg,#e8f5e9,#c8e6c9); border-left: 4px solid var(--green); border-radius: 14px; padding: 13px; }
+.guarantee strong { display: block; font-size: 12px; }
+.guarantee p { font-size: 9px; color: #444; margin-top: 3px; line-height: 1.6; }
+
+/* =========================
+   BOTTOM NAV & MODALS
+========================= */
+.bottom-nav {
+  position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: 100%; max-width: 650px;
+  background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-top: 1px solid var(--border);
+  display: grid; grid-template-columns: repeat(5,1fr); padding: 8px 5px 10px; z-index: 1000;
+}
+.nav-item { border: 0; background: none; color: #858585; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; font-weight: 600; }
+.nav-item i { font-size: 17px; }
+.nav-item.active { color: var(--green); }
+
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6);
+  display: flex; align-items: center; justify-content: center; z-index: 3000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.modal-overlay.show { opacity: 1; pointer-events: auto; }
+.modal-content { background: white; border-radius: 20px; padding: 20px; width: 90%; max-width: 400px; text-align: center; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: popIn 0.25s ease; }
+.close-modal { position: absolute; top: 12px; right: 15px; font-size: 18px; color: #888; border: 0; background: none; }
+
+.wheel-wrapper { position: relative; width: 220px; height: 220px; margin: 15px auto; }
+.wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 18px solid var(--red); z-index: 10; }
+.wheel-canvas { width: 100%; height: 100%; border-radius: 50%; border: 4px solid var(--orange); transition: transform 3.5s cubic-bezier(0.15, 0.99, 0.18, 1); }
+
+.scratch-container { position: relative; width: 240px; height: 140px; margin: 15px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.scratch-reveal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #fff3e0, #ffe0b2); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#scratchCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; cursor: pointer; }
+
+.audit-box { background: #1a1a1a; color: #00ff66; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 10px; text-align: left; height: 150px; overflow-y: auto; margin-top: 10px; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 85px; transform: translate(-50%,20px);
+  background: #222; color: white; padding: 11px 16px; border-radius: 12px; font-size: 11px; z-index: 4000;
+  opacity: 0; pointer-events: none; transition: .25s; white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translate(-50%,0); }
+
+@media(max-width:370px){
+  .quick-grid { grid-template-columns: repeat(2,1fr); }
+  .member-badge { display: none; }
+  .wallet-amount { font-size: 25px; }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-icon">🍄</div>
+        <div>
+          <h1>Kundu Care</h1>
+          <small>Kundu Mushroom Farm</small>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn" onclick="openModal('adminModal')"><i class="fa-solid fa-user-shield"></i></button>
+        <button class="icon-btn" onclick="showToast('🔔 আপনার ২টি নতুন notification আছে')">
+          <i class="fa-solid fa-bell"></i>
+          <span class="notification-dot"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="profile">
+      <div class="avatar">ব</div>
+      <div class="profile-info">
+        <h2>বাবাই কুণ্ডু</h2>
+        <p>📱 +91 9876543210</p>
+      </div>
+      <div class="member-badge">⭐ GOLD</div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- WALLET SECTION -->
+    <section>
+      <div class="wallet-card">
+        <div class="wallet-title">
+          <h3>💰 My Rewards</h3>
+          <span onclick="showToast('Wallet history সম্প্রতি আপডেট হয়েছে')">View History →</span>
+        </div>
+
+        <div class="wallet-main">
+          <div>
+            <small>Cashback Balance</small>
+            <div class="wallet-amount">₹<span id="walletBalance">120.00</span></div>
+          </div>
+          <button class="wallet-action" onclick="redirectToShop()" title="Redeem at Shop">
+            <i class="fa-solid fa-bag-shopping"></i>
+          </button>
+        </div>
+
+        <div class="wallet-grid">
+          <div class="mini-wallet">
+            <div class="mini-wallet-icon icon-orange">🍄</div>
+            <small>Mushroom Coins</small>
+            <strong><span id="coinBalance">450</span></strong>
+          </div>
+          <div class="mini-wallet">
+            <div class="mini-wallet-icon icon-purple">🔥</div>
+            <small>Current Streak</small>
+            <strong>5 Days</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP REDIRECTION BANNER -->
+    <section class="shop-banner">
+      <div class="shop-banner-info">
+        <h4>🛒 Kundu Mushroom Store</h4>
+        <p>ব্যালেন্স দিয়ে সরাসরি শপিং করুন</p>
+      </div>
+      <button class="shop-btn" onclick="redirectToShop()">
+        Shop Now <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </section>
+
+    <!-- USER GUIDANCE STEP-BY-STEP -->
+    <section class="guide-card">
+      <div class="section-head">
+        <h3>🧭 Rewards Guide</h3>
+        <span style="font-size: 10px; color: var(--muted);" id="stepTracker">Step 1 of 3</span>
+      </div>
+      <div class="guide-steps">
+        <div class="guide-step active" id="step1">
+          <div class="step-num">১</div>
+          <div>প্যাকেটের QR বা Code ইনপুট দিয়ে Purchase Verify করুন।</div>
+        </div>
+        <div class="guide-step" id="step2">
+          <div class="step-num">২</div>
+          <div>রিওয়ার্ড হিসেবে Cash, Mushroom Coins বা Spin অণলক করুন।</div>
+        </div>
+        <div class="guide-step" id="step3">
+          <div class="step-num">৩</div>
+          <div>Shoopy Store-এ কেনাকাটায় জমানো ব্যালেন্স রিডিম করুন।</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK ACTIONS -->
+    <section class="section">
+      <div class="section-head">
+        <h3>⚡ Quick Actions</h3>
+      </div>
+      <div class="quick-grid">
+        <button class="quick" onclick="scrollToSection('verify')">
+          <div class="quick-icon green-icon"><i class="fa-solid fa-qrcode"></i></div>
+          <p>Verify QR</p>
+        </button>
+        <button class="quick" onclick="openScratchModal()">
+          <div class="quick-icon orange-icon"><i class="fa-solid fa-ticket"></i></div>
+          <p>Scratch</p>
+        </button>
+        <button class="quick" onclick="openSpinModal()">
+          <div class="quick-icon pink-icon"><i class="fa-solid fa-arrows-spin"></i></div>
+          <p>Spin</p>
+        </button>
+        <button class="quick" onclick="showToast('👥 Referral link কপি হয়েছে!')">
+          <div class="quick-icon blue-icon"><i class="fa-solid fa-user-plus"></i></div>
+          <p>Refer</p>
+        </button>
+      </div>
+    </section>
+
+    <!-- REWARD CENTER -->
+    <section class="section">
+      <div class="reward-card">
+        <div class="reward-top">
+          <div class="reward-icon">🎁</div>
+          <div>
+            <h3>Reward Center</h3>
+            <p>আপনার নতুন reward unlock করার সুযোগ!</p>
+          </div>
+        </div>
+        <div class="reward-buttons">
+          <button class="reward-btn white" onclick="openScratchModal()">🎫 Scratch Card</button>
+          <button class="reward-btn dark" onclick="openSpinModal()">🎡 Spin & Win</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PURCHASE VERIFICATION -->
+    <section class="section" id="verify">
+      <div class="section-head">
+        <h3>🔐 Purchase Verification</h3>
+      </div>
+      <div class="verify-card">
+        <div class="verify-head">
+          <div class="verify-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div>
+            <h3>QR / Purchase Code</h3>
+            <p>প্যাকেটে থাকা unique code দিন</p>
+          </div>
+        </div>
+        <input class="verify-input" id="qrInput" type="text" placeholder="যেমন: KM-7A82X9" autocomplete="off">
+        <button class="primary-btn" onclick="verifyPurchase()"><i class="fa-solid fa-check-circle"></i> Verify Purchase</button>
+      </div>
+    </section>
+
+    <!-- MISSIONS -->
+    <section class="section">
+      <div class="section-head">
+        <h3>🎯 Active Missions</h3>
+        <button onclick="showToast('সব Missions ভিউ করা হচ্ছে')">See All</button>
+      </div>
+      <div class="mission-card">
+        <div class="mission">
+          <div class="mission-icon">📦</div>
+          <div class="mission-content">
+            <strong>৩টি Purchase Complete করুন</strong>
+            <small>Reward: +50 Mushroom Coins</small>
+            <div class="progress"><span style="width:66%"></span></div>
+          </div>
+          <button class="mission-btn" onclick="claimMission(50)">Claim</button>
+        </div>
+        <div class="mission">
+          <div class="mission-icon">🎁</div>
+          <div class="mission-content">
+            <strong>৫ Packet Challenge</strong>
+            <small>Reward: Spin & Win</small>
+            <div class="progress"><span style="width:40%"></span></div>
+          </div>
+          <button class="mission-btn" onclick="showToast('আরও ৩টি packet প্রয়োজন')">2/5</button>
+        </div>
+        <div class="mission">
+          <div class="mission-icon">🔥</div>
+          <div class="mission-content">
+            <strong>7 Days Streak</strong>
+            <small>Reward: +100 Coins</small>
+            <div class="progress"><span style="width:71%"></span></div>
+          </div>
+          <button class="mission-btn">5/7</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAMILY CLUB -->
+    <section class="section">
+      <div class="family">
+        <div class="family-top">
+          <div class="family-icon"><i class="fa-solid fa-people-group"></i></div>
+          <div>
+            <h3>👨‍👩‍👧 Mushroom Family Club</h3>
+            <p>Family Purchase থেকে আরও বেশি reward</p>
+          </div>
+        </div>
+        <div class="family-status">
+          <span>Monthly Target</span>
+          <strong>18 / 25 Packets</strong>
+        </div>
+        <div class="family-bar"><span></span></div>
+        <div style="display:flex; justify-content:space-between; margin-top:9px; font-size:9px; color:#777;">
+          <span>🎁 Member Price</span>
+          <span>🚚 Free Delivery</span>
+          <span>⭐ Special Gift</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENT ACTIVITY -->
+    <section class="section">
+      <div class="section-head">
+        <h3>📜 Recent Activity</h3>
+        <button onclick="showToast('Full transaction history আপডেট হচ্ছে')">View All</button>
+      </div>
+      <div class="activity" id="activityContainer">
+        <div class="activity-item">
+          <div class="activity-icon green-icon"><i class="fa-solid fa-qrcode"></i></div>
+          <div class="activity-info">
+            <strong>Purchase Verified</strong>
+            <small>আজ • KM-7A82X9</small>
+          </div>
+          <div class="amount">+₹20</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUARANTEE CARD -->
+    <div class="guarantee">
+      <strong>🍄 100% Fresh Mushroom Guarantee</strong>
+      <p>Farm থেকে সরাসরি fresh mushroom। Quality issue হলে নির্দিষ্ট সময়ের মধ্যে replacement অথবা eligible credit পাওয়া যাবে।</p>
+    </div>
+
+  </main><!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="setNav(this)"><i class="fa-solid fa-house"></i>Home</button>
+    <button class="nav-item" onclick="openSpinModal()"><i class="fa-solid fa-gift"></i>Rewards</button>
+    <button class="nav-item" onclick="redirectToShop()"><i class="fa-solid fa-bag-shopping"></i>Store</button>
+    <button class="nav-item" onclick="showToast('👥 Family Club অ্যাক্টিভ আছে')"><i class="fa-solid fa-users"></i>Family</button>
+    <button class="nav-item" onclick="showToast('👤 Profile Settings')"><i class="fa-solid fa-user"></i>Profile</button>
+  </nav>
+
+  <!-- MODAL: SPIN & WIN -->
+  <div class="modal-overlay" id="spinModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal('spinModal')">&times;</button>
+      <h3>🎡 Spin & Win</h3>
+      <p style="font-size: 11px; color: #666; margin-top: 4px;">চাকা ঘুরিয়ে পেয়ে যান আকর্ষনীয় পুরষ্কার!</p>
+      <div class="wheel-wrapper">
+        <div class="wheel-pointer"></div>
+        <div class="wheel-canvas" id="wheelCanvas"></div>
+      </div>
+      <button class="primary-btn" id="spinBtn" onclick="executeSpin()">SPIN NOW</button>
+    </div>
+  </div>
+
+  <!-- MODAL: SCRATCH CARD -->
+  <div class="modal-overlay" id="scratchModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal('scratchModal')">&times;</button>
+      <h3>🎫 Scratch & Win</h3>
+      <p style="font-size: 11px; color: #666; margin-top: 4px;">আঙ্গুল দিয়ে ঘষে পুরষ্কার উন্মোচন করুন</p>
+      <div class="scratch-container">
+        <div class="scratch-reveal">
+          <h2 style="color: var(--green); font-size: 22px;">🎉 ₹15</h2>
+          <p style="font-size: 10px; color: #555;">Cashback Reward!</p>
+        </div>
+        <canvas id="scratchCanvas" width="240" height="140"></canvas>
+      </div>
+      <button class="primary-btn" onclick="claimScratchReward()">Claim Reward</button>
+    </div>
+  </div>
+
+  <!-- MODAL: ADMIN PANEL & AUDIT LOGS -->
+  <div class="modal-overlay" id="adminModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal('adminModal')">&times;</button>
+      <h3>🛡️ Executive Audit Panel</h3>
+      <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 11px;">
+        <div>Fraud Attempts: <strong style="color:red;" id="fraudCount">0</strong></div>
+        <div>Verified QR: <strong style="color:green;" id="verifiedCount">1</strong></div>
+      </div>
+      <div class="audit-box" id="auditLogBox">
+        <div>[SYSTEM] Security Engine Initialized.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast"></div>
+
+</div>
+
+<!-- JAVASCRIPT APP ENGINE -->
+<script>
+/* CONSTANTS & EXTERNAL CONFIG */
+const SHOP_URL = "https://kundu-mushroom-farm.store.shoopy.in";
+
+/* APP STATE LEDGER */
+let wallet = 120.00;
+let coins = 450;
+let verifiedPurchases = 1;
+let fraudAttempts = 0;
+let usedQRCodes = ["KM-7A82X9"];
+let isSpinning = false;
+let isScratchClaimed = false;
+let currentStep = 1;
+
+/* WEB AUDIO API ENGINE (FALLBACK AUDIO HANDLER) */
+let audioCtx = null;
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+}
+
+function playSound(type) {
+  try {
+    initAudio();
+    if (!audioCtx) return;
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    if (type === 'tick') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.05);
+    } else if (type === 'win') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.3);
+    } else if (type === 'error') {
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(180, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.2);
+    }
+  } catch (e) {
+    console.log("Audio Web API Not Supported/Blocked");
+  }
+}
+
+/* FIRST TOUCH AUDIO UNLOCKER */
+document.addEventListener('touchstart', initAudio, { once: true });
+document.addEventListener('click', initAudio, { once: true });
+
+/* REDIRECT TO STORE */
+function redirectToShop() {
+  showToast("🛍 Kundu Mushroom Store-এ পাঠানো হচ্ছে...");
+  setTimeout(() => {
+    window.location.href = SHOP_URL;
+  }, 1000);
+}
+
+/* TOAST SYSTEM */
+let toastTimer;
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { toast.classList.remove("show"); }, 3000);
+}
+
+/* SCROLL & POSITIONING UTILS */
+function scrollToSection(id) {
+  const element = document.getElementById(id);
+  if(element) element.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function openModal(id) { document.getElementById(id).classList.add("show"); }
+function closeModal(id) { document.getElementById(id).classList.remove("show"); }
+
+/* STEP GUIDANCE PROGRESSION */
+function advanceStep(step) {
+  if(step > currentStep && step <= 3) {
+    currentStep = step;
+    document.getElementById("stepTracker").innerText = `Step ${currentStep} of 3`;
+    document.querySelectorAll(".guide-step").forEach((el, idx) => {
+      if(idx + 1 <= currentStep) {
+        el.classList.add("active");
+      }
+    });
+  }
+}
+
+/* AUDIT LOG ENGINE */
+function addAuditLog(msg, isFraud = false) {
+  const logBox = document.getElementById("auditLogBox");
+  const time = new Date().toLocaleTimeString();
+  const div = document.createElement("div");
+  if(isFraud) div.style.color = "#ff5252";
+  div.innerText = `[${time}] ${msg}`;
+  logBox.prepend(div);
+}
+
+/* ANTI-FRAUD PURCHASE VERIFICATION */
+function verifyPurchase() {
+  const input = document.getElementById("qrInput");
+  const code = input.value.trim().toUpperCase();
+
+  if(!code) {
+    playSound('error');
+    showToast("⚠️ Purchase Code দিন");
+    input.focus();
+    return;
+  }
+  if(code.length < 6) {
+    playSound('error');
+    showToast("⚠️ সঠিক Code দিন (কমপক্ষে ৬ অক্ষর)");
+    return;
+  }
+
+  // FRAUD DETECTION
+  if(usedQRCodes.includes(code)) {
+    fraudAttempts++;
+    playSound('error');
+    document.getElementById("fraudCount").innerText = fraudAttempts;
+    showToast("🚨 এই QR Code-টি আগেই ব্যবহার করা হয়েছে!");
+    addAuditLog(`REJECTED DUPLICATE: ${code}`, true);
+    return;
+  }
+
+  // SUCCESS VERIFICATION
+  usedQRCodes.push(code);
+  verifiedPurchases++;
+  wallet += 20;
+  coins += 10;
+
+  playSound('win');
+  document.getElementById("walletBalance").innerText = wallet.toFixed(2);
+  document.getElementById("coinBalance").innerText = coins;
+  document.getElementById("verifiedCount").innerText = verifiedPurchases;
+
+  advanceStep(2); // Step workflow advancement
+
+  const activityContainer = document.getElementById("activityContainer");
+  const newItem = document.createElement("div");
+  newItem.className = "activity-item";
+  newItem.innerHTML = `
+    <div class="activity-icon green-icon"><i class="fa-solid fa-qrcode"></i></div>
+    <div class="activity-info">
+      <strong>Purchase Verified</strong>
+      <small>এখনই • ${code}</small>
+    </div>
+    <div class="amount">+₹20</div>
+  `;
+  activityContainer.prepend(newItem);
+
+  addAuditLog(`VERIFIED PURCHASE: ${code} (+₹20)`);
+  showToast("✅ Verified! ₹20 Cashback + 10 Coins জমা হয়েছে");
+  input.value = "";
+}
+
+/* SPIN & WIN ENGINE */
+function openSpinModal() {
+  openModal("spinModal");
+  setupWheel();
+}
+
+function setupWheel() {
+  const wheel = document.getElementById("wheelCanvas");
+  wheel.style.background = "conic-gradient(#2e7d32 0deg 60deg, #ff8f00 60deg 120deg, #1b5e20 120deg 180deg, #ffb300 180deg 240deg, #43a047 240deg 300deg, #f57c00 300deg 360deg)";
+}
+
+function executeSpin() {
+  if(isSpinning) return;
+  if(verifiedPurchases < 1) {
+    playSound('error');
+    showToast("🛑 স্পিন করতে অন্তত ১টি Purchase Verify করুন!");
+    return;
+  }
+
+  isSpinning = true;
+  const wheel = document.getElementById("wheelCanvas");
+  const deg = 1800 + Math.floor(Math.random() * 360);
+  
+  // Audio Ticks during spin animation
+  let ticks = 0;
+  const tickInterval = setInterval(() => {
+    playSound('tick');
+    ticks++;
+    if(ticks > 18) clearInterval(tickInterval);
+  }, 180);
+
+  wheel.style.transform = `rotate(${deg}deg)`;
+
+  setTimeout(() => {
+    clearInterval(tickInterval);
+    playSound('win');
+    wallet += 10;
+    document.getElementById("walletBalance").innerText = wallet.toFixed(2);
+    showToast("🎉 আপনি পেয়েছেন ₹10 Cashback Reward!");
+    addAuditLog("SPIN REWARD CLAIMED: +₹10");
+    advanceStep(3);
+    isSpinning = false;
+    closeModal("spinModal");
+  }, 3600);
+}
+
+/* SCRATCH CARD ENGINE (HTML5 Canvas) */
+function openScratchModal() {
+  isScratchClaimed = false;
+  openModal("scratchModal");
+  initScratchCanvas();
+}
+
+function initScratchCanvas() {
+  const canvas = document.getElementById("scratchCanvas");
+  const ctx = canvas.getContext("2d");
+  
+  ctx.fillStyle = "#cccccc";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  ctx.fillStyle = "#666666";
+  ctx.font = "14px Noto Sans Bengali";
+  ctx.fillText("এখানে ঘষুন (Scratch)", 50, 75);
+
+  let isDrawing = false;
+  
+  function scratch(e) {
+    if(!isDrawing) return;
+    playSound('tick');
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+    const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.beginPath();
+    ctx.arc(x, y, 16, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  canvas.onmousedown = canvas.ontouchstart = () => isDrawing = true;
+  canvas.onmouseup = canvas.ontouchend = () => isDrawing = false;
+  canvas.onmousemove = canvas.ontouchmove = scratch;
+}
+
+function claimScratchReward() {
+  if(isScratchClaimed) {
+    playSound('error');
+    showToast("⚠️ এটি ইতিমধ্যেই দাবি করা হয়েছে!");
+    return;
+  }
+  isScratchClaimed = true;
+  playSound('win');
+  wallet += 15;
+  document.getElementById("walletBalance").innerText = wallet.toFixed(2);
+  showToast("🎉 ₹15 Cashback ওয়ালেটে যুক্ত হয়েছে!");
+  addAuditLog("SCRATCH REWARD CLAIMED: +₹15");
+  advanceStep(3);
+  closeModal("scratchModal");
+}
+
+/* MISSION SYSTEM */
+function claimMission(amount) {
+  coins += amount;
+  playSound('win');
+  document.getElementById("coinBalance").innerText = coins;
+  showToast(`🎯 Mission Complete! +${amount} Mushroom Coins`);
+  addAuditLog(`MISSION CLAIMED: +${amount} Coins`);
+}
+
+/* NAVIGATION SYSTEM */
+function setNav(element) {
+  document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
+  element.classList.add("active");
+}
+</script>
+</body>
+  </html>
