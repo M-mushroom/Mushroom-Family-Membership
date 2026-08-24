@@ -1,1857 +1,438 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kundu Care V2 - Integrated Loyalty & Rewards Suite</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">   
-
-<style>
-/* =========================
-   ROOT & VARIABLES
-========================= */
-:root {
-  --green: #2e7d32;
-  --green-dark: #14591a;
-  --green-light: #eaf7ec;
-  --orange: #ff8f00;
-  --orange-light: #fff3df;
-  --pink: #e91e63;
-  --purple: #673ab7;
-  --blue: #1976d2;
-  --gold: #ffd54f;
-  --red: #d32f2f;
-  --bg: #f5f7f6;
-  --white: #ffffff;
-  --text: #202124;
-  --muted: #70757a;
-  --border: #e5e7eb;
-  --shadow: 0 6px 20px rgba(0,0,0,.07);
-}
-/* =========================
-   RESET & LAYOUT
-========================= */
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Noto Sans Bengali", "Segoe UI", sans-serif; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); padding-bottom: 90px; }
-button, input { font-family: inherit; }
-button { cursor: pointer; }
-.app { width: 100%; max-width: 650px; margin: auto; }
-
-/* KEYFRAME ANIMATIONS */
-@keyframes popIn {
-  0% { transform: scale(0.9); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-/* =========================
-   HEADER & PROFILE
-========================= */
-.header {
-  background: radial-gradient(circle at 90% 10%, rgba(255,255,255,.15), transparent 35%), linear-gradient(135deg, var(--green), var(--green-dark));
-  color: white; padding: 18px 16px 25px; border-radius: 0 0 26px 26px; position: relative; overflow: hidden;
-}
-.header-top { display: flex; align-items: center; justify-content: space-between; }
-.brand { display: flex; align-items: center; gap: 10px; }
-.brand-icon { width: 44px; height: 44px; border-radius: 14px; background: rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center; font-size: 24px; }
-.brand h1 { font-size: 20px; font-weight: 800; }
-.brand small { display: block; opacity: .8; font-size: 11px; }
-.header-actions { display: flex; gap: 8px; }
-.icon-btn { width: 42px; height: 42px; border-radius: 13px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.12); color: white; font-size: 18px; position: relative; }
-.notification-dot { position: absolute; top: 7px; right: 7px; width: 8px; height: 8px; background: #ff5252; border: 2px solid var(--green); border-radius: 50%; }
-
-.profile { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
-.avatar { width: 54px; height: 54px; border-radius: 18px; background: white; color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 25px; font-weight: 800; box-shadow: 0 5px 15px rgba(0,0,0,.15); }
-.profile-info { flex: 1; }
-.profile-info h2 { font-size: 17px; font-weight: 800; }
-.profile-info p { font-size: 11px; opacity: .8; margin-top: 2px; }
-.member-badge { background: var(--gold); color: #4a3a00; padding: 5px 9px; border-radius: 20px; font-size: 10px; font-weight: 800; }
-   /* =========================
-   MAIN & WALLET CARDS
-========================= */
-.main { padding: 0 14px; margin-top: -12px; position: relative; }
-.wallet-card { background: white; border-radius: 20px; padding: 18px; box-shadow: var(--shadow); border: 1px solid var(--border); }
-.wallet-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.wallet-title h3 { font-size: 14px; }
-.wallet-title span { font-size: 11px; color: var(--green); font-weight: 700; cursor: pointer; }
-.wallet-main { background: linear-gradient(135deg, #effaf0, #e0f2e2); border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; }
-.wallet-main small { color: var(--muted); font-size: 11px; }
-.wallet-amount { font-size: 29px; font-weight: 800; color: var(--green-dark); margin-top: 2px; }
-.wallet-action { width: 44px; height: 44px; border: 0; border-radius: 14px; background: var(--green); color: white; font-size: 17px; }
-.wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-.mini-wallet { border: 1px solid var(--border); border-radius: 14px; padding: 12px; background: #fff; }
-.mini-wallet-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
-.icon-orange { background: var(--orange-light); color: var(--orange); }
-.icon-purple { background: #f0eaff; color: var(--purple); }
-.mini-wallet small { display: block; color: var(--muted); font-size: 10px; }
-.mini-wallet strong { display: block; font-size: 17px; margin-top: 2px; }
-
-/* WITHDRAW BUTTON */
-.withdraw-btn {
-  width: 100%;
-  margin-top: 10px;
-  border: 0;
-  border-radius: 13px;
-  padding: 12px;
-  background: linear-gradient(135deg, #d32f2f, #b71c1c);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 800;
-  box-shadow: 0 5px 15px rgba(211,47,47,.25);
-}
-
-.withdraw-btn:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.08);
-}
-.withdraw-modal-icon {
-  width: 55px;
-  height: 55px;
-  margin: 5px auto 10px;
-  border-radius: 17px;
-  background: #ffebee;
-  color: #d32f2f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
-
-.withdraw-amount {
-  font-size: 25px;
-  font-weight: 900;
-  color: #d32f2f;
-  margin: 10px 0;
-}
-
-.withdraw-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 15px;
-}
-
-.withdraw-yes {
-  border: 0;
-  border-radius: 11px;
-  padding: 11px;
-  background: #d32f2f;
-  color: white;
-  font-weight: 800;
-}
-
-.withdraw-no {
-  border: 1px solid #ddd;
-  border-radius: 11px;
-  padding: 11px;
-  background: #f5f5f5;
-  color: #444;
-  font-weight: 800;
-           }/* =========================
-   REWARD CODE SYSTEM
-========================= */
-.reward-code-section {
-  margin-top: 15px;
-  padding: 16px;
-  background: linear-gradient(135deg, #ffffff, #f5fff7);
-  border: 1px solid #d7ead9;
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-}
-
-.reward-code-head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.reward-code-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: #e8f5e9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 21px;
-}
-
-.reward-code-head h3 {
-  font-size: 14px;
-  font-weight: 900;
-}
-
-.reward-code-head p {
-  color: var(--muted);
-  font-size: 9px;
-  margin-top: 2px;
-}
-
-.reward-code-box {
-  display: flex;
-  gap: 8px;
-  margin-top: 13px;
-}
-.reward-code-input {
-  flex: 1;
-  min-width: 0;
-  border: 1px solid #d8ded9;
-  border-radius: 12px;
-  padding: 12px;
-  outline: none;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.reward-code-input:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(46,125,50,.08);
-}
-
-.reward-code-btn {
-  border: 0;
-  border-radius: 12px;
-  padding: 0 14px;
-  background: linear-gradient(135deg, #2e7d32, #14591a);
-  color: white;
-  font-size: 10px;
-  font-weight: 900;
-  box-shadow: 0 5px 12px rgba(46,125,50,.25);
-  position: relative;
-  overflow: hidden;
-}
-
-.reward-code-btn::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: rgba(255,255,255,.35);
-  transform: skewX(-25deg);
-  animation: codeButtonShine 2.5s infinite;
-}
-
-@keyframes codeButtonShine {
-  0%,60% { left: -100%; }
-  100% { left: 150%; }
-}
-.code-status {
-  margin-top: 9px;
-  padding: 8px;
-  border-radius: 10px;
-  text-align: center;
-  background: #fff8e1;
-  color: #8d6e00;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.code-status.success {
-  background: #e8f5e9;
-  color: #1b5e20;
-}
-
-.code-status.error {
-  background: #ffebee;
-  color: #c62828;
-}
-
-.unlock-rewards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.unlock-item {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  background: #fafafa;
-  font-size: 18px;
-}
-
-.unlock-item strong {
-  display: block;
-  font-size: 10px;
-}
-
-.unlock-item small {
-  display: block;
-  color: #888;
-  font-size: 8px;
-}
-.unlock-item.unlocked {
-  background: #e8f5e9;
-  border-color: #81c784;
-  color: #2e7d32;
-  animation: unlockPop .4s ease;
-}
-
-.unlock-item.unlocked small {
-  color: #2e7d32;
-  font-weight: 800;
-}
-
-@keyframes unlockPop {
-  0% { transform: scale(.85); opacity: .4; }
-  70% { transform: scale(1.06); }
-  100% { transform: scale(1); opacity: 1; }
-   }/* =========================
-   SHOP REDIRECT BANNER
-========================= */
-.shop-banner {
-  margin-top: 15px; background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white;
-  border-radius: 18px; padding: 15px; display: flex; align-items: center; justify-content: space-between;
-  box-shadow: 0 5px 15px rgba(46,125,50,0.25);
-}
-.shop-banner-info h4 { font-size: 14px; font-weight: 800; }
-.shop-banner-info p { font-size: 10px; opacity: 0.9; margin-top: 2px; }
-.shop-btn {
-  background: var(--gold); color: #3d2c00; border: 0; border-radius: 12px;
-  padding: 10px 14px; font-size: 11px; font-weight: 800; display: flex; align-items: center; gap: 6px;
-}
-
-/* =========================
-   USER GUIDE / STEPS
-========================= */
-.guide-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 15px; margin-top: 17px; }
-.guide-steps { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
-.guide-step { display: flex; align-items: flex-start; gap: 10px; font-size: 11px; opacity: 0.5; transition: 0.3s; }
-.guide-step.active { opacity: 1; font-weight: 700; }
-.step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--green-light); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; }
-
-/* =========================
-   SECTIONS & QUICK ACTIONS
-========================= */
-.section { margin-top: 17px; }
-.section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.section-head h3 { font-size: 15px; font-weight: 800; }
-.section-head button { background: none; border: 0; color: var(--green); font-size: 11px; font-weight: 700; }
-
-.quick-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
-.quick { background: white; border: 1px solid var(--border); border-radius: 15px; padding: 12px 5px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,.035); }
-.quick-icon { width: 39px; height: 39px; border-radius: 12px; margin: auto auto 6px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
-.quick p { font-size: 10px; font-weight: 700; }
-
-.green-icon { background: #e8f5e9; color: var(--green); }
-.orange-icon { background: #fff3e0; color: var(--orange); }
-.pink-icon { background: #fce4ec; color: var(--pink); }
-.blue-icon { background: #e3f2fd; color: var(--blue); }
-
-/* SPECIAL SPIN PROMO BUTTON */
-.spin-promo-btn {
-  position: relative;
-  overflow: hidden;
-  min-height: 150px;
-  padding: 9px !important;
-  border: 2px solid #ff2d95 !important;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.35), transparent 25%),
-    linear-gradient(135deg, #ff1493, #8e24aa, #ff6d00) !important;
-  color: white !important;
-  box-shadow:
-    0 0 10px rgba(255,20,147,.35),
-    0 8px 25px rgba(142,36,170,.25);
-  animation: spinPromoGlow 1.5s infinite;
-}
-.spin-promo-btn::before {
-  content: "";
-  position: absolute;
-  top: -80%;
-  left: -120%;
-  width: 70%;
-  height: 250%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.55),
-    transparent
-  );
-  transform: rotate(25deg);
-  animation: shineMove 2.5s infinite;
-}
-
-.spin-gif-wrap {
-  position: relative;
-  width: 62px;
-  height: 62px;
-  margin: 0 auto 3px;
-  z-index: 2;
-}
-
-.spin-gif-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 50%;
-  filter: drop-shadow(0 0 7px rgba(255,255,255,.9));
-  animation: gifPulse .8s infinite alternate;
-}
-
-.spin-promo-title {
-  position: relative;
-  z-index: 2;
-  font-size: 17px;
-  font-weight: 900;
-  color: #fff;
-  text-shadow: 0 2px 5px rgba(0,0,0,.35);
-  margin-top: 2px;
-}
-
-.spin-time {
-  position: relative;
-  z-index: 2;
-  display: inline-block;
-  margin-top: 5px;
-  padding: 3px 9px;
-  border-radius: 20px;
-  background: rgba(0,0,0,.38);
-  border: 1px solid rgba(255,255,255,.4);
-  font-size: 10px;
-  font-weight: 800;
-}
-
-#spinCountdown {
-  color: #ffe600;
-  font-size: 12px;
-  font-weight: 900;
-}
-
-.spin-urgent {
-  position: relative;
-  z-index: 2;
-  margin-top: 4px;
-  font-size: 9px;
-  font-weight: 800;
-  animation: urgentBlink .7s infinite alternate;
-}
-
-@keyframes spinPromoGlow {
-  0%,100% {
-    box-shadow:
-      0 0 8px rgba(255,20,147,.35),
-      0 8px 25px rgba(142,36,170,.25);
-  }
-  50% {
-    box-shadow:
-      0 0 22px rgba(255,20,147,.75),
-      0 8px 30px rgba(255,109,0,.45);
-  }
-}
-
-@keyframes shineMove {
-  0% { left: -120%; }
-  55%,100% { left: 160%; }
-}
-@keyframes gifPulse {
-  from { transform: scale(.94) rotate(-2deg); }
-  to { transform: scale(1.06) rotate(2deg); }
-}
-
-@keyframes urgentBlink {
-  from { opacity: .65; transform: scale(.98); }
-  to { opacity: 1; transform: scale(1.03); }
-}
-
-.spin-promo-btn.locked {
-  filter: grayscale(.7);
-  opacity: .65;
-  animation: none;
-}
-
-.spin-promo-btn.locked .spin-urgent {
-  color: #ddd;
-}
-
-/* =========================
-   REWARDS & VERIFICATION
-========================= */
-.reward-card {
-  background: radial-gradient(circle at 90% 10%, rgba(255,255,255,.3), transparent 30%), linear-gradient(135deg, #ff9800, #f57c00);
-  color: white; border-radius: 20px; padding: 18px; position: relative; overflow: hidden; box-shadow: 0 7px 20px rgba(245,124,0,.2);
-}
-.reward-top { display: flex; align-items: center; gap: 10px; }
-.reward-icon { width: 46px; height: 46px; border-radius: 15px; background: rgba(255,255,255,.18); display: flex; align-items: center; justify-content: center; font-size: 23px; }
-.reward-card h3 { font-size: 16px; }
-.reward-card p { font-size: 10px; opacity: .9; margin-top: 2px; }
-.reward-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
-.reward-btn { border: 0; border-radius: 11px; padding: 10px; font-weight: 800; font-size: 11px; }
-.reward-btn.white { background: white; color: #e65100; }
-.reward-btn.dark { background: rgba(0,0,0,.16); color: white; border: 1px solid rgba(255,255,255,.3); }
-
-.verify-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 17px; box-shadow: var(--shadow); }
-.verify-head { display: flex; align-items: center; gap: 10px; }
-.verify-icon { width: 42px; height: 42px; border-radius: 13px; background: #e8f5e9; color: var(--green); display: flex; align-items: center; justify-content: center; }
-.verify-head h3 { font-size: 14px; }
-.verify-head p { color: var(--muted); font-size: 10px; }
-.verify-input { width: 100%; border: 1px solid var(--border); padding: 12px; border-radius: 12px; margin-top: 13px; outline: none; font-size: 13px; }
-.verify-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(46,125,50,.08); }
-.primary-btn { width: 100%; margin-top: 9px; border: 0; background: var(--green); color: white; border-radius: 12px; padding: 12px; font-weight: 800; font-size: 12px; }/* =========================
-   MISSIONS, FAMILY, ACTIVITY
-========================= */
-.mission-card { background: white; border: 1px solid var(--border); border-radius: 18px; padding: 14px; }
-.mission { display: flex; align-items: center; gap: 11px; padding: 10px 0; }
-.mission:not(:last-child) { border-bottom: 1px solid #eee; }
-.mission-icon { width: 42px; height: 42px; border-radius: 13px; background: #fff8e1; color: #f9a825; display: flex; align-items: center; justify-content: center; }
-.mission-content { flex: 1; }
-.mission-content strong { font-size: 12px; display: block; }
-.mission-content small { color: var(--muted); font-size: 10px; }
-.progress { height: 5px; background: #eee; border-radius: 10px; margin-top: 6px; overflow: hidden; }
-.progress span { display: block; height: 100%; background: var(--green); border-radius: 10px; }
-.mission-btn { border: 0; background: var(--green-light); color: var(--green); padding: 7px 9px; border-radius: 9px; font-size: 10px; font-weight: 800; }
-
-.family { background: linear-gradient(135deg,#fff0f6,#fff7fa); border: 1px solid #f8bbd0; border-radius: 19px; padding: 16px; }
-.family-top { display: flex; align-items: center; gap: 10px; }
-.family-icon { width: 43px; height: 43px; border-radius: 14px; background: #fce4ec; color: var(--pink); display: flex; align-items: center; justify-content: center; font-size: 19px; }
-.family h3 { color: #ad1457; font-size: 14px; }
-.family p { color: #666; font-size: 10px; margin-top: 2px; }
-.family-status { margin-top: 13px; display: flex; justify-content: space-between; font-size: 10px; }
-.family-bar { height: 6px; background: #f8bbd0; border-radius: 10px; margin-top: 6px; overflow: hidden; }
-.family-bar span { display: block; width: 72%; height: 100%; background: var(--pink); }
-
-.activity { background: white; border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
-.activity-item { display: flex; align-items: center; gap: 11px; padding: 13px; border-bottom: 1px solid #eee; animation: popIn 0.3s ease; }
-.activity-item:last-child { border-bottom: 0; }
-.activity-icon { width: 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-.activity-info { flex: 1; }
-.activity-info strong { display: block; font-size: 11px; }
-.activity-info small { color: var(--muted); font-size: 9px; }
-.amount { font-size: 12px; font-weight: 800; color: var(--green); }
-
-.guarantee { margin-top: 17px; background: linear-gradient(135deg,#e8f5e9,#c8e6c9); border-left: 4px solid var(--green); border-radius: 14px; padding: 13px; }
-.guarantee strong { display: block; font-size: 12px; }
-.guarantee p { font-size: 9px; color: #444; margin-top: 3px; line-height: 1.6; }
-
-/* =========================
-   BOTTOM NAV & MODALS
-========================= */
-.bottom-nav {
-  position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: 100%; max-width: 650px;
-  background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-top: 1px solid var(--border);
-  display: grid; grid-template-columns: repeat(5,1fr); padding: 8px 5px 10px; z-index: 1000;
-}
-.nav-item { border: 0; background: none; color: #858585; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; font-weight: 600; }
-.nav-item i { font-size: 17px; }
-.nav-item.active { color: var(--green); }
-
-.modal-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6);
-  display: flex; align-items: center; justify-content: center; z-index: 3000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
-}
-.modal-overlay.show { opacity: 1; pointer-events: auto; }
-.modal-content { background: white; border-radius: 20px; padding: 20px; width: 90%; max-width: 400px; text-align: center; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); animation: popIn 0.25s ease; }
-.close-modal { position: absolute; top: 12px; right: 15px; font-size: 18px; color: #888; border: 0; background: none; }
-
-.wheel-wrapper { position: relative; width: 220px; height: 220px; margin: 15px auto; }
-.wheel-pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 18px solid var(--red); z-index: 10; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
-
-.wheel-canvas {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 5px solid #ff8f00;
-  position: relative;
-  overflow: hidden;
-  transition: transform 3.8s cubic-bezier(0.15, 0.99, 0.18, 1);
-  box-shadow:
-    0 0 0 5px rgba(255,255,255,.8),
-    0 8px 25px rgba(0,0,0,.25),
-    inset 0 0 20px rgba(0,0,0,.2);
-}
-
-.wheel-canvas::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,.55),
-    transparent 25%,
-    transparent 70%,
-    rgba(255,255,255,.25)
-  );
-  pointer-events: none;
-}
-.wheel-reward {
-  position: absolute;
-  width: 50%;
-  height: 50%;
-  left: 25%;
-  top: 0;
-  transform-origin: 50% 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 22px;
-  color: white;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 900;
-  text-shadow:
-    0 2px 3px rgba(0,0,0,.55),
-    0 0 5px rgba(0,0,0,.3);
-}
-
-.wheel-reward span {
-  display: block;
-  transform: rotate(30deg);
-  white-space: nowrap;
-}
-
-.wheel-center {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  background: white;
-  border: 5px solid #ff8f00;
-  border-radius: 50%;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 19px;
-  box-shadow: 0 3px 10px rgba(0,0,0,.25);
-}
-.scratch-container {
-  position: relative;
-  width: 240px;
-  height: 140px;
-  margin: 15px auto;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow:
-    0 8px 25px rgba(0,0,0,.18),
-    0 0 0 3px rgba(255,255,255,.8);
-  background: #fff;
-}
-
-.scratch-reveal {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  animation: rewardPulse 1.8s infinite;
-}
-@keyframes rewardPulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.025); }
-}
-
-#scratchCanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  cursor: crosshair;
-  touch-action: none;
-}
-
-.scratch-container.scratching {
-  animation: scratchShake .12s infinite;
-}
-@keyframes scratchShake {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(.5deg); }
-  50% { transform: rotate(0deg); }
-  75% { transform: rotate(-.5deg); }
-  100% { transform: rotate(0deg); }
-}
-
-.scratch-spark {
-  position: absolute;
-  pointer-events: none;
-  z-index: 10;
-  font-size: 13px;
-  animation: scratchSpark .5s ease-out forwards;
-}
-
-@keyframes scratchSpark {
-  0% { opacity: 1; transform: scale(.5) translate(0,0); }
-  100% { opacity: 0; transform: scale(1.5) translate(calc((var(--x) - 50px)), calc((var(--y) - 50px))); }
-}
-
-.audit-box { background: #1a1a1a; color: #00ff66; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 10px; text-align: left; height: 150px; overflow-y: auto; margin-top: 10px; }
-
-.toast {
-  position: fixed; left: 50%; bottom: 85px; transform: translate(-50%,20px);
-  background: #222; color: white; padding: 11px 16px; border-radius: 12px; font-size: 11px; z-index: 4000;
-  opacity: 0; pointer-events: none; transition: .25s; white-space: nowrap;
-}
-.toast.show { opacity: 1; transform: translate(-50%,0); }
-
-/* PREMIUM SHINY BUTTONS */
-button {
-  position: relative;
-  overflow: hidden;
-  transition: transform .2s ease, box-shadow .25s ease, filter .25s ease;
-}
-
-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -130%;
-  width: 55%;
-  height: 100%;
-  background: linear-gradient(
-    110deg,
-    transparent,
-    rgba(255,255,255,.15),
-    rgba(255,255,255,.85),
-    rgba(255,255,255,.15),
-    transparent
-  );
-  transform: skewX(-20deg);
-  animation: buttonShine 2.8s infinite;
-  pointer-events: none;
-}
-button:hover {
-  transform: translateY(-2px) scale(1.02);
-  filter: brightness(1.08);
-}
-
-button:active {
-  transform: scale(.94);
-}
-
-@keyframes buttonShine {
-  0% { left: -130%; }
-  45%, 100% { left: 150%; }
-}
-
-.primary-btn,
-.reward-btn,
-.shop-btn,
-.wallet-action,
-.mission-btn,
-.icon-btn,
-.withdraw-btn {
-  box-shadow:
-    0 5px 15px rgba(0,0,0,.12),
-    inset 0 1px 0 rgba(255,255,255,.35);
-}
-
-.primary-btn {
-  animation: buttonGlow 2s infinite;
-}
-
-@keyframes buttonGlow {
-  0%,100% { box-shadow: 0 5px 15px rgba(46,125,50,.25); }
-  50% { box-shadow: 0 5px 25px rgba(46,125,50,.65), 0 0 12px rgba(255,255,255,.35); }
-}
-
-@media(max-width:370px){
-  .quick-grid { grid-template-columns: repeat(2,1fr); }
-  .member-badge { display: none; }
-  .wallet-amount { font-size: 25px; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>মাশরুম Family Membership- K.M. MART</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+    body{background:#f4f6f9;color:#333;padding:15px;max-width:480px;margin:0 auto;padding-bottom:85px}
+    button{cursor:pointer;border:none;outline:none}
+    .app-header{background:linear-gradient(135deg,#2e7d32,#1b5e20);color:#fff;padding:15px 18px;border-radius:16px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(46,125,50,.2)}
+    .app-header h1{font-size:17px;font-weight:700;line-height:1.2}
+    .app-header p{font-size:11px;opacity:.85;margin-top:2px}
+    .shop-link-btn{background:#ff8f00;color:#fff;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:700;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+    .wallet-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .mini-wallet{padding:15px;border-radius:16px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .mini-wallet-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:18px}
+    .icon-green{background:#e8f5e9;color:#2e7d32}.icon-orange{background:#fff3e0;color:#ff8f00}
+    .cash-wallet{border:1px solid #c8e6c9;background:linear-gradient(135deg,#fff,#f1fff3)}
+    .mushroom-wallet{border:1px solid #ffe0b2;background:linear-gradient(135deg,#fff,#fff8ed)}
+    .mini-wallet small{display:block;font-size:11px;color:#666;margin-bottom:2px}
+    .mini-wallet strong{display:block;font-size:18px;color:#222}
+    .wallet-withdraw-btn{width:100%;margin-top:9px;padding:8px 5px;border:0;border-radius:10px;background:#2e7d32;color:#fff;font-size:10px;font-weight:800;transition:transform .2s}
+    .wallet-withdraw-btn:active{transform:scale(.95)}.mushroom-btn{background:#ff8f00}
+    .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;background:#fff;padding:15px 10px;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .quick{background:none;display:flex;flex-direction:column;align-items:center;text-align:center}
+    .quick p{font-size:11px;font-weight:600;color:#444}
+    .quick-image{width:55px;height:55px;object-fit:contain;display:block;margin:0 auto 6px;border-radius:14px;transition:transform .25s}
+    .quick-image.verify{width:60px;height:60px}.quick-image.scratch,.quick-image.refer{width:58px;height:58px}
+    .quick:active .quick-image{transform:scale(.94)}
+    .modal-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:9999;padding:15px;backdrop-filter:blur(2px)}
+    .modal-overlay.active{display:flex}
+    .modal-content{background:#fff;width:100%;max-width:360px;border-radius:20px;padding:20px;position:relative;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,.2)}
+    .close-modal{position:absolute;top:12px;right:15px;font-size:22px;background:none;color:#888}
+    .verify-input{width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:13px}
+    .primary-btn{width:100%;padding:12px;background:#2e7d32;color:#fff;font-weight:700;border-radius:10px;margin-top:10px;font-size:14px}
+    .primary-btn:disabled{background:#ccc!important;cursor:not-allowed}
+    .wheel-wrapper{position:relative;width:240px;height:240px;margin:15px auto}
+    #spinCanvas{width:240px;height:240px;border-radius:50%;box-shadow:0 4px 10px rgba(0,0,0,.15)}
+    .wheel-pointer{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:20px solid #d32f2f;z-index:10}
+    .scratch-wrapper{position:relative;width:220px;height:140px;margin:15px auto;border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+    .scratch-background{position:absolute;top:0;left:0;width:100%;height:100%;background:#e8f5e9;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#2e7d32;font-weight:700}
+    #scratchCanvas{position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer}
+    .scanner-box{width:140px;height:140px;margin:15px auto;position:relative;border-radius:12px;overflow:hidden}
+    .scanner-gif{width:100%;height:100%;object-fit:cover}
+    #toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}
+    .bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:#fff;display:flex;justify-content:space-around;padding:10px 0;box-shadow:0 -2px 10px rgba(0,0,0,.05);border-top:1px solid #eee;z-index:999}
+    .nav-item{background:none;display:flex;flex-direction:column;align-items:center;font-size:10px;color:#666}
+    .nav-item.active{color:#2e7d32;font-weight:700}
+  </style>
 </head>
-<body>
-<div class="app">
+<body><audio id="clapSound" preload="none" src="clap.mp3"></audio>
+  <audio id="rewardMoneySound" preload="none" src="Money%20sound.mp3"></audio>
+  <audio id="withdrawMoneySound" preload="none" src="money.mp3"></audio>
 
-  <!-- HEADER -->
-  <header class="header">
-    <div class="header-top">
-      <div class="brand">
-        <div class="brand-icon">🍄</div>
-        <div>
-          <h1>Kundu Care</h1>
-          <small>Kundu Mushroom Farm</small>
-        </div>
-      </div>
-      <div class="header-actions">
-        <button class="icon-btn" onclick="openModal('adminModal')"><i class="fa-solid fa-user-shield"></i></button>
-        <button class="icon-btn" onclick="showToast('🔔 আপনার ২টি নতুন notification আছে')">
-          <i class="fa-solid fa-bell"></i>
-          <span class="notification-dot"></span>
-        </button>
-      </div>
-    </div><div class="profile">
-      <div class="avatar">ব</div>
-      <div class="profile-info">
-        <h2>বাবাই কুণ্ডু</h2>
-        <p>📱 +91 9876543210</p>
-      </div>
-      <div class="member-badge">⭐ GOLD</div>
+  <div class="app-header">
+    <div>
+      <h1>Kundu Mushroom Farm</h1>
+      <p>Kundu Care Rewards & Shop</p>
     </div>
-  </header>
+    <a href="https://kundu-mushroom-farm.store.shoopy.in" target="_blank" class="shop-link-btn">🛍️ Visit Shop</a>
+  </div>
 
-  <main class="main">
-    <!-- REWARD CODE UNLOCK SYSTEM -->
-    <section class="reward-code-section">
-      <div class="reward-code-head">
-        <div class="reward-code-icon">🔐</div>
-        <div>
-          <h3>Reward Code Unlock</h3>
-          <p>প্যাকেটের Code দিয়ে Spin + Scratch চালু করুন</p>
-        </div>
-      </div>
-
-      <div class="reward-code-box">
-        <input
-          type="text"
-          id="rewardUnlockCode"
-          class="reward-code-input"
-          placeholder="যেমন: KM-2026-AB12"
-          autocomplete="off"
-          maxlength="30"
-        >
-        <button class="reward-code-btn" onclick="unlockRewardCode()">
-          🔓 UNLOCK
-        </button>
-      </div>
-
-      <div id="codeStatus" class="code-status">
-        🔒 আগে Reward Code দিন
-      </div>
-
-      <div class="unlock-rewards">
-        <div id="spinUnlockStatus" class="unlock-item">
-          🎡
-          <span>
-            <strong>SPIN</strong>
-            <small>Locked</small>
-          </span>
-        </div>
-
-        <div id="scratchUnlockStatus" class="unlock-item">
-          🎫
-          <span>
-            <strong>SCRATCH</strong>
-            <small>Locked</small>
-          </span>
-        </div>
-      </div>
-    </section>
-
-    <!-- WALLET SECTION -->
-    <section style="margin-top: 15px;">
-      <div class="wallet-card">
-        <div class="wallet-title">
-          <h3>💰 My Rewards</h3>
-          <span onclick="showToast('Wallet history সম্প্রতি আপডেট হয়েছে')">View History →</span>
-        </div>
-
-        <div class="wallet-main">
-          <div>
-            <small>Cashback Balance</small>
-            <div class="wallet-amount">₹<span id="walletBalance">120.00</span></div>
-          </div>
-          <button class="wallet-action" onclick="redirectToShop()" title="Redeem at Shop">
-            <i class="fa-solid fa-bag-shopping"></i>
-          </button>
-        </div>
-
-        <button class="withdraw-btn" onclick="openWithdrawModal()">
-          <i class="fa-solid fa-money-bill-transfer"></i> Withdraw
-        </button>
-
-        <div class="wallet-grid">
-          <div class="mini-wallet">
-            <div class="mini-wallet-icon icon-orange">🍄</div>
-            <small>Mushroom Coins</small>
-            <strong><span id="coinBalance">450</span></strong>
-          </div>
-          <div class="mini-wallet">
-            <div class="mini-wallet-icon icon-purple">🔥</div>
-            <small>Current Streak</small>
-            <strong>5 Days</strong>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SHOP REDIRECT BANNER -->
-    <section class="shop-banner">
-      <div class="shop-banner-info">
-        <h4>🛒 Kundu Mushroom Store</h4>
-        <p>ব্যালেন্স দিয়ে সরাসরি শপিং করুন</p>
-      </div>
-      <button class="shop-btn" onclick="redirectToShop()">
-        Shop Now <i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </section>
-
-    <!-- USER GUIDANCE STEP-BY-STEP -->
-    <section class="guide-card">
-      <div class="section-head">
-        <h3>🧭 Rewards Guide</h3>
-        <span style="font-size: 10px; color: var(--muted);" id="stepTracker">Step 1 of 3</span>
-      </div>
-      <div class="guide-steps">
-        <div class="guide-step active" id="step1">
-          <div class="step-num">১</div>
-          <div>প্যাকেটের QR বা Code ইনপুট দিয়ে Purchase Verify করুন।</div>
-        </div>
-        <div class="guide-step" id="step2">
-          <div class="step-num">২</div>
-          <div>রিওয়ার্ড হিসেবে Cash, Mushroom Coins বা Spin অণলক করুন।</div>
-        </div>
-        <div class="guide-step" id="step3">
-          <div class="step-num">৩</div>
-          <div>Shoopy Store-এ কেনাকাটায় জমানো ব্যালেন্স রিডিম করুন।</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- QUICK ACTIONS -->
-    <section class="section">
-      <div class="section-head">
-        <h3>⚡ Quick Actions</h3>
-      </div>
-      <div class="quick-grid">
-        <button class="quick" onclick="scrollToSection('verify')">
-          <div class="quick-icon green-icon"><i class="fa-solid fa-qrcode"></i></div>
-          <p>Verify QR</p>
-        </button>
-        <button class="quick" onclick="openScratchModal()">
-          <div class="quick-icon orange-icon"><i class="fa-solid fa-ticket"></i></div>
-          <p>Scratch</p>
-        </button>
-        <button class="quick spin-promo-btn" id="spinPromoBtn" onclick="openSpinFromPromo()">
-          <div class="spin-gif-wrap">
-            <img src="splash02.gif" alt="Spin">
-          </div>
-          <div class="spin-promo-title">
-            🎡 SPIN করুন
-          </div>
-          <div class="spin-time">
-            ⏳ Time: <span id="spinCountdown">05:00</span>
-          </div>
-          <div class="spin-urgent">
-            🔥 এখনই SPIN করে নিন!
-          </div>
-        </button>
-        <button class="quick" onclick="showToast('👥 Referral link কপি হয়েছে!')">
-          <div class="quick-icon blue-icon"><i class="fa-solid fa-user-plus"></i></div>
-          <p>Refer</p>
-        </button>
-      </div>
-   </section>
-   <!-- REWARD CENTER -->
-    <section class="section">
-      <div class="reward-card">
-        <div class="reward-top">
-          <div class="reward-icon">🎁</div>
-          <div>
-            <h3>Reward Center</h3>
-            <p>আপনার নতুন reward unlock করার সুযোগ!</p>
-          </div>
-        </div>
-        <div class="reward-buttons">
-          <button class="reward-btn white" onclick="openScratchModal()">🎫 Scratch Card</button>
-          <button class="reward-btn dark" onclick="openSpinFromPromo()">🎡 Spin & Win</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- PURCHASE VERIFICATION -->
-    <section class="section" id="verify">
-      <div class="section-head">
-        <h3>🔐 Purchase Verification</h3>
-      </div>
-      <div class="verify-card">
-        <div class="verify-head">
-          <div class="verify-icon"><i class="fa-solid fa-shield-halved"></i></div>
-          <div>
-            <h3>QR / Purchase Code</h3>
-            <p>প্যাকেটে থাকা unique code দিন</p>
-          </div>
-        </div>
-        <input class="verify-input" id="qrInput" type="text" placeholder="যেমন: KM-7A82X9" autocomplete="off">
-        <button class="primary-btn" onclick="verifyPurchase()"><i class="fa-solid fa-check-circle"></i> Verify Purchase</button>
-      </div>
-    </section>
-
-    <!-- MISSIONS -->
-    <section class="section">
-      <div class="section-head">
-        <h3>🎯 Active Missions</h3>
-        <button onclick="showToast('সব Missions ভিউ করা হচ্ছে')">See All</button>
-      </div>
-      <div class="mission-card">
-        <div class="mission">
-          <div class="mission-icon">📦</div>
-          <div class="mission-content">
-            <strong>৩টি Purchase Complete করুন</strong>
-            <small>Reward: +50 Mushroom Coins</small>
-            <div class="progress"><span style="width:66%"></span></div>
-          </div>
-          <button class="mission-btn" onclick="claimMission(50)">Claim</button>
-        </div>
-        <div class="mission">
-          <div class="mission-icon">🎁</div>
-          <div class="mission-content">
-            <strong>৫ Packet Challenge</strong>
-            <small>Reward: Spin & Win</small>
-            <div class="progress"><span style="width:40%"></span></div>
-          </div>
-          <button class="mission-btn" onclick="showToast('আরও ৩টি packet প্রয়োজন')">2/5</button>
-        </div>
-        <div class="mission">
-          <div class="mission-icon">🔥</div>
-          <div class="mission-content">
-            <strong>7 Days Streak</strong>
-            <small>Reward: +100 Coins</small>
-            <div class="progress"><span style="width:71%"></span></div>
-          </div>
-          <button class="mission-btn">5/7</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAMILY CLUB -->
-    <section class="section">
-      <div class="family">
-        <div class="family-top">
-          <div class="family-icon"><i class="fa-solid fa-people-group"></i></div>
-          <div>
-            <h3>👨‍👩‍👧 Mushroom Family Club</h3>
-            <p>Family Purchase থেকে আরও বেশি reward</p>
-          </div>
-        </div>
-        <div class="family-status">
-          <span>Monthly Target</span>
-          <strong>18 / 25 Packets</strong>
-        </div>
-        <div class="family-bar"><span></span></div>
-        <div style="display:flex; justify-content:space-between; margin-top:9px; font-size:9px; color:#777;">
-          <span>🎁 Member Price</span>
-          <span>🚚 Free Delivery</span>
-          <span>⭐ Special Gift</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- RECENT ACTIVITY -->
-    <section class="section">
-      <div class="section-head">
-        <h3>📜 Recent Activity</h3>
-        <button onclick="showToast('Full transaction history আপডেট হচ্ছে')">View All</button>
-      </div>
-      <div class="activity" id="activityContainer">
-        <div class="activity-item">
-          <div class="activity-icon green-icon"><i class="fa-solid fa-qrcode"></i></div>
-          <div class="activity-info">
-            <strong>Purchase Verified</strong>
-            <small>আজ • KM-7A82X9</small>
-          </div>
-          <div class="amount">+₹20</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- GUARANTEE CARD -->
-    <div class="guarantee">
-      <strong>🍄 100% Fresh Mushroom Guarantee</strong>
-      <p>Farm থেকে সরাসরি fresh mushroom। Quality issue হলে নির্দিষ্ট সময়ের মধ্যে replacement অথবা eligible credit পাওয়া যাবে।</p>
+  <div class="wallet-grid">
+    <div class="mini-wallet cash-wallet">
+      <div class="mini-wallet-icon icon-green">💰</div>
+      <small>Cash Wallet</small>
+      <strong>₹<span id="cashWalletBalance">120.00</span></strong>
+      <button class="wallet-withdraw-btn" onclick="openCashWithdraw()">💸 Cash Out</button>
     </div>
+    <div class="mini-wallet mushroom-wallet">
+      <div class="mini-wallet-icon icon-orange">🍄</div>
+      <small>Mushroom Wallet</small>
+      <strong><span id="mushroomWalletBalance">450</span> 🍄</strong>
+      <button class="wallet-withdraw-btn mushroom-btn" onclick="openMushroomWithdraw()">📲 WhatsApp Withdraw</button>
+    </div>
+  </div>
 
-   </main>
-   <!-- BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
-    <button class="nav-item active" onclick="setNav(this)"><i class="fa-solid fa-house"></i>Home</button>
-    <button class="nav-item" onclick="openSpinFromPromo()"><i class="fa-solid fa-gift"></i>Rewards</button>
-    <button class="nav-item" onclick="redirectToShop()"><i class="fa-solid fa-bag-shopping"></i>Store</button>
-    <button class="nav-item" onclick="showToast('👥 Family Club অ্যাক্টিভ আছে')"><i class="fa-solid fa-users"></i>Family</button>
-    <button class="nav-item" onclick="showToast('👤 Profile Settings')"><i class="fa-solid fa-user"></i>Profile</button>
-  </nav>
+  <div class="quick-grid">
+    <button class="quick" onclick="openScannerModal()">
+      <img src="Scaner.gif" class="quick-image verify" alt="Scanner">
+      <p>Verify QR</p>
+    </button>
+    <button class="quick" onclick="openScratchModal()">
+      <img src="splash2.gif" class="quick-image scratch" alt="Scratch">
+      <p>Scratch</p>
+    </button>
+    <button class="quick" onclick="openSpinModal()">
+      <img src="splash02.gif" class="quick-image" alt="Spin">
+      <p>SPIN করুন</p>
+    </button>
+    <button class="quick" onclick="openReferralModal()">
+      <img src="referral.jpg" class="quick-image refer" alt="Refer">
+      <p>Refer</p>
+    </button>
+  </div>
 
-  <!-- MODAL: SPIN & WIN -->
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="closeAllModals()"><span style="font-size:18px">🏠</span><span>Home</span></button>
+    <button class="nav-item" onclick="openSpinModal()"><span style="font-size:18px">🎰</span><span>Spin</span></button>
+    <button class="nav-item" onclick="openScratchModal()"><span style="font-size:18px">🪙</span><span>Scratch</span></button>
+    <button class="nav-item" onclick="openReferralModal()"><span style="font-size:18px">👥</span><span>Refer</span></button>
+  </div>
+
+  <!-- QR SCANNER MODAL -->
+  <div class="modal-overlay" id="scannerModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal('scannerModal')">&times;</button>
+      <h3>📷 Scan & Claim QR Code</h3>
+      <input id="rewardCodeInput" class="verify-input" type="text" placeholder="কুপন/QR কোড লিখুন" style="text-transform:uppercase;">
+      <button class="primary-btn" onclick="verifyRewardCode()">✅ Claim Code</button>
+      <div style="margin:12px 0;font-size:11px;color:#888;">অথবা ক্যামেরা ব্যবহার করুন</div>
+      <div class="scanner-box"><img src="Scaner.gif" class="scanner-gif" alt="QR"></div>
+      <button class="primary-btn" style="background:#444;" onclick="startRealScanner()">📷 Open Camera</button>
+    </div>
+  </div>
+
+  <!-- SPIN WHEEL MODAL -->
   <div class="modal-overlay" id="spinModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('spinModal')">&times;</button>
-      <h3>🎡 Spin & Win</h3>
-      <p style="font-size: 11px; color: #666; margin-top: 4px;">চাকা ঘুরিয়ে পেয়ে যান আকর্ষনীয় পুরষ্কার!</p>
+      <h3>🎰 Spin & Earn</h3>
       <div class="wheel-wrapper">
         <div class="wheel-pointer"></div>
-        <div class="wheel-canvas" id="wheelCanvas"></div>
+        <canvas id="spinCanvas" width="240" height="240"></canvas>
       </div>
-      <button class="primary-btn" id="spinBtn" onclick="executeSpin()">SPIN NOW</button>
+      <button id="spinButton" class="primary-btn" onclick="startSpin()">🌀 Spin Now</button>
     </div>
   </div>
 
-  <!-- MODAL: SCRATCH CARD -->
+  <!-- SCRATCH CARD MODAL -->
   <div class="modal-overlay" id="scratchModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('scratchModal')">&times;</button>
-      <h3>🎫 Scratch & Win</h3>
-      <p style="font-size: 11px; color: #666; margin-top: 4px;">আঙ্গুল দিয়ে ঘষে পুরষ্কার উন্মোচন করুন</p>
-      <div class="scratch-container">
-        <div class="scratch-reveal">
-          <h2 id="scratchRewardText" style="color: var(--green); font-size: 22px;">🎁 Scratch করুন</h2>
-          <p id="scratchRewardSub" style="font-size: 10px; color: #555;">Reward লুকানো আছে!</p>
-        </div>
-        <canvas id="scratchCanvas" width="240" height="140"></canvas>
+      <h3>🪙 Scratch Card</h3>
+      <div class="scratch-wrapper">
+        <div class="scratch-background"><span style="font-size:24px">🎉</span><span id="scratchPrizeText">₹25 Cash</span></div>
+        <canvas id="scratchCanvas" width="220" height="140"></canvas>
       </div>
-      <button class="primary-btn" onclick="claimScratchReward()">Claim Reward</button>
+      <button id="scratchClaimBtn" class="primary-btn" style="display:none;" onclick="claimScratchReward()">✨ Claim Reward</button>
     </div>
   </div>
 
-  <!-- WITHDRAW CONFIRMATION MODAL -->
-  <div class="modal-overlay" id="withdrawModal">
+  <!-- REFERRAL MODAL -->
+  <div class="modal-overlay" id="referralModal">
     <div class="modal-content">
-      <button class="close-modal" onclick="closeModal('withdrawModal')">&times;</button>
-      <div class="withdraw-modal-icon">
-        <i class="fa-solid fa-money-bill-transfer"></i>
-      </div>
-      <h3>💸 Withdraw Balance</h3>
-      <p style="font-size:11px;color:#666;margin-top:6px;">আপনার বর্তমান Cashback Balance</p>
-      <div class="withdraw-amount">₹<span id="withdrawBalance">0.00</span></div>
-      <p style="font-size:10px;color:#888;">আপনি কি এই ব্যালেন্স Withdraw করতে চান? এটি রিডিম হয়ে যাবে।</p>
-      <div class="withdraw-actions">
-        <button class="withdraw-yes" onclick="confirmWithdraw()">YES, WITHDRAW</button>
-        <button class="withdraw-no" onclick="closeModal('withdrawModal')">CANCEL</button>
-      </div>
+      <button class="close-modal" onclick="closeModal('referralModal')">&times;</button>
+      <h3>👥 Refer & Earn</h3>
+      <img src="referral.jpg" style="width:100%;max-height:180px;object-fit:contain;margin-top:10px" alt="Referral">
+      <button class="primary-btn" onclick="shareReferral()">👥 Share Referral Link</button>
     </div>
   </div>
 
-  <!-- MODAL: ADMIN PANEL & AUDIT LOGS -->
-  <div class="modal-overlay" id="adminModal">
+  <!-- CASH WITHDRAW MODAL -->
+  <div class="modal-overlay" id="cashWithdrawModal">
     <div class="modal-content">
-      <button class="close-modal" onclick="closeModal('adminModal')">&times;</button>
-      <h3>🛡️ Executive Audit Panel</h3>
-      <div style="display: flex; justify-content: space-around; margin-top: 10px; font-size: 11px;">
-        <div>Fraud Attempts: <strong style="color:red;" id="fraudCount">0</strong></div>
-        <div>Verified QR: <strong style="color:green;" id="verifiedCount">1</strong></div>
-      </div>
-      <div class="audit-box" id="auditLogBox">
-        <div>[SYSTEM] Security Engine Initialized.</div>
-      </div>
+      <button class="close-modal" onclick="closeModal('cashWithdrawModal')">&times;</button>
+      <h3>💰 Cash Wallet</h3>
+      <div id="cashWithdrawAmount" style="font-size:28px;font-weight:800;color:#2e7d32;margin:10px 0;">₹0.00</div>
+      <input id="cashWithdrawName" class="verify-input" type="text" placeholder="আপনার নাম">
+      <input id="cashWithdrawPhone" class="verify-input" type="tel" placeholder="ফোন নাম্বার" maxlength="15">
+      <input id="cashWithdrawConfirm" class="verify-input" type="text" placeholder='Cash Out করতে "YES" লিখুন'>
+      <button id="cashWithdrawButton" class="primary-btn" onclick="cashOut()">💸 YES — CASH OUT</button>
+    </div>
+         </div><!-- MUSHROOM WITHDRAW MODAL -->
+  <div class="modal-overlay" id="mushroomWithdrawModal">
+    <div class="modal-content">
+      <button class="close-modal" onclick="closeModal('mushroomWithdrawModal')">&times;</button>
+      <h3>🍄 Mushroom Withdraw</h3>
+      <div id="mushroomWithdrawAmount" style="font-size:28px;font-weight:800;color:#ff8f00;margin:10px 0;">0 🍄</div>
+      <button id="mushroomWithdrawButton" class="primary-btn" style="background:#25D366;" onclick="mushroomWhatsAppWithdraw()">📲 WhatsApp Withdraw</button>
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATION -->
-  <div class="toast" id="toast"></div>
+  <div id="toast"></div>
 
-</div>
+  <script>
+    // System APIs & Fast Data Lookup
+    const API_URL = "https://script.google.com/macros/s/AKfycbzPJ30nGb-vn2PPD5WvE03QXol2rphSFK6itJ0akka6aseWla-KH-nmJuGrc0nGBXau/exec";
+    const MUSHROOM_WHATSAPP = "917047643951";
 
-<!-- JAVASCRIPT APP ENGINE -->
-<script>
-/* CONSTANTS & EXTERNAL CONFIG */
-const SHOP_URL = "https://kundu-mushroom-farm.store.shoopy.in";
+    // Set structure for O(1) ultra-fast lookup
+    const VALID_REWARD_CODES = new Set([
+      "85NB","34CD","72KF","19QX","46MT","83RA","27LP","91ZW","54HG","68VC","42JP","76XR","13BM","59QK","87DL","25NF","63TZ","48CW","97HS","31VG","56PK","82RM","14YX","69JB","37QN","95KC","21WF","74MD","43RX","88LP","16GH","52ZT","79BV","35NK","61QD","28XF","94MR","47TC","73HJ","89WP","24KS","58DL","92FQ","17XZ","66NB","39RK","81CV","45GM","53YP","78TJ",
+      "12AB","23CD","34EF","45GH","56JK","67LM","78NP","89QR","90ST","11UV","22WX","33YZ","44AC","55BD","66CE","77DF","88EG","99FH","10GJ","20HK","30IL","40JM","50KN","60LP","70MQ","80NR","90PS","15QT","25RU","35SV","45TW","55UX","65VY","75WA","85XB","95YC","18ZD","28AE","38BF","48CG","58DH","68EJ","78FK","88GL","98HM","19JN","29KP","39LQ","49MR","59NS",
+      "64PT","71QW","86RX","93SY","57TZ","62UA","41VB","36WC","26XD","15YE","84ZF","73AG","52BH","91CI","47DJ","68EK","32FL","79GM","54HN","83IP","27JQ","96KR","18LS","45MT","69NU","37OV","82PW","14QX","58RY","71SZ","23TA","46UB","95VC","31WD","67XE","89YF","12ZG","53AH","76BI","98CJ",
+      "43DK","57EL","81FM","24GN","69HO","35IP","72JQ","46KR","93LS","18MT","54NU","87OV","21PW","65QX","39RY","74SZ","16TA","82UB","48VC","95WD","27XE","61YF","83ZG","42AH","79BI","15CJ","56DK","94EL","38FM","67GN","29HO","73IP","85JQ","41KR","62LS","97MT","34NU","58OV","76PW","19QX",
+      "44RA","63SB","28TC","91UD","57VE","36WF","82XG","14YH","75ZI","49AJ","68BK","23CL","95DM","17EN","54FO","79GP","31HQ","86IR","42JS","65KT","27LU","93MV","18NW","56OX","74PY","39QZ","81RA","45SB","62TC","97UD","13VE","58WF","26XG","84YH","71ZI","35AJ","69BK","92CL","47DM","16EN",
+      "53FO","78GP","24HQ","61IR","89JS","32KT","75LU","48MV","96NW","17OX","64PY","28QZ","83RA","41SB","59TC","72UD","36VE","95WF","14XG","67YH","82ZI","25AJ","43BK","91CL","58DM","76EN","39FO","64GP","18HQ","57IR","93JS","21KT","85LU","46MV","73NW","29OX","61PY","94QZ","37RA","52SB",
+      "68TC","15UD","84VE","32WF","79XG","46YH","91ZI","27AJ","53BK","75CL","18DM","62EN","49FO","87GP","35HQ","71IR","26JS","94KT","58LU","83MV","12NW","69OX","47PY","95QZ","31RA","76SB","54TC","89UD","23VE","67WF","42XG","81YH","36ZI","92AJ","57BK","14CL","73DM","48EN","65FO","29GP",
+      "86HQ","51IR","78JS","34KT","97LU","25MV","63NW","18OX","49PY","72QZ","41RA","85SB","27TC","69UD","53VE","91WF","16XG","74YH","38ZI","62AJ","95BK","43CL","81DM","24EN","56FO","78GP","31HQ","64IR","92JS","17KT","85LU","46MV","73NW","29OX","51PY","68QZ","34RA","79SB","15TC","87UD",
+      "42VE","63WF","28XG","94YH","71ZI","36AJ","58BK","82CL","19DM","67EN","45FO","93GP","21HQ","76IR","54JS","89KT","32LU","65MV","18NW","47OX","83PY","26QZ","59RA","74SB","13TC","68UD","91VE","35WF","57XG","82YH","24ZI","69AJ","43BK","78CL","16DM","95EN","31FO","64GP","52HQ","87IR",
+      "23JS","76KT","48LU","91MV","35NW","62OX","84PY","17QZ","53RA","79SB","46TC","28UD","65VE","93WF","14XG","57YH","81ZI","39AJ","72BK","25CL","68DM","47EN","86FO","19GP","54HQ","73IR","32JS","95KT","41LU","67MV","82NW","26OX","58PY","94QZ","15RA","63SB","87TC","34UD","71VE","49WF",
+      "92XG","38YH","56ZI","24AJ","69BK","83CL","17DM","45EN","78FO","31GP","64HQ","86IR","29JS","57KT","93LU","42MV","75NW","18OX","61PY","84QZ","35RA","72SB","49TC","96UD","27VE","53WF","81XG","16YH","68ZI","43AJ","95BK","37CL","62DM","89EN","14FO","76GP","51HQ","28IR","63JS","85KT",
+      "47LU","91MV","36NW","74OX","52PY","69QZ","18RA","83SB","45TC","27UD","64VE","92WF","31XG","58YH","76ZI","13AJ","54BK","87CL","29DM","61EN","73FO","48GP","95HQ","26IR","82JS","39KT","67LU","15MV","94NW","43OX","71PY","58QZ","32RA","86SB","24TC","79UD","53VE","68WF","17XG","91YH"
+    ]);// App State Variables
+    let cashWallet = 120.00, mushroomWallet = 450;
+    let isSubmitting = false, isSpinning = false, isScratchClaimed = false, currentScratchReward = null;
 
-const spinRewards = [
-  { text: "₹ 25 💵", type: "cash", value: 25 },
-  { text: "₹ 15 💵", type: "cash", value: 15 },
-  { text: "₹ 30 💵", type: "cash", value: 30 },
-  { text: "200 ছাতু 🍄", type: "mushroom", value: 200 },
-  { text: "250 ছাতু 🍄", type: "mushroom", value: 250 },
-  { text: "🎉 ₹ 500 💵", type: "special", value: 500 },
-  { text: "🎉 1 KG 🍄ছাতু", type: "special", value: 1000 }
-];
+    const spinRewards = [
+      { type: "cash", amount: 25, label: "₹25 💵" },
+      { type: "cash", amount: 15, label: "₹15 💵" },
+      { type: "cash", amount: 30, label: "₹30 💵" },
+      { type: "mushroom", amount: 200, label: "200 🍄" },
+      { type: "mushroom", amount: 150, label: "150 🍄" },
+      { type: "cash", amount: 10, label: "₹10 💵" }
+    ];
 
-const scratchRewards = [
-  { text: "₹ 25 💵", type: "cash", value: 25 },
-  { text: "₹ 15 💵", type: "cash", value: 15 },
-  { text: "₹ 30 💵", type: "cash", value: 30 },
-  { text: "🎉 200 ছাতু 🍄", type: "mushroom", value: 200 },
-  { text: "🎉 250 ছাতু 🍄", type: "mushroom", value: 250 },
-  { text: "₹ 49 💵", type: "cash", value: 49 }
-];
+    // Modal Helpers
+    const openModal = id => document.getElementById(id).classList.add("active");
+    const closeModal = id => document.getElementById(id).classList.remove("active");
+    const closeAllModals = () => document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
 
-/* VALID DEMO CODES */
-const VALID_REWARD_CODES = [
-  "KM-2026-AB12",
-  "KM-2026-CD34",
-  "KM-2026-EF56",
-  "KM-2026-GH78",
-  "KM-2026-JK90"
-];
-
-/* APP STATE LEDGER */
-let wallet = 120.00;
-let coins = 450;
-let verifiedPurchases = 1;
-let fraudAttempts = 0;
-let usedQRCodes = ["KM-7A82X9"];
-let isSpinning = false;
-let isScratchClaimed = false;
-let currentStep = 1;
-let currentScratchReward = null;
-let scratchProgress = 0;
-
-/* REWARD CODE LOCALSTORAGE STATE */
-let usedRewardCodes = JSON.parse(localStorage.getItem("KUNDU_USED_REWARD_CODES") || "[]");
-let activeRewardCode = localStorage.getItem("KUNDU_ACTIVE_REWARD_CODE") || "";
-let spinUnlocked = localStorage.getItem("KUNDU_SPIN_UNLOCKED") === "YES";
-let scratchUnlocked = localStorage.getItem("KUNDU_SCRATCH_UNLOCKED") === "YES";
-let spinUsed = localStorage.getItem("KUNDU_SPIN_USED") === "YES";
-let scratchUsed = localStorage.getItem("KUNDU_SCRATCH_USED") === "YES";
-
-function saveRewardCodeState() {
-  localStorage.setItem("KUNDU_USED_REWARD_CODES", JSON.stringify(usedRewardCodes));
-  localStorage.setItem("KUNDU_ACTIVE_REWARD_CODE", activeRewardCode);
-  localStorage.setItem("KUNDU_SPIN_UNLOCKED", spinUnlocked ? "YES" : "NO");
-  localStorage.setItem("KUNDU_SCRATCH_UNLOCKED", scratchUnlocked ? "YES" : "NO");
-  localStorage.setItem("KUNDU_SPIN_USED", spinUsed ? "YES" : "NO");
-  localStorage.setItem("KUNDU_SCRATCH_USED", scratchUsed ? "YES" : "NO");
-}
-
-/* WEB AUDIO API ENGINE */
-let audioCtx = null;
-function initAudio() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-}
-
-function playSound(type) {
-  try {
-    initAudio();
-    if (!audioCtx) return;
-
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    if (type === 'tick') {
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.05);
-    } else if (type === 'win') {
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(440, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
-      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.3);
-    } else if (type === 'error') {
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(180, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.2);
-    }
-  } catch (e) {
-    console.log("Audio Web API Not Supported");
-  }
-}
-document.addEventListener('touchstart', initAudio, { once: true });
-document.addEventListener('click', initAudio, { once: true });
-
-/* REDIRECT TO STORE */
-function redirectToShop() {
-  showToast("🛍 Kundu Mushroom Store-এ পাঠানো হচ্ছে...");
-  setTimeout(() => { window.location.href = SHOP_URL; }, 1000);
-}
-
-/* TOAST SYSTEM */
-let toastTimer;
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.innerText = message;
-  toast.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { toast.classList.remove("show"); }, 3000);
-}/* SCROLL & POSITIONING UTILS */
-function scrollToSection(id) {
-  const element = document.getElementById(id);
-  if(element) element.scrollIntoView({ behavior: "smooth", block: "center" });
-}
-
-function openModal(id) { document.getElementById(id).classList.add("show"); }
-function closeModal(id) { document.getElementById(id).classList.remove("show"); }
-
-/* STEP GUIDANCE PROGRESSION */
-function advanceStep(step) {
-  if(step > currentStep && step <= 3) {
-    currentStep = step;
-    document.getElementById("stepTracker").innerText = `Step ${currentStep} of 3`;
-    document.querySelectorAll(".guide-step").forEach((el, idx) => {
-      if(idx + 1 <= currentStep) el.classList.add("active");
-    });
-  }
-}
-
-/* AUDIT LOG ENGINE */
-function addAuditLog(msg, isFraud = false) {
-  const logBox = document.getElementById("auditLogBox");
-  const time = new Date().toLocaleTimeString();
-  const div = document.createElement("div");
-  if(isFraud) div.style.color = "#ff5252";
-  div.innerText = `[${time}] ${msg}`;
-  logBox.prepend(div);
-}
-
-/* CONFETTI ANIMATION */
-function launchConfetti() {
-  const pieces = 90;
-  for(let i = 0; i < pieces; i++) {
-    const piece = document.createElement("div");
-    piece.style.position = "fixed";
-    piece.style.left = "50%";
-    piece.style.top = "45%";
-    piece.style.width = "8px";
-    piece.style.height = "8px";
-    piece.style.background = ["#ff1744", "#ffea00", "#00e676", "#2979ff", "#e040fb", "#ff9100"][Math.floor(Math.random() * 6)];
-    piece.style.zIndex = "99999";
-    piece.style.pointerEvents = "none";
-    piece.style.borderRadius = "2px";
-
-    document.body.appendChild(piece);
-
-    const angle = Math.random() * Math.PI * 2;
-    const distance = 120 + Math.random() * 300;
-    const x = Math.cos(angle) * distance;
-    const y = Math.sin(angle) * distance + 250;
-
-    piece.animate([
-      { transform: "translate(-50%, -50%) rotate(0deg)", opacity: 1 },
-      { transform: `translate(${x}px, ${y}px) rotate(${Math.random()*720}deg)`, opacity: 0 }
-    ], {
-      duration: 1200 + Math.random() * 1000,
-      easing: "cubic-bezier(.2,.8,.3,1)"
-    }).onfinish = () => { piece.remove(); };
-  }
-}
-
-/* UNLOCK REWARD CODE */
-function unlockRewardCode() {
-  const input = document.getElementById("rewardUnlockCode");
-  const status = document.getElementById("codeStatus");
-  const code = input.value.trim().toUpperCase();
-
-  if (!code) {
-    status.className = "code-status error";
-    status.innerText = "⚠️ আগে Reward Code লিখুন";
-    playSound("error");
-    input.focus();
-    return;
-  }
-
-  if (usedRewardCodes.includes(code)) {
-    status.className = "code-status error";
-    status.innerText = "🚫 এই Code ইতিমধ্যেই ব্যবহার করা হয়েছে!";
-    playSound("error");
-    addAuditLog(`REJECTED USED REWARD CODE: ${code}`, true);
-    return;
-  }
-
-  if (!VALID_REWARD_CODES.includes(code)) {
-    status.className = "code-status error";
-    status.innerText = "❌ Invalid Reward Code!";
-    playSound("error");
-    addAuditLog(`INVALID REWARD CODE: ${code}`, true);
-    return;
-  }
-
-  usedRewardCodes.push(code);
-  activeRewardCode = code;
-  spinUnlocked = true;
-  scratchUnlocked = true;
-  spinUsed = false;
-  scratchUsed = false;
-
-  saveRewardCodeState();
-
-  status.className = "code-status success";
-  status.innerText = "🎉 Code Verified! SPIN + SCRATCH দুটোই Unlock হয়েছে!";
-  input.value = "";
-
-  updateRewardUnlockUI();
-  playSound("win");
-  addAuditLog(`REWARD CODE VERIFIED: ${code}`);
-  showToast("🎉 Code Verified! Spin + Scratch চালু হয়েছে!");
-  launchConfetti();
-}
-
-function updateRewardUnlockUI() {
-  const spinStatus = document.getElementById("spinUnlockStatus");
-  const scratchStatus = document.getElementById("scratchUnlockStatus");
-  const promoBtn = document.getElementById("spinPromoBtn");
-
-  if (spinUnlocked && !spinUsed) {
-    spinStatus.className = "unlock-item unlocked";
-    spinStatus.innerHTML = `🎡 <span><strong>SPIN</strong><small>✅ Ready</small></span>`;
-    if(promoBtn) promoBtn.classList.remove("locked");
-  } else if (spinUsed) {
-    spinStatus.className = "unlock-item unlocked";
-    spinStatus.innerHTML = `✅ <span><strong>SPIN</strong><small>Already Used</small></span>`;
-    if(promoBtn) promoBtn.classList.add("locked");
-  } else {
-    spinStatus.className = "unlock-item";
-    spinStatus.innerHTML = `🎡 <span><strong>SPIN</strong><small>Locked</small></span>`;
-  }
-
-  if (scratchUnlocked && !scratchUsed) {
-    scratchStatus.className = "unlock-item unlocked";
-    scratchStatus.innerHTML = `🎫 <span><strong>SCRATCH</strong><small>✅ Ready</small></span>`;
-  } else if (scratchUsed) {
-    scratchStatus.className = "unlock-item unlocked";
-    scratchStatus.innerHTML = `✅ <span><strong>SCRATCH</strong><small>Already Used</small></span>`;
-  } else {
-    scratchStatus.className = "unlock-item";
-    scratchStatus.innerHTML = `🎫 <span><strong>SCRATCH</strong><small>Locked</small></span>`;
-  }
-}
-
-/* SPIN PROMO TRIGGER */
-function openSpinFromPromo() {
-  if (!spinUnlocked) {
-    playSound("error");
-    showToast("🔐 আগে উপরের Reward Code Verify করুন!");
-    document.getElementById("rewardUnlockCode").focus();
-    return;
-  }
-
-  if (spinUsed) {
-    playSound("error");
-    showToast("🚫 এই Code দিয়ে Spin ইতিমধ্যেই করা হয়েছে!");
-    return;
-  }
-
-  openSpinModal();
-}
-
-/* ANTI-FRAUD PURCHASE VERIFICATION */
-function verifyPurchase() {
-  const input = document.getElementById("qrInput");
-  const code = input.value.trim().toUpperCase();
-
-  if(!code) {
-    playSound('error');
-    showToast("⚠️ Purchase Code দিন");
-    input.focus();
-    return;
-  }
-  if(code.length < 6) {
-    playSound('error');
-    showToast("⚠️ সঠিক Code দিন (কমপক্ষে ৬ অক্ষর)");
-    return;
-  }
-
-  if(usedQRCodes.includes(code)) {
-    fraudAttempts++;
-    playSound('error');
-    document.getElementById("fraudCount").innerText = fraudAttempts;
-    showToast("🚨 এই QR Code-টি আগেই ব্যবহার করা হয়েছে!");
-    addAuditLog(`REJECTED DUPLICATE: ${code}`, true);
-    return;
-  }
-
-  usedQRCodes.push(code);
-  verifiedPurchases++;
-  wallet += 20;
-  coins += 10;
-
-  playSound('win');
-  document.getElementById("walletBalance").innerText = wallet.toFixed(2);
-  document.getElementById("coinBalance").innerText = coins;
-  document.getElementById("verifiedCount").innerText = verifiedPurchases;
-
-  advanceStep(2);
-
-  const activityContainer = document.getElementById("activityContainer");
-  const newItem = document.createElement("div");
-  newItem.className = "activity-item";
-  newItem.innerHTML = `
-    <div class="activity-icon green-icon"><i class="fa-solid fa-qrcode"></i></div>
-    <div class="activity-info">
-      <strong>Purchase Verified</strong>
-      <small>এখনই • ${code}</small>
-    </div>
-    <div class="amount">+₹20</div>
-  `;
-  activityContainer.prepend(newItem);
-
-  addAuditLog(`VERIFIED PURCHASE: ${code} (+₹20)`);
-  showToast("✅ Verified! ₹20 Cashback + 10 Coins জমা হয়েছে");
-  input.value = "";
-}
-
-/* SPIN & WIN ENGINE */
-function openSpinModal() {
-  openModal("spinModal");
-  setupWheel();
-}
-
-function setupWheel() {
-  const wheel = document.getElementById("wheelCanvas");
-  wheel.innerHTML = "";
-
-  const colors = ["#2e7d32", "#ff8f00", "#1976d2", "#8e24aa", "#e91e63", "#d32f2f", "#00897b"];
-  const angle = 360 / spinRewards.length;
-
-  wheel.style.background = `
-    conic-gradient(
-      ${spinRewards.map((reward, i) => `${colors[i]} ${i * angle}deg ${(i + 1) * angle}deg`).join(",")}
-    )
-  `;
-
-  spinRewards.forEach((reward, index) => {
-    const item = document.createElement("div");
-    item.className = "wheel-reward";
-    item.style.transform = `rotate(${index * angle + angle / 2}deg)`;
-    item.innerHTML = `<span>${reward.text}</span>`;
-    wheel.appendChild(item);
-  });
-
-  const center = document.createElement("div");
-  center.className = "wheel-center";
-  center.innerHTML = "🍄";
-  wheel.appendChild(center);
-}
-
-function executeSpin() {
-  if (isSpinning) return;
-
-  if (!spinUnlocked) {
-    showToast("🔐 আগে Reward Code Verify করুন!");
-    return;
-  }
-
-  if (spinUsed) {
-    showToast("🚫 Spin ইতিমধ্যেই ব্যবহার করা হয়েছে!");
-    return;
-  }
-
-  if (verifiedPurchases < 1) {
-    playSound('error');
-    showToast("🛑 আগে অন্তত ১টি Purchase Verify করুন!");
-    return;
-  }
-  isSpinning = true;
-
-  const wheel = document.getElementById("wheelCanvas");
-  const spinBtn = document.getElementById("spinBtn");
-
-  spinBtn.disabled = true;
-  spinBtn.innerText = "🎡 SPINNING...";
-
-  const winningRewards = spinRewards.filter(reward => reward.type !== "special");
-  const selected = winningRewards[Math.floor(Math.random() * winningRewards.length)];
-  const selectedIndex = spinRewards.findIndex(reward => reward === selected);
-
-  const segmentAngle = 360 / spinRewards.length;
-  const targetAngle = 360 - (selectedIndex * segmentAngle + segmentAngle / 2);
-  const extraSpins = 5 * 360;
-  const finalRotation = extraSpins + targetAngle;
-
-  wheel.style.transform = `rotate(${finalRotation}deg)`;
-
-  let ticks = 0;
-  const tickInterval = setInterval(() => {
-    playSound('tick');
-    ticks++;
-    if (ticks >= 25) clearInterval(tickInterval);
-  }, 150);
-
-  setTimeout(() => {
-    clearInterval(tickInterval);
-    playSound('win');
-
-    if (selected.type === "cash") {
-      wallet += selected.value;
-      document.getElementById("walletBalance").innerText = wallet.toFixed(2);
-      showToast(`🎉 অভিনন্দন! আপনি পেয়েছেন ${selected.text}`);
-      addAuditLog(`SPIN REWARD: +₹${selected.value}`);
-    } else if (selected.type === "mushroom") {
-      coins += selected.value;
-      document.getElementById("coinBalance").innerText = coins;
-      showToast(`🍄 অভিনন্দন! আপনি পেয়েছেন ${selected.text}`);
-      addAuditLog(`SPIN MUSHROOM REWARD: +${selected.value} ছাতু`);
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg; t.style.display = "block";
+      setTimeout(() => { t.style.display = "none"; }, 3000);
     }
 
-    spinUsed = true;
-    spinUnlocked = false;
-    saveRewardCodeState();
-    updateRewardUnlockUI();
+    // Audio Engine
+    const clapAudio = document.getElementById("clapSound");
+    const moneyAudio = document.getElementById("rewardMoneySound");
+    const withdrawAudio = document.getElementById("withdrawMoneySound");
 
-    launchConfetti();
-    advanceStep(3);
+    function unlockAudio() {
+      [clapAudio, moneyAudio, withdrawAudio].forEach(a => {
+        a.muted = true; a.play().then(() => { a.pause(); a.currentTime = 0; a.muted = false; }).catch(()=>{});
+      });
+    }
+    document.addEventListener("touchstart", unlockAudio, { once: true });
+    document.addEventListener("click", unlockAudio, { once: true });
 
-    isSpinning = false;
-    spinBtn.disabled = false;
-    spinBtn.innerText = "SPIN AGAIN";
-
-    setTimeout(() => { closeModal("spinModal"); }, 2500);
-  }, 4000);
-   }
-   /* SCRATCH CARD ENGINE */
-function openScratchModal() {
-  if (!scratchUnlocked) {
-    playSound("error");
-    showToast("🔐 আগে Reward Code Verify করুন!");
-    document.getElementById("rewardUnlockCode").focus();
-    return;
-  }
-
-  if (scratchUsed) {
-    playSound("error");
-    showToast("🚫 এই Code দিয়ে Scratch ইতিমধ্যেই করা হয়েছে!");
-    return;
-  }
-
-  isScratchClaimed = false;
-  currentScratchReward = scratchRewards[Math.floor(Math.random() * scratchRewards.length)];
-  scratchProgress = 0;
-
-  openModal("scratchModal");
-  setTimeout(() => { initScratchCanvas(); }, 100);
-}
-
-function addScratchSpark(x, y) {
-  const container = document.querySelector(".scratch-container");
-  if(!container) return;
-  const spark = document.createElement("div");
-  spark.className = "scratch-spark";
-  spark.innerText = ["✨", "⭐", "💫"][Math.floor(Math.random() * 3)];
-  spark.style.left = x + "px";
-  spark.style.top = y + "px";
-  container.appendChild(spark);
-  setTimeout(() => spark.remove(), 500);
-}
-
-function initScratchCanvas() {
-  const canvas = document.getElementById("scratchCanvas");
-  if(!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const container = document.querySelector(".scratch-container");
-  const rewardText = document.getElementById("scratchRewardText");
-  const rewardSub = document.getElementById("scratchRewardSub");
-
-  rewardText.innerText = "🎁 Scratch করুন";
-  rewardSub.innerText = "Reward লুকানো আছে!";
-
-  ctx.globalCompositeOperation = "source-over";
-  const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  gradient.addColorStop(0, "#9e9e9e");
-  gradient.addColorStop(.5, "#eeeeee");
-  gradient.addColorStop(1, "#757575");
-
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.fillStyle = "#555";
-  ctx.font = "bold 14px Noto Sans Bengali";
-  ctx.textAlign = "center";
-  ctx.fillText("✨ এখানে Scratch করুন ✨", canvas.width / 2, 65);
-
-  ctx.font = "11px Noto Sans Bengali";
-  ctx.fillText("ঘষলেই আপনার Reward দেখা যাবে", canvas.width / 2, 88);
-
-  let isDrawing = false;
-
-  function getPosition(e) {
-    const rect = canvas.getBoundingClientRect();
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    return {
-      x: (clientX - rect.left) * (canvas.width / rect.width),
-      y: (clientY - rect.top) * (canvas.height / rect.height)
-    };
-  }
-
-  function scratch(e) {
-    if (!isDrawing) return;
-    if(e.cancelable) e.preventDefault();
-
-    const pos = getPosition(e);
-    ctx.globalCompositeOperation = "destination-out";
-    ctx.beginPath();
-    ctx.arc(pos.x, pos.y, 18, 0, Math.PI * 2);
-    ctx.fill();
-
-    scratchProgress += 1;
-
-    if (Math.random() > .65) {
-      addScratchSpark(pos.x, pos.y);
+    async function playRewardSoundSequence() {
+      try {
+        clapAudio.currentTime = 0; await clapAudio.play();
+        setTimeout(async () => { moneyAudio.currentTime = 0; await moneyAudio.play(); }, 1000);
+      } catch (e) {}
     }
 
-    container.classList.add("scratching");
-    clearTimeout(container.scratchTimer);
-    container.scratchTimer = setTimeout(() => {
-      container.classList.remove("scratching");
-    }, 150);
-
-    if (scratchProgress >= 55) {
-      revealScratchReward();
-      isDrawing = false;
+    function launchConfetti() {
+      for (let i = 0; i < 50; i++) {
+        const c = document.createElement("div");
+        c.innerHTML = ["🎉","✨","💰","🍄"][Math.floor(Math.random()*4)];
+        c.style.cssText = `position:fixed;left:${Math.random()*100}vw;top:-20px;font-size:${14+Math.random()*14}px;z-index:99999;pointer-events:none;transition:transform 2s linear, opacity 2s;`;
+        document.body.appendChild(c);
+        setTimeout(() => {
+          c.style.transform = `translate(${(Math.random()-.5)*200}px, ${window.innerHeight+50}px) rotate(360deg)`;
+          c.style.opacity = "0";
+        }, 20);
+        setTimeout(() => c.remove(), 2200);
+      }
     }
-  }
 
-  canvas.onmousedown = () => { isDrawing = true; };
-  canvas.onmouseup = () => { isDrawing = false; };
-  canvas.onmouseleave = () => { isDrawing = false; };
-  canvas.onmousemove = scratch;
+    function addRewardToWallet(reward) {
+      if (!reward) return;
+      if (reward.type === "cash") {
+        cashWallet += Number(reward.amount);
+        document.getElementById("cashWalletBalance").innerText = cashWallet.toFixed(2);
+        showToast(`💰 ₹${reward.amount} Cash Wallet-এ জমা হয়েছে`);
+      } else {
+        mushroomWallet += Number(reward.amount);
+        document.getElementById("mushroomWalletBalance").innerText = mushroomWallet;
+        showToast(`🍄 ${reward.amount} Mushroom Wallet-এ জমা হয়েছে`);
+      }
+    }
 
-  canvas.ontouchstart = (e) => { isDrawing = true; };
-  canvas.ontouchend = () => { isDrawing = false; };
-  canvas.ontouchmove = scratch;
-}
+    // Reward Code Engine (O(1) Check)
+    function verifyRewardCode() {
+      const codeInput = document.getElementById("rewardCodeInput");
+      const code = codeInput.value.trim().toUpperCase();
+      if (!code) return showToast("⚠️ কুপন কোডটি লিখুন");
 
-function revealScratchReward() {
-  if (!currentScratchReward) return;
+      if (VALID_REWARD_CODES.has(code)) {
+        addRewardToWallet({ type: "cash", amount: 20 });
+        launchConfetti();
+        playRewardSoundSequence();
+        VALID_REWARD_CODES.delete(code); // prevent reuse
+        codeInput.value = "";
+        closeModal("scannerModal");
+      } else {
+        showToast("❌ অবৈধ বা ব্যবহৃত কুপন কোড!");
+      }
+    }
 
-  const rewardText = document.getElementById("scratchRewardText");
-  const rewardSub = document.getElementById("scratchRewardSub");
+    // Spin Canvas Engine
+    let currentAngle = 0;
+    function drawWheel() {
+      const canvas = document.getElementById("spinCanvas"); if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const arc = (2 * Math.PI) / spinRewards.length;
+      const colors = ["#2e7d32", "#ff8f00", "#43a047", "#ffa726", "#66bb6a", "#ffb74d"];
+      ctx.clearRect(0,0,240,240);
 
-  rewardText.innerText = currentScratchReward.text;
-  rewardSub.innerText = currentScratchReward.type === "cash" ? "🎉 Cashback Reward!" : "🍄 Mushroom Reward!";
+      for (let i = 0; i < spinRewards.length; i++) {
+        const angle = currentAngle + i * arc;
+        ctx.beginPath(); ctx.fillStyle = colors[i];
+        ctx.moveTo(120, 120); ctx.arc(120, 120, 115, angle, angle + arc); ctx.fill();
+        ctx.save(); ctx.translate(120, 120); ctx.rotate(angle + arc / 2);
+        ctx.textAlign = "right"; ctx.fillStyle = "#fff"; ctx.font = "bold 12px sans-serif";
+        ctx.fillText(spinRewards[i].label, 100, 4); ctx.restore();
+      }
+    }
 
-  playSound("win");
-  launchConfetti();
-  showToast(`🎉 অভিনন্দন! ${currentScratchReward.text} পেয়েছেন!`);
-}
+    function openSpinModal() { openModal("spinModal"); drawWheel(); }
 
-function claimScratchReward() {
-  if (isScratchClaimed) {
-    playSound('error');
-    showToast("⚠️ এটি ইতিমধ্যেই দাবি করা হয়েছে!");
-    return;
-  }
+    function startSpin() {
+      if (isSpinning) return;
+      isSpinning = true; document.getElementById("spinButton").disabled = true;
+      const winIdx = Math.floor(Math.random() * spinRewards.length);
+      const arc = (2 * Math.PI) / spinRewards.length;
+      const target = (3 * Math.PI / 2) - (winIdx * arc + arc / 2) + (8 * Math.PI * 2);
+      
+      let start = null;
+      function animate(t) {
+        if (!start) start = t;
+        const progress = (t - start) / 3000;
+        if (progress < 1) {
+          currentAngle = (1 - Math.pow(1 - progress, 3)) * target;
+          drawWheel(); requestAnimationFrame(animate);
+        } else {
+          currentAngle = target; drawWheel(); isSpinning = false;
+          document.getElementById("spinButton").disabled = false;
+          addRewardToWallet(spinRewards[winIdx]); launchConfetti(); playRewardSoundSequence(); closeModal("spinModal");
+        }
+      }
+      requestAnimationFrame(animate);
+    }
 
-  if (!scratchUnlocked || scratchUsed) {
-    playSound('error');
-    showToast("🚫 এই Code দিয়ে Scratch ইতিমধ্যেই ব্যবহার করা হয়েছে!");
-    return;
-  }
+    // Scratch Card Engine
+    function initScratchCard() {
+      const canvas = document.getElementById("scratchCanvas"); if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      currentScratchReward = spinRewards[Math.floor(Math.random() * spinRewards.length)];
+      document.getElementById("scratchPrizeText").innerText = currentScratchReward.label;
+      document.getElementById("scratchClaimBtn").style.display = "none";
+      isScratchClaimed = false;
 
-  if (!currentScratchReward || scratchProgress < 55) {
-    showToast("⚠️ আগে Scratch Card ঘষে Reward প্রকাশ করুন!");
-    return;
-  }
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "#b0bec5"; ctx.fillRect(0, 0, 220, 140);
+      ctx.fillStyle = "#37474f"; ctx.font = "bold 14px sans-serif"; ctx.textAlign = "center";
+      ctx.fillText("এখানে ঘষুন 🪙", 110, 75);
 
-  isScratchClaimed = true;
-  scratchUsed = true;
-  scratchUnlocked = false;
+      let drawing = false;
+      function scratch(e) {
+        if (!drawing) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = (e.clientX || e.touches[0].clientX) - rect.left;
+        const y = (e.clientY || e.touches[0].clientY) - rect.top;
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath(); ctx.arc(x, y, 16, 0, Math.PI * 2); ctx.fill();
+        document.getElementById("scratchClaimBtn").style.display = "block";
+      }
+      canvas.onmousedown = canvas.ontouchstart = () => drawing = true;
+      canvas.onmouseup = canvas.ontouchend = () => drawing = false;
+      canvas.onmousemove = canvas.ontouchmove = scratch;
+    }
 
-  saveRewardCodeState();
-  updateRewardUnlockUI();
+    function openScratchModal() { openModal("scratchModal"); initScratchCard(); }
+    function claimScratchReward() {
+      if (isScratchClaimed) return;
+      isScratchClaimed = true;
+      addRewardToWallet(currentScratchReward); launchConfetti(); playRewardSoundSequence(); closeModal("scratchModal");
+    }
 
-  const reward = currentScratchReward;
+    // QR & Share
+    function openScannerModal() { openModal("scannerModal"); }
+    function startRealScanner() {
+      if (!navigator.mediaDevices?.getUserMedia) return showToast("⚠️ Camera support করছে না");
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(s => {
+        showToast("📷 Camera চালু হয়েছে"); setTimeout(() => s.getTracks().forEach(t => t.stop()), 3000);
+      }).catch(() => showToast("⚠️ Camera Permission দিন"));
+     }function openReferralModal() { openModal("referralModal"); }
+    function shareReferral() {
+      const msg = "🍄 Kundu Care-এ Join করুন এবং Reward পান!";
+      if (navigator.share) navigator.share({ title: "Kundu Care", text: msg });
+      else { navigator.clipboard.writeText(msg); showToast("👥 Link কপি হয়েছে!"); }
+    }
 
-  if (reward.type === "cash") {
-    wallet += reward.value;
-    document.getElementById("walletBalance").innerText = wallet.toFixed(2);
-    showToast(`🎉 ₹${reward.value} Cashback Wallet-এ যোগ হয়েছে!`);
-    addAuditLog(`SCRATCH CASH REWARD: +₹${reward.value}`);
-  } else if (reward.type === "mushroom") {
-    coins += reward.value;
-    document.getElementById("coinBalance").innerText = coins;
-    showToast(`🍄 ${reward.value} ছাতু Reward যোগ হয়েছে!`);
-    addAuditLog(`SCRATCH MUSHROOM REWARD: +${reward.value} ছাতু`);
-  }
+    // Withdraw Engines
+    function openCashWithdraw() {
+      document.getElementById("cashWithdrawAmount").innerText = "₹" + cashWallet.toFixed(2);
+      openModal("cashWithdrawModal");
+    }
 
-  playSound("win");
-  launchConfetti();
-  advanceStep(3);
-  closeModal("scratchModal");
-  currentScratchReward = null;
-}
+    async function cashOut() {
+      if (isSubmitting) return;
+      const name = document.getElementById("cashWithdrawName").value.trim();
+      const phone = document.getElementById("cashWithdrawPhone").value.trim();
+      const yes = document.getElementById("cashWithdrawConfirm").value.trim().toUpperCase();
 
-/* WITHDRAW SYSTEM */
-function openWithdrawModal() {
-  const balance = Number(wallet || 0);
-  if (balance <= 0) {
-    playSound("error");
-    showToast("⚠️ আপনার Wallet Balance নেই!");
-    return;
-  }
-  document.getElementById("withdrawBalance").innerText = balance.toFixed(2);
-  openModal("withdrawModal");
-}
+      if (name.length < 2 || phone.length < 10) return showToast("⚠️ তথ্য সঠিকভাবে পূরণ করুন");
+      if (yes !== "YES") return showToast('⚠️ "YES" টাইপ করুন');
+      if (cashWallet <= 0) return showToast("⚠️ Wallet খালি");
 
-function confirmWithdraw() {
-  const oldBalance = Number(wallet || 0);
-  if (oldBalance <= 0) {
-    playSound("error");
-    showToast("⚠️ Withdraw করার মতো কোনো Balance নেই!");
-    closeModal("withdrawModal");
-    return;
-  }
+      isSubmitting = true;
+      const btn = document.getElementById("cashWithdrawButton");
+      btn.disabled = true; btn.innerText = "⏳ Processing...";
 
-  wallet = 0;
-  document.getElementById("walletBalance").innerText = "0.00";
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ type: "cash", name, phone, amount: cashWallet })
+        });
 
-  addAuditLog(`WITHDRAW CONFIRMED: ₹${oldBalance.toFixed(2)} → ₹0`);
+        cashWallet = 0;
+        document.getElementById("cashWalletBalance").innerText = "0.00";
+        try { withdrawAudio.currentTime = 0; await withdrawAudio.play(); } catch(e){}
+        showToast("✅ Cash Out সফল হয়েছে!"); closeModal("cashWithdrawModal");
+      } catch (e) {
+        showToast("❌ সার্ভারে সমস্যা হয়েছে");
+      } finally {
+        isSubmitting = false; btn.disabled = false; btn.innerText = "💸 YES — CASH OUT";
+      }
+    }
 
-  const activityContainer = document.getElementById("activityContainer");
-  const newItem = document.createElement("div");
-  newItem.className = "activity-item";
-  newItem.innerHTML = `
-    <div class="activity-icon" style="background:#ffebee;color:#d32f2f;">
-      <i class="fa-solid fa-money-bill-transfer"></i>
-    </div>
-    <div class="activity-info">
-      <strong>Balance Withdrawn</strong>
-      <small>এইমাত্র • Wallet Balance Reset</small>
-    </div>
-    <div class="amount" style="color:#d32f2f;">
-      -₹${oldBalance.toFixed(2)}
-    </div>
-  `;
-  activityContainer.prepend(newItem);
+    function openMushroomWithdraw() {
+      document.getElementById("mushroomWithdrawAmount").innerText = mushroomWallet + " 🍄";
+      openModal("mushroomWithdrawModal");
+    }
 
-  playSound("win");
-  closeModal("withdrawModal");
-  showToast(`✅ ₹${oldBalance.toFixed(2)} Withdraw করা হয়েছে। Balance ₹0`);
-}
-
-/* MISSION SYSTEM */
-function claimMission(amount) {
-  coins += amount;
-  playSound('win');
-  document.getElementById("coinBalance").innerText = coins;
-  showToast(`🎯 Mission Complete! +${amount} Mushroom Coins`);
-  addAuditLog(`MISSION CLAIMED: +${amount} Coins`);
-}
-
-/* NAVIGATION SYSTEM */
-function setNav(element) {
-  document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
-  element.classList.add("active");
-}
-
-/* SPIN COUNTDOWN TIMER */
-let spinTimeLeft = 5 * 60;
-function updateSpinCountdown() {
-  const timer = document.getElementById("spinCountdown");
-  if(!timer) return;
-
-  const minutes = Math.floor(spinTimeLeft / 60);
-  const seconds = spinTimeLeft % 60;
-
-  timer.innerText = `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
-
-  if(spinTimeLeft <= 0) {
-    spinTimeLeft = 5 * 60;
-    showToast("⏰ নতুন Spin Time শুরু হয়েছে!");
-  } else {
-    spinTimeLeft--;
-  }
-}
-setInterval(updateSpinCountdown, 1000);
-
-/* DOM INITIALIZATION */
-document.addEventListener("DOMContentLoaded", function() {
-  updateRewardUnlockUI();
-  updateSpinCountdown();
-});
-</script>
+    async function mushroomWhatsAppWithdraw() {
+      if (isSubmitting || mushroomWallet <= 0) return showToast("🍄 Wallet খালি");
+      isSubmitting = true;
+      
+      const reqId = Date.now().toString(36);
+      const msg = `🍄 Kundu Care Mushroom Withdraw Request\n\nMushroom: ${mushroomWallet} 🍄\nID: ${reqId}`;
+      window.open(`https://wa.me/${MUSHROOM_WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank");
+      
+      mushroomWallet = 0;
+      document.getElementById("mushroomWalletBalance").innerText = "0";
+      showToast("✅ WhatsApp Request পাঠানো হয়েছে!");
+      closeModal("mushroomWithdrawModal");
+      isSubmitting = false;
+    }
+  </script>
 </body>
 </html>
