@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>মাশরুম Family Membership- K.M. MART</title>
+  <title>Mushroom Family Membership- Kundu Care</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
     body{background:#f4f6f9;color:#333;padding:15px;max-width:480px;margin:0 auto;padding-bottom:85px}
@@ -49,7 +49,9 @@
     .nav-item.active{color:#2e7d32;font-weight:700}
   </style>
 </head>
-<body><audio id="clapSound" preload="none" src="clap.mp3"></audio>
+<body>
+
+  <audio id="clapSound" preload="none" src="clap.mp3"></audio>
   <audio id="rewardMoneySound" preload="none" src="Money%20sound.mp3"></audio>
   <audio id="withdrawMoneySound" preload="none" src="money.mp3"></audio>
 
@@ -100,9 +102,7 @@
     <button class="nav-item" onclick="openSpinModal()"><span style="font-size:18px">🎰</span><span>Spin</span></button>
     <button class="nav-item" onclick="openScratchModal()"><span style="font-size:18px">🪙</span><span>Scratch</span></button>
     <button class="nav-item" onclick="openReferralModal()"><span style="font-size:18px">👥</span><span>Refer</span></button>
-  </div>
-
-  <!-- QR SCANNER MODAL -->
+  </div><!-- QR SCANNER MODAL -->
   <div class="modal-overlay" id="scannerModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('scannerModal')">&times;</button>
@@ -152,34 +152,47 @@
   </div>
 
   <!-- CASH WITHDRAW MODAL -->
-  <div class="modal-overlay" id="cashWithdrawModal">
+  <div class="modal-overlay" id="withdrawModal">
     <div class="modal-content">
-      <button class="close-modal" onclick="closeModal('cashWithdrawModal')">&times;</button>
-      <h3>💰 Cash Wallet</h3>
+      <button class="close-modal" onclick="closeModal('withdrawModal')">&times;</button>
+      <h3>💰 Cash Wallet Withdraw</h3>
       <div id="cashWithdrawAmount" style="font-size:28px;font-weight:800;color:#2e7d32;margin:10px 0;">₹0.00</div>
-      <input id="cashWithdrawName" class="verify-input" type="text" placeholder="আপনার নাম">
-      <input id="cashWithdrawPhone" class="verify-input" type="tel" placeholder="ফোন নাম্বার" maxlength="15">
-      <input id="cashWithdrawConfirm" class="verify-input" type="text" placeholder='Cash Out করতে "YES" লিখুন'>
-      <button id="cashWithdrawButton" class="primary-btn" onclick="cashOut()">💸 YES — CASH OUT</button>
+      <input id="withdrawName" class="verify-input" type="text" placeholder="আপনার নাম">
+      <input id="withdrawPhone" class="verify-input" type="tel" placeholder="ফোন নম্বর" maxlength="15">
+      <button id="withdrawConfirmBtn" class="primary-btn" onclick="confirmWithdraw()">💸 CONFIRM WITHDRAW</button>
     </div>
-         </div><!-- MUSHROOM WITHDRAW MODAL -->
+  </div>
+
+  <!-- MUSHROOM WITHDRAW MODAL -->
   <div class="modal-overlay" id="mushroomWithdrawModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('mushroomWithdrawModal')">&times;</button>
+
       <h3>🍄 Mushroom Withdraw</h3>
-      <div id="mushroomWithdrawAmount" style="font-size:28px;font-weight:800;color:#ff8f00;margin:10px 0;">0 🍄</div>
-      <button id="mushroomWithdrawButton" class="primary-btn" style="background:#25D366;" onclick="mushroomWhatsAppWithdraw()">📲 WhatsApp Withdraw</button>
+
+      <div id="mushroomWithdrawAmount" style="font-size:28px;font-weight:800;color:#ff8f00;margin:10px 0;">
+        0 🍄
+      </div>
+
+      <input id="mushroomWithdrawName" class="verify-input" type="text" placeholder="আপনার নাম" autocomplete="name">
+      <input id="mushroomWithdrawPhone" class="verify-input" type="tel" placeholder="ফোন নম্বর" maxlength="15" autocomplete="tel">
+
+      <button id="mushroomWithdrawButton" class="primary-btn" style="background:#25D366;" onclick="mushroomWhatsAppWithdraw()">
+        📲 CONFIRM WITHDRAW
+      </button>
     </div>
   </div>
 
   <div id="toast"></div>
 
   <script>
-    // System APIs & Fast Data Lookup
-    const API_URL = "https://script.google.com/macros/s/AKfycbzPJ30nGb-vn2PPD5WvE03QXol2rphSFK6itJ0akka6aseWla-KH-nmJuGrc0nGBXau/exec";
+    // API Configurations
+    const API_URL = "https://script.google.com/macros/s/AKfycbxXjvFXewxQ_vlFNlapCOOQfm60A1Zw9yEDunmKVZzs3ABkdEGI34wqiv-X8HMN8tSrCA/exec";
+    const API_SECRET = "KUNDU_CARE_2026_SECURE";
+    const CUSTOMER_ID = "KM001";
     const MUSHROOM_WHATSAPP = "917047643951";
 
-    // Set structure for O(1) ultra-fast lookup
+    // Valid Reward Codes Database
     const VALID_REWARD_CODES = new Set([
       "85NB","34CD","72KF","19QX","46MT","83RA","27LP","91ZW","54HG","68VC","42JP","76XR","13BM","59QK","87DL","25NF","63TZ","48CW","97HS","31VG","56PK","82RM","14YX","69JB","37QN","95KC","21WF","74MD","43RX","88LP","16GH","52ZT","79BV","35NK","61QD","28XF","94MR","47TC","73HJ","89WP","24KS","58DL","92FQ","17XZ","66NB","39RK","81CV","45GM","53YP","78TJ",
       "12AB","23CD","34EF","45GH","56JK","67LM","78NP","89QR","90ST","11UV","22WX","33YZ","44AC","55BD","66CE","77DF","88EG","99FH","10GJ","20HK","30IL","40JM","50KN","60LP","70MQ","80NR","90PS","15QT","25RU","35SV","45TW","55UX","65VY","75WA","85XB","95YC","18ZD","28AE","38BF","48CG","58DH","68EJ","78FK","88GL","98HM","19JN","29KP","39LQ","49MR","59NS",
@@ -193,9 +206,54 @@
       "23JS","76KT","48LU","91MV","35NW","62OX","84PY","17QZ","53RA","79SB","46TC","28UD","65VE","93WF","14XG","57YH","81ZI","39AJ","72BK","25CL","68DM","47EN","86FO","19GP","54HQ","73IR","32JS","95KT","41LU","67MV","82NW","26OX","58PY","94QZ","15RA","63SB","87TC","34UD","71VE","49WF",
       "92XG","38YH","56ZI","24AJ","69BK","83CL","17DM","45EN","78FO","31GP","64HQ","86IR","29JS","57KT","93LU","42MV","75NW","18OX","61PY","84QZ","35RA","72SB","49TC","96UD","27VE","53WF","81XG","16YH","68ZI","43AJ","95BK","37CL","62DM","89EN","14FO","76GP","51HQ","28IR","63JS","85KT",
       "47LU","91MV","36NW","74OX","52PY","69QZ","18RA","83SB","45TC","27UD","64VE","92WF","31XG","58YH","76ZI","13AJ","54BK","87CL","29DM","61EN","73FO","48GP","95HQ","26IR","82JS","39KT","67LU","15MV","94NW","43OX","71PY","58QZ","32RA","86SB","24TC","79UD","53VE","68WF","17XG","91YH"
-    ]);// App State Variables
-    let cashWallet = 120.00, mushroomWallet = 450;
-    let isSubmitting = false, isSpinning = false, isScratchClaimed = false, currentScratchReward = null;
+    ]);// Wallet States & Flags
+    let wallet = 120.00;
+    let mushroomWallet = 450;
+    let isSpinning = false, isScratchClaimed = false, currentScratchReward = null;
+
+    // ==========================================
+    // ONE-TIME REWARD CODE SYSTEM
+    // Apps Script / Backend NOT REQUIRED
+    // ==========================================
+    const USED_CODES_KEY = "KUNDU_USED_REWARD_CODES_V1";
+    const ACTIVE_CODE_KEY = "KUNDU_ACTIVE_REWARD_CODE_V1";
+    const ACTIVE_TYPE_KEY = "KUNDU_ACTIVE_REWARD_TYPE_V1";
+
+    function getUsedCodes() {
+      try {
+        const data = localStorage.getItem(USED_CODES_KEY);
+        return data ? JSON.parse(data) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveUsedCodes(codes) {
+      localStorage.setItem(USED_CODES_KEY, JSON.stringify([...new Set(codes)]));
+    }
+
+    function isCodeUsed(code) {
+      return getUsedCodes().includes(code);
+    }
+
+    function markCodeUsed(code) {
+      const used = getUsedCodes();
+      if (!used.includes(code)) {
+        used.push(code);
+        saveUsedCodes(used);
+      }
+      localStorage.removeItem(ACTIVE_CODE_KEY);
+      localStorage.removeItem(ACTIVE_TYPE_KEY);
+    }
+
+    function getActiveCode() { return localStorage.getItem(ACTIVE_CODE_KEY); }
+    function getActiveRewardType() { return localStorage.getItem(ACTIVE_TYPE_KEY); }
+    function setActiveCode(code) { localStorage.setItem(ACTIVE_CODE_KEY, code); }
+    function setActiveRewardType(type) { localStorage.setItem(ACTIVE_TYPE_KEY, type); }
+    function clearActiveRewardSession() {
+      localStorage.removeItem(ACTIVE_CODE_KEY);
+      localStorage.removeItem(ACTIVE_TYPE_KEY);
+    }
 
     const spinRewards = [
       { type: "cash", amount: 25, label: "₹25 💵" },
@@ -206,7 +264,7 @@
       { type: "cash", amount: 10, label: "₹10 💵" }
     ];
 
-    // Modal Helpers
+    // Helper Utility Functions
     const openModal = id => document.getElementById(id).classList.add("active");
     const closeModal = id => document.getElementById(id).classList.remove("active");
     const closeAllModals = () => document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
@@ -254,35 +312,69 @@
     function addRewardToWallet(reward) {
       if (!reward) return;
       if (reward.type === "cash") {
-        cashWallet += Number(reward.amount);
-        document.getElementById("cashWalletBalance").innerText = cashWallet.toFixed(2);
+        wallet += Number(reward.amount);
+        document.getElementById("cashWalletBalance").innerText = wallet.toFixed(2);
         showToast(`💰 ₹${reward.amount} Cash Wallet-এ জমা হয়েছে`);
       } else {
         mushroomWallet += Number(reward.amount);
         document.getElementById("mushroomWalletBalance").innerText = mushroomWallet;
         showToast(`🍄 ${reward.amount} Mushroom Wallet-এ জমা হয়েছে`);
       }
-    }
-
-    // Reward Code Engine (O(1) Check)
-    function verifyRewardCode() {
+    }// Code Verification Engine
+    async function verifyRewardCode() {
       const codeInput = document.getElementById("rewardCodeInput");
       const code = codeInput.value.trim().toUpperCase();
-      if (!code) return showToast("⚠️ কুপন কোডটি লিখুন");
 
-      if (VALID_REWARD_CODES.has(code)) {
-        addRewardToWallet({ type: "cash", amount: 20 });
-        launchConfetti();
-        playRewardSoundSequence();
-        VALID_REWARD_CODES.delete(code); // prevent reuse
-        codeInput.value = "";
-        closeModal("scannerModal");
-      } else {
-        showToast("❌ অবৈধ বা ব্যবহৃত কুপন কোড!");
+      if (!code) {
+        showToast("⚠️ কুপন কোডটি লিখুন");
+        return;
       }
+
+      if (!VALID_REWARD_CODES.has(code)) {
+        showToast("❌ Invalid Reward Code");
+        return;
+      }
+
+      if (isCodeUsed(code)) {
+        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার করা হয়েছে");
+        return;
+      }
+
+      const oldActiveCode = getActiveCode();
+      if (oldActiveCode && oldActiveCode !== code) {
+        showToast("⚠️ আগে থাকা Reward সম্পূর্ণ করুন");
+        return;
+      }
+
+      setActiveCode(code);
+      codeInput.value = "";
+      closeModal("scannerModal");
+
+      showToast("✅ Code Verified! এখন SPIN অথবা SCRATCH করুন");
+      launchConfetti();
     }
 
-    // Spin Canvas Engine
+    // Spin Handlers
+    function openSpinModal() {
+      const code = getActiveCode();
+
+      if (!code) {
+        showToast("🎫 আগে একটি Reward Code Verify করুন");
+        openScannerModal();
+        return;
+      }
+
+      if (isCodeUsed(code)) {
+        clearActiveRewardSession();
+        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
+        return;
+      }
+
+      setActiveRewardType("spin");
+      openModal("spinModal");
+      drawWheel();
+    }
+
     let currentAngle = 0;
     function drawWheel() {
       const canvas = document.getElementById("spinCanvas"); if (!canvas) return;
@@ -301,32 +393,90 @@
       }
     }
 
-    function openSpinModal() { openModal("spinModal"); drawWheel(); }
-
     function startSpin() {
+      const code = getActiveCode();
+
+      if (!code) {
+        showToast("🎫 আগে Reward Code Verify করুন");
+        closeModal("spinModal");
+        openScannerModal();
+        return;
+      }
+
+      if (isCodeUsed(code)) {
+        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
+        closeModal("spinModal");
+        clearActiveRewardSession();
+        return;
+      }
+
+      const rewardType = getActiveRewardType();
+      if (rewardType !== "spin") {
+        showToast("⚠️ এই Code Spin-এর জন্য অনুমোদিত নয়");
+        return;
+      }
+
       if (isSpinning) return;
-      isSpinning = true; document.getElementById("spinButton").disabled = true;
+      isSpinning = true;
+
+      const spinButton = document.getElementById("spinButton");
+      spinButton.disabled = true;
+
       const winIdx = Math.floor(Math.random() * spinRewards.length);
       const arc = (2 * Math.PI) / spinRewards.length;
       const target = (3 * Math.PI / 2) - (winIdx * arc + arc / 2) + (8 * Math.PI * 2);
-      
+
       let start = null;
+
       function animate(t) {
         if (!start) start = t;
         const progress = (t - start) / 3000;
+
         if (progress < 1) {
           currentAngle = (1 - Math.pow(1 - progress, 3)) * target;
-          drawWheel(); requestAnimationFrame(animate);
+          drawWheel();
+          requestAnimationFrame(animate);
         } else {
-          currentAngle = target; drawWheel(); isSpinning = false;
-          document.getElementById("spinButton").disabled = false;
-          addRewardToWallet(spinRewards[winIdx]); launchConfetti(); playRewardSoundSequence(); closeModal("spinModal");
+          currentAngle = target;
+          drawWheel();
+          isSpinning = false;
+          spinButton.disabled = false;
+
+          const reward = spinRewards[winIdx];
+          addRewardToWallet(reward);
+          markCodeUsed(code);
+
+          launchConfetti();
+          playRewardSoundSequence();
+          showToast(`🎉 ${reward.label} জিতেছেন!`);
+          closeModal("spinModal");
         }
       }
+
       requestAnimationFrame(animate);
     }
 
-    // Scratch Card Engine
+    // Scratch Handlers
+    function openScratchModal() {
+      const code = getActiveCode();
+
+      if (!code) {
+        showToast("🎫 আগে একটি Reward Code Verify করুন");
+        openScannerModal();
+        return;
+      }
+
+      if (isCodeUsed(code)) {
+        clearActiveRewardSession();
+        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
+        return;
+      }
+
+      setActiveRewardType("scratch");
+      openModal("scratchModal");
+      initScratchCard();
+    }
+
     function initScratchCard() {
       const canvas = document.getElementById("scratchCanvas"); if (!canvas) return;
       const ctx = canvas.getContext("2d");
@@ -341,97 +491,213 @@
       ctx.fillText("এখানে ঘষুন 🪙", 110, 75);
 
       let drawing = false;
+
       function scratch(e) {
         if (!drawing) return;
+
         const rect = canvas.getBoundingClientRect();
-        const x = (e.clientX || e.touches[0].clientX) - rect.left;
-        const y = (e.clientY || e.touches[0].clientY) - rect.top;
+        const clientX = e.clientX ?? (e.touches && e.touches[0]?.clientX);
+        const clientY = e.clientY ?? (e.touches && e.touches[0]?.clientY);
+
+        if (clientX == null || clientY == null) return;
+
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
         ctx.globalCompositeOperation = "destination-out";
-        ctx.beginPath(); ctx.arc(x, y, 16, 0, Math.PI * 2); ctx.fill();
-        document.getElementById("scratchClaimBtn").style.display = "block";
+        ctx.beginPath();
+        ctx.arc(x, y, 16, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Check Scratch percentage (Minimum 40%)
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let transparent = 0;
+
+        for (let i = 3; i < imageData.data.length; i += 4) {
+          if (imageData.data[i] === 0) {
+            transparent++;
+          }
+        }
+
+        const percentage = transparent / (canvas.width * canvas.height);
+
+        if (percentage >= 0.40) {
+          document.getElementById("scratchClaimBtn").style.display = "block";
+        }
       }
+
       canvas.onmousedown = canvas.ontouchstart = () => drawing = true;
       canvas.onmouseup = canvas.ontouchend = () => drawing = false;
       canvas.onmousemove = canvas.ontouchmove = scratch;
     }
 
-    function openScratchModal() { openModal("scratchModal"); initScratchCard(); }
     function claimScratchReward() {
       if (isScratchClaimed) return;
+
+      const code = getActiveCode();
+
+      if (!code) {
+        showToast("🎫 Reward Code পাওয়া যায়নি");
+        closeModal("scratchModal");
+        return;
+      }
+
+      if (isCodeUsed(code)) {
+        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
+        closeModal("scratchModal");
+        clearActiveRewardSession();
+        return;
+      }
+
+      const rewardType = getActiveRewardType();
+      if (rewardType !== "scratch") {
+        showToast("⚠️ এই Code Scratch-এর জন্য অনুমোদিত নয়");
+        return;
+      }
+
+      if (!currentScratchReward) {
+        showToast("⚠️ Scratch Reward পাওয়া যায়নি");
+        return;
+      }
+
       isScratchClaimed = true;
-      addRewardToWallet(currentScratchReward); launchConfetti(); playRewardSoundSequence(); closeModal("scratchModal");
+      addRewardToWallet(currentScratchReward);
+      markCodeUsed(code);
+
+      launchConfetti();
+      playRewardSoundSequence();
+      showToast(`🎉 ${currentScratchReward.label} জিতেছেন!`);
+      closeModal("scratchModal");
     }
 
-    // QR & Share
+    // Modals & Camera Triggers
     function openScannerModal() { openModal("scannerModal"); }
     function startRealScanner() {
       if (!navigator.mediaDevices?.getUserMedia) return showToast("⚠️ Camera support করছে না");
       navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(s => {
         showToast("📷 Camera চালু হয়েছে"); setTimeout(() => s.getTracks().forEach(t => t.stop()), 3000);
       }).catch(() => showToast("⚠️ Camera Permission দিন"));
-     }function openReferralModal() { openModal("referralModal"); }
+    }
+
+    function openReferralModal() { openModal("referralModal"); }
     function shareReferral() {
       const msg = "🍄 Kundu Care-এ Join করুন এবং Reward পান!";
       if (navigator.share) navigator.share({ title: "Kundu Care", text: msg });
       else { navigator.clipboard.writeText(msg); showToast("👥 Link কপি হয়েছে!"); }
     }
 
-    // Withdraw Engines
     function openCashWithdraw() {
-      document.getElementById("cashWithdrawAmount").innerText = "₹" + cashWallet.toFixed(2);
-      openModal("cashWithdrawModal");
+      document.getElementById("cashWithdrawAmount").innerText = "₹" + wallet.toFixed(2);
+      openModal("withdrawModal");
     }
 
-    async function cashOut() {
-      if (isSubmitting) return;
-      const name = document.getElementById("cashWithdrawName").value.trim();
-      const phone = document.getElementById("cashWithdrawPhone").value.trim();
-      const yes = document.getElementById("cashWithdrawConfirm").value.trim().toUpperCase();
+    // Cash Withdraw API Integration
+    async function confirmWithdraw(){
+      const amount = Number(wallet || 0);
 
-      if (name.length < 2 || phone.length < 10) return showToast("⚠️ তথ্য সঠিকভাবে পূরণ করুন");
-      if (yes !== "YES") return showToast('⚠️ "YES" টাইপ করুন');
-      if (cashWallet <= 0) return showToast("⚠️ Wallet খালি");
+      if(amount <= 0){
+        showToast("⚠️ Balance নেই");
+        return;
+  }const name = document.getElementById("withdrawName").value.trim();
+      const phone = document.getElementById("withdrawPhone").value.trim();
 
-      isSubmitting = true;
-      const btn = document.getElementById("cashWithdrawButton");
-      btn.disabled = true; btn.innerText = "⏳ Processing...";
+      if(!name || !phone){
+        showToast("নাম ও ফোন নম্বর দিন");
+        return;
+      }
+
+      const btn = document.getElementById("withdrawConfirmBtn");
+      btn.disabled = true;
+      btn.innerText = "⏳ Processing...";
 
       try {
-        const response = await fetch(API_URL, {
+        const res = await fetch(API_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({ type: "cash", name, phone, amount: cashWallet })
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify({
+            secret: API_SECRET,
+            action: "cashWithdraw",
+            customerId: CUSTOMER_ID,
+            name: name,
+            phone: phone,
+            amount: amount
+          })
         });
 
-        cashWallet = 0;
-        document.getElementById("cashWalletBalance").innerText = "0.00";
-        try { withdrawAudio.currentTime = 0; await withdrawAudio.play(); } catch(e){}
-        showToast("✅ Cash Out সফল হয়েছে!"); closeModal("cashWithdrawModal");
-      } catch (e) {
-        showToast("❌ সার্ভারে সমস্যা হয়েছে");
+        const data = await res.json();
+
+        if(data.success){
+          wallet = 0;
+          document.getElementById("cashWalletBalance").innerText = "0.00";
+          try { withdrawAudio.currentTime = 0; await withdrawAudio.play(); } catch(e){}
+          showToast("✅ Withdraw Request পাঠানো হয়েছে");
+          closeModal("withdrawModal");
+        } else {
+          showToast("❌ " + data.message);
+        }
+      } catch(e) {
+        console.error(e);
+        showToast("❌ Server Error");
       } finally {
-        isSubmitting = false; btn.disabled = false; btn.innerText = "💸 YES — CASH OUT";
+        btn.disabled = false;
+        btn.innerText = "💸 CONFIRM WITHDRAW";
       }
     }
 
+    // Mushroom Withdraw WhatsApp Integration
     function openMushroomWithdraw() {
       document.getElementById("mushroomWithdrawAmount").innerText = mushroomWallet + " 🍄";
       openModal("mushroomWithdrawModal");
     }
 
-    async function mushroomWhatsAppWithdraw() {
-      if (isSubmitting || mushroomWallet <= 0) return showToast("🍄 Wallet খালি");
-      isSubmitting = true;
-      
-      const reqId = Date.now().toString(36);
-      const msg = `🍄 Kundu Care Mushroom Withdraw Request\n\nMushroom: ${mushroomWallet} 🍄\nID: ${reqId}`;
-      window.open(`https://wa.me/${MUSHROOM_WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank");
-      
+    function mushroomWhatsAppWithdraw() {
+      if (mushroomWallet <= 0) {
+        showToast("🍄 Mushroom Wallet খালি");
+        return;
+      }
+
+      const name = document.getElementById("mushroomWithdrawName").value.trim();
+      const phone = document.getElementById("mushroomWithdrawPhone").value.trim();
+
+      if (!name) {
+        showToast("⚠️ আপনার নাম লিখুন");
+        return;
+      }
+
+      const cleanPhone = phone.replace(/\D/g, "");
+      if (cleanPhone.length < 10) {
+        showToast("⚠️ সঠিক ফোন নম্বর দিন");
+        return;
+      }
+
+      const amount = mushroomWallet;
+      const reqId = "KM-" + Date.now().toString(36).toUpperCase();
+
+      const msg = 
+`🍄 KUNDU CARE
+Mushroom Withdraw Request
+
+👤 নাম: ${name}
+📱 ফোন: ${phone}
+
+🍄 Mushroom Balance: ${amount}
+
+🆔 Request ID: ${reqId}
+
+আমি আমার Mushroom Wallet-এর ${amount} 🍄 Withdraw করতে চাই।`;
+
+      const whatsappURL = `https://wa.me/${MUSHROOM_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+      window.open(whatsappURL, "_blank");
+
       mushroomWallet = 0;
       document.getElementById("mushroomWalletBalance").innerText = "0";
-      showToast("✅ WhatsApp Request পাঠানো হয়েছে!");
+      document.getElementById("mushroomWithdrawName").value = "";
+      document.getElementById("mushroomWithdrawPhone").value = "";
+
+      showToast("✅ Withdraw Request WhatsApp-এ তৈরি হয়েছে!");
       closeModal("mushroomWithdrawModal");
-      isSubmitting = false;
     }
   </script>
 </body>
