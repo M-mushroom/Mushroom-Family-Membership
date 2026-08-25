@@ -85,7 +85,9 @@
     #scratchCanvas{position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer}
     .scanner-box{width:140px;height:140px;margin:15px auto;position:relative;border-radius:12px;overflow:hidden}
     .scanner-gif{width:100%;height:100%;object-fit:cover}
-    #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}/* BOTTOM NAV */
+    #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}
+    
+    /* BOTTOM NAV */
     .bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;height:82px!important;padding:8px 8px 7px!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(46,125,50,.12)!important;box-shadow:0 -8px 25px rgba(0,0,0,.10)!important;border-radius:22px 22px 0 0;display:flex;justify-content:space-around;z-index:999}
     .nav-item{position:relative;width:24%;height:68px;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;background:none;transition:transform .25s ease,background .25s ease,color .25s ease}
     .nav-item span:first-child{font-size:24px!important;line-height:28px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.12))}
@@ -100,9 +102,7 @@
 
   <audio id="clapSound" preload="none" src="clap.mp3"></audio>
   <audio id="rewardMoneySound" preload="none" src="Money%20sound.mp3"></audio>
-  <audio id="withdrawMoneySound" preload="none" src="money.mp3"></audio>
-
-  <!-- HEADER -->
+  <audio id="withdrawMoneySound" preload="none" src="money.mp3"></audio><!-- HEADER -->
   <div class="app-header">
     <div>
       <h1>Kundu Mushroom Farm</h1>
@@ -141,7 +141,9 @@
       <strong><span id="mushroomWalletBalance">450</span> 🍄</strong>
       <button class="premium-whatsapp-btn" onclick="openMushroomWithdraw()"><span>📲</span><b>WhatsApp Cash Out</b></button>
     </div>
-      </div><!-- QUICK ACTIONS -->
+  </div>
+
+  <!-- QUICK ACTIONS -->
   <div class="quick-grid">
     <button class="quick" onclick="openScannerModal()">
       <img src="Scaner.gif" class="quick-image verify" alt="Scanner">
@@ -245,279 +247,487 @@
   <div id="toast"></div>
 
   <script>
-    const API_URL="https://script.google.com/macros/s/AKfycbyOUqeB0hYZPVY7vjlP1uxAqhgFjis8dPcS8HHRmRDlz7sKRjvgGDQLIC9Fres0LSLreg/exec",API_SECRET="KUNDU_CARE_2026_SECURE",CUSTOMER_ID="KM001",MUSHROOM_WHATSAPP="917047643951";
+    const API_URL = "https://script.google.com/macros/s/AKfycbyOUqeB0hYZPVY7vjlP1uxAqhgFjis8dPcS8HHRmRDlz7sKRjvgGDQLIC9Fres0LSLreg/exec";
+    const API_SECRET = "KUNDU_CARE_2026_SECURE";
+    const CUSTOMER_ID = "KM001";
+    const MUSHROOM_WHATSAPP = "917047643951";
 
-    function updateWalletUI(){
-      const cash = document.getElementById("cashWalletBalance");
-      const mushroom = document.getElementById("mushroomWalletBalance");
+    const VALID_REWARD_CODES = new Set(["85NB","34CD","72KF","19QX","46MT","83RA","27LP","91ZW","54HG","68VC","42JP","76XR","13BM","59QK","87DL","25NF","63TZ","48CW","97HS","31VG","56PK","82RM","14YX","69JB","37QN","95KC","21WF","74MD","43RX","88LP","16GH","52ZT","79BV","35NK","61QD","28XF","94MR","47TC","73HJ","89WP","24KS","58DL","92FQ","17XZ","66NB","39RK","81CV","45GM","53YP","78TJ","12AB","23CD","34EF","45GH","56JK","67LM","78NP","89QR","90ST","11UV","22WX","33YZ","44AC","55BD","66CE","77DF","88EG","99FH","10GJ","20HK","30IL","40JM","50KN","60LP","70MQ","80NR","90PS","15QT","25RU","35SV","45TW","55UX","65VY","75WA","85XB","95YC","18ZD","28AE","38BF","48CG","58DH","68EJ","78FK","88GL","98HM","19JN","29KP","39LQ","49MR","59NS","64PT","71QW","86RX","93SY","57TZ","62UA","41VB","36WC","26XD","15YE","84ZF","73AG","52BH","91CI","47DJ","68EK","32FL","79GM","54HN","83IP","27JQ","96KR","18LS","45MT","69NU","37OV","82PW","14QX","58RY","71SZ","23TA","46UB","95VC","31WD","67XE","89YF","12ZG","53AH","76BI","98CJ","43DK","57EL","81FM","24GN","69HO","35IP","72JQ","46KR","93LS","18MT","54NU","87OV","21PW","65QX","39RY","74SZ","16TA","82UB","48VC","95WD","27XE","61YF","83ZG","42AH","79BI","15CJ","56DK","94EL","38FM","67GN","29HO","73IP","85JQ","41KR","62LS","97MT","34NU","58OV","76PW","19QX","44RA","63SB","28TC","91UD","57VE","36WF","82XG","14YH","75ZI","49AJ","68BK","23CL","95DM","17EN","54FO","79GP","31HQ","86IR","42JS","65KT","27LU","93MV","18NW","56OX","74PY","39QZ","81RA","45SB","62TC","97UD","13VE","58WF","26XG","84YH","71ZI","35AJ","69BK","92CL","47DM","16EN","53FO","78GP","24HQ","61IR","89JS","32KT","75LU","48MV","96NW","17OX","64PY","28QZ","83RA","41SB","59TC","72UD","36VE","95WF","14XG","67YH","82ZI","25AJ","43BK","91CL","58DM","76EN","39FO","64GP","18HQ","57IR","93JS","21KT","85LU","46MV","73NW","29OX","61PY","94QZ","37RA","52SB","68TC","15UD","84VE","32WF","79XG","46YH","91ZI","27AJ","53BK","75CL","18DM","62EN","49FO","87GP","35HQ","71IR","26JS","94KT","58LU","83MV","12NW","69OX","47PY","95QZ","31RA","76SB","54TC","89UD","23VE","67WF","42XG","81YH","36ZI","92AJ","57BK","14CL","73DM","48EN","65FO","29GP","86HQ","51IR","78JS","34KT","97LU","25MV","63NW","18OX","49PY","72QZ","41RA","85SB","27TC","69UD","53VE","91WF","16XG","74YH","38ZI","62AJ","95BK","43CL","81DM","24EN","56FO","78GP","31HQ","64IR","92JS","17KT","85LU","46MV","73NW","29OX","51PY","68QZ","34RA","79SB","15TC","87UD","42VE","63WF","28XG","94YH","71ZI","36AJ","58BK","82CL","19DM","67EN","45FO","93GP","21HQ","76IR","54JS","89KT","32LU","65MV","18NW","47OX","83PY","26QZ","59RA","74SB","13TC","68UD","91VE","35WF","57XG","82YH","24ZI","69AJ","43BK","78CL","16DM","95EN","31FO","64GP","52HQ","87IR","23JS","76KT","48LU","91MV","35NW","62OX","84PY","17QZ","53RA","79SB","46TC","28UD","65VE","93WF","14XG","57YH","81ZI","39AJ","72BK","25CL","68DM","47EN","86FO","19GP","54HQ","73IR","32JS","95KT","41LU","67MV","82NW","26OX","58PY","94QZ","15RA","63SB","87TC","34UD","71VE","49WF","92XG","38YH","56ZI","24AJ","69BK","83CL","17DM","45EN","78FO","31GP","64HQ","86IR","29JS","57KT","93LU","42MV","75NW","18OX","61PY","84QZ","35RA","72SB","49TC","96UD","27VE","53WF","81XG","16YH","68ZI","43AJ","95BK","37CL","62DM","89EN","14FO","76GP","51HQ","28IR","63JS","85KT","47LU","91MV","36NW","74OX","52PY","69QZ","18RA","83SB","45TC","27UD","64VE","92WF","31XG","58YH","76ZI","13AJ","54BK","87CL","29DM","61EN","73FO","48GP","95HQ","26IR","82JS","39KT","67LU","15MV","94NW","43OX","71PY","58QZ","32RA","86SB","24TC","79UD","53VE","68WF","17XG","91YH"]);
 
-      if(cash) cash.innerText = Number(wallet).toFixed(2);
-      if(mushroom) mushroom.innerText = Number(mushroomWallet);
+    let wallet = 120.00;
+    let mushroomWallet = 450;
+    let isSpinning = false;
+    let isScratchClaimed = false;
+    let currentScratchReward = null;
+    let currentAngle = 0;
+
+    const USED_CODES_KEY = "KUNDU_USED_REWARD_CODES_V1";
+    const ACTIVE_CODE_KEY = "KUNDU_ACTIVE_REWARD_CODE_V1";
+    const ACTIVE_TYPE_KEY = "KUNDU_ACTIVE_REWARD_TYPE_V1";
+
+    const spinRewards = [
+      {type: "cash", amount: 25, label: "₹25 💵"},
+      {type: "cash", amount: 15, label: "₹15 💵"},
+      {type: "cash", amount: 30, label: "₹30 💵"},
+      {type: "mushroom", amount: 200, label: "200 🍄"},
+      {type: "mushroom", amount: 150, label: "150 🍄"},
+      {type: "cash", amount: 10, label: "₹10 💵"}
+    ];
+
+    const clapAudio = document.getElementById("clapSound");
+    const moneyAudio = document.getElementById("rewardMoneySound");
+    const withdrawAudio = document.getElementById("withdrawMoneySound");
+
+    function $(id) { return document.getElementById(id); }
+
+    function updateWalletUI() {
+      const cash = $("cashWalletBalance");
+      const mushroom = $("mushroomWalletBalance");
+      if (cash) cash.innerText = Number(wallet).toFixed(2);
+      if (mushroom) mushroom.innerText = Number(mushroomWallet);
     }
 
-    const VALID_REWARD_CODES=new Set(["85NB","34CD","72KF","19QX","46MT","83RA","27LP","91ZW","54HG","68VC","42JP","76XR","13BM","59QK","87DL","25NF","63TZ","48CW","97HS","31VG","56PK","82RM","14YX","69JB","37QN","95KC","21WF","74MD","43RX","88LP","16GH","52ZT","79BV","35NK","61QD","28XF","94MR","47TC","73HJ","89WP","24KS","58DL","92FQ","17XZ","66NB","39RK","81CV","45GM","53YP","78TJ","12AB","23CD","34EF","45GH","56JK","67LM","78NP","89QR","90ST","11UV","22WX","33YZ","44AC","55BD","66CE","77DF","88EG","99FH","10GJ","20HK","30IL","40JM","50KN","60LP","70MQ","80NR","90PS","15QT","25RU","35SV","45TW","55UX","65VY","75WA","85XB","95YC","18ZD","28AE","38BF","48CG","58DH","68EJ","78FK","88GL","98HM","19JN","29KP","39LQ","49MR","59NS","64PT","71QW","86RX","93SY","57TZ","62UA","41VB","36WC","26XD","15YE","84ZF","73AG","52BH","91CI","47DJ","68EK","32FL","79GM","54HN","83IP","27JQ","96KR","18LS","45MT","69NU","37OV","82PW","14QX","58RY","71SZ","23TA","46UB","95VC","31WD","67XE","89YF","12ZG","53AH","76BI","98CJ","43DK","57EL","81FM","24GN","69HO","35IP","72JQ","46KR","93LS","18MT","54NU","87OV","21PW","65QX","39RY","74SZ","16TA","82UB","48VC","95WD","27XE","61YF","83ZG","42AH","79BI","15CJ","56DK","94EL","38FM","67GN","29HO","73IP","85JQ","41KR","62LS","97MT","34NU","58OV","76PW","19QX","44RA","63SB","28TC","91UD","57VE","36WF","82XG","14YH","75ZI","49AJ","68BK","23CL","95DM","17EN","54FO","79GP","31HQ","86IR","42JS","65KT","27LU","93MV","18NW","56OX","74PY","39QZ","81RA","45SB","62TC","97UD","13VE","58WF","26XG","84YH","71ZI","35AJ","69BK","92CL","47DM","16EN","53FO","78GP","24HQ","61IR","89JS","32KT","75LU","48MV","96NW","17OX","64PY","28QZ","83RA","41SB","59TC","72UD","36VE","95WF","14XG","67YH","82ZI","25AJ","43BK","91CL","58DM","76EN","39FO","64GP","18HQ","57IR","93JS","21KT","85LU","46MV","73NW","29OX","61PY","94QZ","37RA","52SB","68TC","15UD","84VE","32WF","79XG","46YH","91ZI","27AJ","53BK","75CL","18DM","62EN","49FO","87GP","35HQ","71IR","26JS","94KT","58LU","83MV","12NW","69OX","47PY","95QZ","31RA","76SB","54TC","89UD","23VE","67WF","42XG","81YH","36ZI","92AJ","57BK","14CL","73DM","48EN","65FO","29GP","86HQ","51IR","78JS","34KT","97LU","25MV","63NW","18OX","49PY","72QZ","41RA","85SB","27TC","69UD","53VE","91WF","16XG","74YH","38ZI","62AJ","95BK","43CL","81DM","24EN","56FO","78GP","31HQ","64IR","92JS","17KT","85LU","46MV","73NW","29OX","51PY","68QZ","34RA","79SB","15TC","87UD","42VE","63WF","28XG","94YH","71ZI","36AJ","58BK","82CL","19DM","67EN","45FO","93GP","21HQ","76IR","54JS","89KT","32LU","65MV","18NW","47OX","83PY","26QZ","59RA","74SB","13TC","68UD","91VE","35WF","57XG","82YH","24ZI","69AJ","43BK","78CL","16DM","95EN","31FO","64GP","52HQ","87IR","23JS","76KT","48LU","91MV","35NW","62OX","84PY","17QZ","53RA","79SB","46TC","28UD","65VE","93WF","14XG","57YH","81ZI","39AJ","72BK","25CL","68DM","47EN","86FO","19GP","54HQ","73IR","32JS","95KT","41LU","67MV","82NW","26OX","58PY","94QZ","15RA","63SB","87TC","34UD","71VE","49WF","92XG","38YH","56ZI","24AJ","69BK","83CL","17DM","45EN","78FO","31GP","64HQ","86IR","29JS","57KT","93LU","42MV","75NW","18OX","61PY","84QZ","35RA","72SB","49TC","96UD","27VE","53WF","81XG","16YH","68ZI","43AJ","95BK","37CL","62DM","89EN","14FO","76GP","51HQ","28IR","63JS","85KT","47LU","91MV","36NW","74OX","52PY","69QZ","18RA","83SB","45TC","27UD","64VE","92WF","31XG","58YH","76ZI","13AJ","54BK","87CL","29DM","61EN","73FO","48GP","95HQ","26IR","82JS","39KT","67LU","15MV","94NW","43OX","71PY","58QZ","32RA","86SB","24TC","79UD","53VE","68WF","17XG","91YH"]);
+    function getUsedCodes() {
+      try { return JSON.parse(localStorage.getItem(USED_CODES_KEY) || "[]"); } 
+      catch(e) { return []; }
+    }
 
-    let wallet=120.00,mushroomWallet=450,isSpinning=!1,isScratchClaimed=!1,currentScratchReward=null;
-    const USED_CODES_KEY="KUNDU_USED_REWARD_CODES_V1",ACTIVE_CODE_KEY="KUNDU_ACTIVE_REWARD_CODE_V1",ACTIVE_TYPE_KEY="KUNDU_ACTIVE_REWARD_TYPE_V1";
+    function saveUsedCodes(list) {
+      localStorage.setItem(USED_CODES_KEY, JSON.stringify([...new Set(list)]));
+    }
 
-    function getUsedCodes(){try{const e=localStorage.getItem(USED_CODES_KEY);return e?JSON.parse(e):[]}catch(e){return[]}}
-    function saveUsedCodes(e){localStorage.setItem(USED_CODES_KEY,JSON.stringify([...new Set(e)]))}
-    function isCodeUsed(e){return getUsedCodes().includes(e)}
-    function markCodeUsed(e){const t=getUsedCodes();t.includes(e)||(t.push(e),saveUsedCodes(t)),localStorage.removeItem(ACTIVE_CODE_KEY),localStorage.removeItem(ACTIVE_TYPE_KEY)}
-    function getActiveCode(){return localStorage.getItem(ACTIVE_CODE_KEY)}
-    function getActiveRewardType(){return localStorage.getItem(ACTIVE_TYPE_KEY)}
-    function setActiveCode(e){localStorage.setItem(ACTIVE_CODE_KEY,e)}
-    function setActiveRewardType(e){localStorage.setItem(ACTIVE_TYPE_KEY,e)}
-    function clearActiveRewardSession(){localStorage.removeItem(ACTIVE_CODE_KEY),localStorage.removeItem(ACTIVE_TYPE_KEY)}
+    function isCodeUsed(code) {
+      return getUsedCodes().includes(code);
+    }
 
-    const spinRewards=[{type:"cash",amount:25,label:"₹25 💵"},{type:"cash",amount:15,label:"₹15 💵"},{type:"cash",amount:30,label:"₹30 💵"},{type:"mushroom",amount:200,label:"200 🍄"},{type:"mushroom",amount:150,label:"150 🍄"},{type:"cash",amount:10,label:"₹10 💵"}];
-    
-    function openModal(id){
+    function markCodeUsed(code) {
+      let list = getUsedCodes();
+      if (!list.includes(code)) list.push(code);
+      saveUsedCodes(list);
+      clearActiveRewardSession();
+    }
+
+    function getActiveCode() { return localStorage.getItem(ACTIVE_CODE_KEY); }
+    function getActiveRewardType() { return localStorage.getItem(ACTIVE_TYPE_KEY); }
+    function setActiveCode(code) { localStorage.setItem(ACTIVE_CODE_KEY, code); }
+    function setActiveRewardType(type) { localStorage.setItem(ACTIVE_TYPE_KEY, type); }
+    function clearActiveRewardSession() {
+      localStorage.removeItem(ACTIVE_CODE_KEY);
+      localStorage.removeItem(ACTIVE_TYPE_KEY);
+    }
+
+    function openModal(id) {
       closeAllModals();
-      const el = document.getElementById(id);
-      if(el) el.classList.add("active");
-    }
-    
-    function closeModal(id){
-      const el = document.getElementById(id);
-      if(el) el.classList.remove("active");
-    }
-    
-    function closeAllModals(){
-      document.querySelectorAll(".modal-overlay").forEach(e=>e.classList.remove("active"));
+      const el = $(id);
+      if (el) el.classList.add("active");
     }
 
-    function switchTab(type){
-      document.querySelectorAll(".nav-item").forEach(b=>b.classList.remove("active"));
-      if(type === 'home'){
-        document.getElementById("navHome").classList.add("active");
+    function closeModal(id) {
+      const el = $(id);
+      if (el) el.classList.remove("active");
+    }
+
+    function closeAllModals() {
+      document.querySelectorAll(".modal-overlay").forEach(el => el.classList.remove("active"));
+    }
+
+    function showToast(msg) {
+      const t = $("toast");
+      if (!t) return;
+      t.innerText = msg;
+      t.style.display = "block";
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => { t.style.display = "none"; }, 3000);
+    }
+
+    function unlockAudio() {
+      [clapAudio, moneyAudio, withdrawAudio].forEach(audio => {
+        if (audio) {
+          audio.muted = true;
+          const promise = audio.play();
+          if (promise) {
+            promise.then(() => {
+              audio.pause();
+              audio.currentTime = 0;
+              audio.muted = false;
+            }).catch(() => {});
+          }
+        }
+      });
+    }
+    document.addEventListener("click", unlockAudio, { once: true });
+    document.addEventListener("touchstart", unlockAudio, { once: true });
+
+    async function playRewardSoundSequence() {
+      try {
+        if (clapAudio) {
+          clapAudio.currentTime = 0;
+          await clapAudio.play();
+        }
+        setTimeout(() => {
+          if (moneyAudio) {
+            moneyAudio.currentTime = 0;
+            moneyAudio.play().catch(() => {});
+          }
+        }, 1000);
+      } catch(e) {}
+    }
+
+    function launchConfetti() {
+      for (let i = 0; i < 35; i++) {
+        const c = document.createElement("div");
+        c.innerHTML = ["🎉", "✨", "💰", "🍄"][Math.floor(Math.random() * 4)];
+        c.style.cssText = `position:fixed;left:${Math.random() * 100}vw;top:-20px;font-size:${14 + Math.random() * 14}px;z-index:999999;pointer-events:none;transition:transform 2s linear,opacity 2s`;
+        document.body.appendChild(c);
+        setTimeout(() => {
+          c.style.transform = `translate(${(Math.random() - .5) * 200}px,${innerHeight + 50}px) rotate(360deg)`;
+          c.style.opacity = "0";
+        }, 20);
+        setTimeout(() => c.remove(), 2200);
+      }
+    }function addRewardToWallet(reward) {
+      if (!reward) return;
+      if (reward.type === "cash") {
+        wallet += Number(reward.amount);
+        showToast(`💰 ₹${reward.amount} Cash Wallet-এ জমা হয়েছে`);
+      } else {
+        mushroomWallet += Number(reward.amount);
+        showToast(`🍄 ${reward.amount} Mushroom Wallet-এ জমা হয়েছে`);
+      }
+      updateWalletUI();
+    }
+
+    function switchTab(type) {
+      document.querySelectorAll(".nav-item").forEach(b => b.classList.remove("active"));
+      if (type === "home") {
+        $("navHome").classList.add("active");
         closeAllModals();
-      } else if(type === 'spin'){
-        document.getElementById("navSpin").classList.add("active");
+      } else if (type === "spin") {
+        $("navSpin").classList.add("active");
         openSpinModal();
-      } else if(type === 'scratch'){
-        document.getElementById("navScratch").classList.add("active");
+      } else if (type === "scratch") {
+        $("navScratch").classList.add("active");
         openScratchModal();
-      } else if(type === 'refer'){
-        document.getElementById("navRefer").classList.add("active");
+      } else if (type === "refer") {
+        $("navRefer").classList.add("active");
         openReferralModal();
       }
     }
 
-    function showToast(e){const t=document.getElementById("toast");t.innerText=e,t.style.display="block",setTimeout(()=>{t.style.display="none"},3000)}
+    async function verifyRewardCode() {
+      const input = $("rewardCodeInput");
+      const code = input.value.trim().toUpperCase();
+      if (!code) return showToast("⚠️ কুপন কোডটি লিখুন");
+      if (!VALID_REWARD_CODES.has(code)) return showToast("❌ Invalid Reward Code");
+      if (isCodeUsed(code)) return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার করা হয়েছে");
+      
+      const active = getActiveCode();
+      if (active && active !== code) return showToast("⚠️ আগে থাকা Reward সম্পূর্ণ করুন");
+      
+      setActiveCode(code);
+      input.value = "";
+      closeModal("scannerModal");
+      showToast("✅ Code Verified! এখন SPIN অথবা SCRATCH করুন");
+      launchConfetti();
+    }
 
-    const clapAudio=document.getElementById("clapSound"),moneyAudio=document.getElementById("rewardMoneySound"),withdrawAudio=document.getElementById("withdrawMoneySound");
-    function unlockAudio(){[clapAudio,moneyAudio,withdrawAudio].forEach(e=>{e&&e.play?e.play().then(()=>{e.pause(),e.currentTime=0}).catch(()=>{}):null})}
-    document.addEventListener("click",unlockAudio,{once:!0});
+    function openScannerModal() { openModal("scannerModal"); }
 
-    async function playRewardSoundSequence(){try{if(clapAudio){clapAudio.currentTime=0;await clapAudio.play();}setTimeout(async()=>{if(moneyAudio){moneyAudio.currentTime=0;await moneyAudio.play();}},1000)}catch(e){}}
-    function launchConfetti(){for(let e=0;e<35;e++){const t=document.createElement("div");t.innerHTML=["🎉","✨","💰","🍄"][Math.floor(4*Math.random())],t.style.cssText=`position:fixed;left:${100*Math.random()}vw;top:-20px;font-size:${14+14*Math.random()}px;z-index:999999;pointer-events:none;transition:transform 2s linear, opacity 2s;`,document.body.appendChild(t),setTimeout(()=>{t.style.transform=`translate(${200*(Math.random()-.5)}px, ${window.innerHeight+50}px) rotate(360deg)`,t.style.opacity="0"},20),setTimeout(()=>t.remove(),2200)}}
+    function startRealScanner() {
+      if (!navigator.mediaDevices?.getUserMedia) return showToast("⚠️ Camera support করছে না");
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(stream => {
+          showToast("📷 Camera চালু হয়েছে");
+          setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5000);
+        })
+        .catch(() => showToast("⚠️ Camera Permission দিন"));
+    }
 
-    function addRewardToWallet(e){
-      if(e){
-        if("cash"===e.type){
-          wallet+=Number(e.amount);
-          showToast(`💰 ₹${e.amount} Cash Wallet-এ জমা হয়েছে`);
-        }else{
-          mushroomWallet+=Number(e.amount);
-          showToast(`🍄 ${e.amount} Mushroom Wallet-এ জমা হয়েছে`);
+    function drawWheel() {
+      const canvas = $("spinCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const arc = 2 * Math.PI / spinRewards.length;
+      const colors = ["#2e7d32", "#ff8f00", "#43a047", "#ffa726", "#66bb6a", "#ffb74d"];
+      
+      ctx.clearRect(0, 0, 240, 240);
+      spinRewards.forEach((reward, i) => {
+        const angle = currentAngle + i * arc;
+        ctx.beginPath();
+        ctx.fillStyle = colors[i];
+        ctx.moveTo(120, 120);
+        ctx.arc(120, 120, 115, angle, angle + arc);
+        ctx.fill();
+        
+        ctx.save();
+        ctx.translate(120, 120);
+        ctx.rotate(angle + arc / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 12px sans-serif";
+        ctx.fillText(reward.label, 100, 4);
+        ctx.restore();
+      });
+    }
+
+    function openSpinModal() {
+      const code = getActiveCode();
+      if (!code) {
+        showToast("🎫 আগে একটি Reward Code Verify করুন");
+        return openScannerModal();
+      }
+      if (isCodeUsed(code)) {
+        clearActiveRewardSession();
+        return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
+      }
+      setActiveRewardType("spin");
+      openModal("spinModal");
+      drawWheel();
+    }
+
+    function startSpin() {
+      const code = getActiveCode();
+      if (!code) {
+        closeModal("spinModal");
+        return openScannerModal();
+      }
+      if (isCodeUsed(code)) {
+        clearActiveRewardSession();
+        closeModal("spinModal");
+        return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
+      }
+      if (getActiveRewardType() !== "spin") return showToast("⚠️ এই Code Spin-এর জন্য অনুমোদিত নয়");
+      if (isSpinning) return;
+
+      isSpinning = true;
+      const btn = $("spinButton");
+      btn.disabled = true;
+      
+      const winIndex = Math.floor(Math.random() * spinRewards.length);
+      const arc = 2 * Math.PI / spinRewards.length;
+      const targetAngle = 1.5 * Math.PI - (winIndex * arc + arc / 2) + 16 * Math.PI;
+      let start = null;
+
+      function animate(time) {
+        if (!start) start = time;
+        const progress = (time - start) / 3000;
+        if (progress < 1) {
+          currentAngle = (1 - Math.pow(1 - progress, 3)) * targetAngle;
+          drawWheel();
+          requestAnimationFrame(animate);
+        } else {
+          currentAngle = targetAngle;
+          drawWheel();
+          isSpinning = false;
+          btn.disabled = false;
+          
+          const reward = spinRewards[winIndex];
+          addRewardToWallet(reward);
+          markCodeUsed(code);
+          launchConfetti();
+          playRewardSoundSequence();
+          showToast(`🎉 ${reward.label} জিতেছেন!`);
+          closeModal("spinModal");
         }
-        updateWalletUI();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    function openScratchModal() {
+      const code = getActiveCode();
+      if (!code) {
+        showToast("🎫 আগে একটি Reward Code Verify করুন");
+        return openScannerModal();
+      }
+      if (isCodeUsed(code)) {
+        clearActiveRewardSession();
+        return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
+      }
+      setActiveRewardType("scratch");
+      openModal("scratchModal");
+      initScratchCard();
+    }
+
+    function initScratchCard() {
+      const canvas = $("scratchCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      
+      currentScratchReward = spinRewards[Math.floor(Math.random() * spinRewards.length)];
+      $("scratchPrizeText").innerText = currentScratchReward.label;
+      $("scratchClaimBtn").style.display = "none";
+      isScratchClaimed = false;
+      
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "#b0bec5";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#37474f";
+      ctx.font = "bold 14px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("এখানে ঘষুন 🪙", 110, 75);
+      
+      let isDrawing = false;
+      const scratchPoint = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches ? e.touches[0] : null;
+        const x = (touch ? touch.clientX : e.clientX) - rect.left;
+        const y = (touch ? touch.clientY : e.clientY) - rect.top;
+        
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(x, y, 16, 0, Math.PI * 2);
+        ctx.fill();
+      };
+
+      canvas.onmousedown = () => isDrawing = true;
+      canvas.ontouchstart = (e) => {
+        isDrawing = true;
+        scratchPoint(e);
+        e.preventDefault();
+      };
+      
+      canvas.onmouseup = canvas.onmouseleave = canvas.ontouchend = () => isDrawing = false;
+      
+      canvas.onmousemove = (e) => {
+        if (isDrawing) scratchPoint(e);
+      };
+      
+      canvas.ontouchmove = (e) => {
+        if (isDrawing) {
+          scratchPoint(e);
+          e.preventDefault();
+          $("scratchClaimBtn").style.display = "block";
+        }
+      };
+      
+      canvas.onmousemove = () => {
+        if (isDrawing) $("scratchClaimBtn").style.display = "block";
+      };
+    }
+
+    function claimScratchReward() {
+      if (isScratchClaimed) return;
+      const code = getActiveCode();
+      if (!code) return showToast("🎫 Reward Code পাওয়া যায়নি");
+      if (isCodeUsed(code)) {
+        closeModal("scratchModal");
+        clearActiveRewardSession();
+        return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
+      }
+      if (getActiveRewardType() !== "scratch") return showToast("⚠️ এই Code Scratch-এর জন্য অনুমোদিত নয়");
+      if (!currentScratchReward) return showToast("⚠️ Scratch Reward পাওয়া যায়নি");
+
+      isScratchClaimed = true;
+      addRewardToWallet(currentScratchReward);
+      markCodeUsed(code);
+      launchConfetti();
+      playRewardSoundSequence();
+      showToast(`🎉 ${currentScratchReward.label} জিতেছেন!`);
+      closeModal("scratchModal");
+    }
+
+    function openReferralModal() { openModal("referralModal"); }
+
+    function shareReferral() {
+      const msg = "🍄 Kundu Care-এ Join করুন এবং Reward পান!";
+      if (navigator.share) {
+        navigator.share({ title: "Kundu Care", text: msg }).catch(() => {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(msg).then(() => showToast("👥 Link কপি হয়েছে!"));
+      } else {
+        showToast(msg);
       }
     }
 
-    async function verifyRewardCode(){const e=document.getElementById("rewardCodeInput"),t=e.value.trim().toUpperCase();if(!t)return void showToast("⚠️ কুপন কোডটি লিখুন");if(!VALID_REWARD_CODES.has(t))return void showToast("❌ Invalid Reward Code");if(isCodeUsed(t))return void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার করা হয়েছে");const o=getActiveCode();if(o&&o!==t)return void showToast("⚠️ আগে থাকা Reward সম্পূর্ণ করুন");setActiveCode(t),e.value="",closeModal("scannerModal"),showToast("✅ Code Verified! এখন SPIN অথবা SCRATCH করুন"),launchConfetti()}
+    function openCashWithdraw() {
+      $("cashWithdrawAmount").innerText = "₹" + wallet.toFixed(2);
+      openModal("withdrawModal");
+    }
 
-    function openSpinModal(){const e=getActiveCode();if(!e)return showToast("🎫 আগে একটি Reward Code Verify করুন"),void openScannerModal();if(isCodeUsed(e))return clearActiveRewardSession(),void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");setActiveRewardType("spin"),openModal("spinModal"),drawWheel()}
-
-    let currentAngle=0;
-    function drawWheel(){const e=document.getElementById("spinCanvas");if(e){const t=e.getContext("2d"),o=2*Math.PI/spinRewards.length,a=["#2e7d32","#ff8f00","#43a047","#ffa726","#66bb6a","#ffb74d"];t.clearRect(0,0,240,240);for(let n=0;n<spinRewards.length;n++){const r=currentAngle+n*o;t.beginPath(),t.fillStyle=a[n],t.moveTo(120,120),t.arc(120,120,115,r,r+o),t.fill(),t.save(),t.translate(120,120),t.rotate(r+o/2),t.textAlign="right",t.fillStyle="#fff",t.font="bold 12px sans-serif",t.fillText(spinRewards[n].label,100,4),t.restore()}}}function startSpin(){const e=getActiveCode();if(!e)return showToast("🎫 আগে Reward Code Verify করুন"),closeModal("spinModal"),void openScannerModal();if(isCodeUsed(e))return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে"),closeModal("spinModal"),void clearActiveRewardSession();if("spin"!==getActiveRewardType())return void showToast("⚠️ এই Code Spin-এর জন্য অনুমোদিত নয়");if(!isSpinning){isSpinning=!0;const t=document.getElementById("spinButton");t.disabled=!0;const o=Math.floor(Math.random()*spinRewards.length),a=2*Math.PI/spinRewards.length,n=1.5*Math.PI-(o*a+a/2)+16*Math.PI;let r=null;requestAnimationFrame(function c(d){r||(r=d);const s=(d-r)/3000;if(s<1)currentAngle=(1-Math.pow(1-s,3))*n,drawWheel(),requestAnimationFrame(c);else{currentAngle=n,drawWheel(),isSpinning=!1,t.disabled=!1;const r=spinRewards[o];addRewardToWallet(r),markCodeUsed(e),launchConfetti(),playRewardSoundSequence(),showToast(`🎉 ${r.label} জিতেছেন!`),closeModal("spinModal")}})}}
-
-    function openScratchModal(){const e=getActiveCode();if(!e)return showToast("🎫 আগে একটি Reward Code Verify করুন"),void openScannerModal();if(isCodeUsed(e))return clearActiveRewardSession(),void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");setActiveRewardType("scratch"),openModal("scratchModal"),initScratchCard()}
-
-    function initScratchCard(){const e=document.getElementById("scratchCanvas");if(e){const t=e.getContext("2d");currentScratchReward=spinRewards[Math.floor(Math.random()*spinRewards.length)],document.getElementById("scratchPrizeText").innerText=currentScratchReward.label,document.getElementById("scratchClaimBtn").style.display="none",isScratchClaimed=!1,t.globalCompositeOperation="source-over",t.fillStyle="#b0bec5",t.fillRect(0,0,220,140),t.fillStyle="#37474f",t.font="bold 14px sans-serif",t.textAlign="center",t.fillText("এখানে ঘষুন 🪙",110,75);let o=!1;e.onmousedown=e.ontouchstart=()=>o=!0,e.onmouseup=e.ontouchend=()=>o=!1,e.onmousemove=e.ontouchmove=n=>{if(!o)return;const a=e.getBoundingClientRect(),r=n.clientX??n.touches&&n.touches[0]?.clientX,c=n.clientY??n.touches&&n.touches[0]?.clientY;if(null==r||null==c)return;const d=r-a.left,s=c-a.top;t.globalCompositeOperation="destination-out",t.beginPath(),t.arc(d,s,16,0,2*Math.PI),t.fill();const i=t.getImageData(0,0,e.width,e.height);let l=0;for(let e=3;e<i.data.length;e+=4)0===i.data[e]&&l++;l/(e.width*e.height)>=.4&&(document.getElementById("scratchClaimBtn").style.display="block")}}}
-
-    function claimScratchReward(){if(!isScratchClaimed){const e=getActiveCode();if(!e)return showToast("🎫 Reward Code পাওয়া যায়নি"),void closeModal("scratchModal");if(isCodeUsed(e))return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে"),closeModal("scratchModal"),void clearActiveRewardSession();if("scratch"!==getActiveRewardType())return void showToast("⚠️ এই Code Scratch-এর জন্য অনুমোদিত নয়");if(!currentScratchReward)return void showToast("⚠️ Scratch Reward পাওয়া যায়নি");isScratchClaimed=!0,addRewardToWallet(currentScratchReward),markCodeUsed(e),launchConfetti(),playRewardSoundSequence(),showToast(`🎉 ${currentScratchReward.label} জিতেছেন!`),closeModal("scratchModal")}}
-
-    function openScannerModal(){openModal("scannerModal")}
-    function startRealScanner(){navigator.mediaDevices?.getUserMedia?navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}).then(e=>{showToast("📷 Camera চালু হয়েছে"),setTimeout(()=>e.getTracks().forEach(e=>e.stop()),3000)}).catch(()=>showToast("⚠️ Camera Permission দিন")):showToast("⚠️ Camera support করছে না")}
-    function openReferralModal(){openModal("referralModal")}
-    function shareReferral(){const e="🍄 Kundu Care-এ Join করুন এবং Reward পান!";navigator.share?navigator.share({title:"Kundu Care",text:e}):(navigator.clipboard.writeText(e),showToast("👥 Link কপি হয়েছে!"))}
-    function openCashWithdraw(){document.getElementById("cashWithdrawAmount").innerText="₹"+wallet.toFixed(2),openModal("withdrawModal")}
-
-    async function confirmWithdraw(){
-
+    async function confirmWithdraw() {
       const amount = Number(wallet || 0);
+      if (amount <= 0) return showToast("⚠️ Balance নেই");
+      
+      const name = $("withdrawName").value.trim();
+      const phone = $("withdrawPhone").value.trim();
+      if (!name || !phone) return showToast("⚠️ নাম ও ফোন নম্বর দিন");
+      if (phone.replace(/\D/g, "").length < 10) return showToast("⚠️ সঠিক ফোন নম্বর দিন");
 
-      if(amount <= 0){
-        showToast("⚠️ Balance নেই");
-        return;
-      }
-
-      const name = document.getElementById("withdrawName").value.trim();
-      const phone = document.getElementById("withdrawPhone").value.trim();
-
-      if(!name){
-        showToast("⚠️ আপনার নাম দিন");
-        return;
-      }
-
-      const cleanPhone = phone.replace(/\D/g,"");
-
-      if(cleanPhone.length < 10){
-        showToast("⚠️ সঠিক ফোন নম্বর দিন");
-        return;
-      }
-
-      const btn = document.getElementById("withdrawConfirmBtn");
-
+      const btn = $("withdrawConfirmBtn");
       btn.disabled = true;
       btn.innerText = "⏳ Processing...";
 
-      try{
-
-        const response = await fetch(API_URL,{
-          method:"POST",
-          headers:{
-            "Content-Type":"text/plain;charset=utf-8"
-          },
-          body:JSON.stringify({
-            secret:API_SECRET,
-            action:"cashWithdraw",
-            customerId:CUSTOMER_ID,
-            name:name,
-            phone:phone,
-            amount:amount
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            secret: API_SECRET,
+            action: "cashWithdraw",
+            customerId: CUSTOMER_ID,
+            name: name,
+            phone: phone,
+            amount: amount
           })
         });
-
-        const text = await response.text();
-
-        let data;
-
-        try{
-          data = JSON.parse(text);
-        }catch(error){
-          console.error("Invalid API Response:",text);
-          showToast("❌ Apps Script থেকে সঠিক Response আসেনি");
-          return;
-        }
-
-        if(data.success === true){
-
+        
+        const data = await response.json();
+        if (data.success) {
           wallet = 0;
-
           updateWalletUI();
-
-          if(withdrawAudio){
-            try{
-              withdrawAudio.currentTime = 0;
-              await withdrawAudio.play();
-            }catch(error){}
+          if (withdrawAudio) {
+            withdrawAudio.currentTime = 0;
+            withdrawAudio.play().catch(() => {});
           }
-
-          document.getElementById("withdrawName").value = "";
-          document.getElementById("withdrawPhone").value = "";
-
-          showToast(
-            "✅ Withdraw Request Sheet-এ জমা হয়েছে"
-          );
-
+          $("withdrawName").value = "";
+          $("withdrawPhone").value = "";
+          showToast("✅ Withdraw Request পাঠানো হয়েছে");
           closeModal("withdrawModal");
-
-        }else{
-
-          showToast(
-            "❌ " + (data.message || "Withdraw failed")
-          );
-
+        } else {
+          showToast("❌ " + (data.message || "Withdraw failed"));
         }
-
-      }catch(error){
-
-        console.error("Withdraw Error:",error);
-
-        showToast(
-          "❌ Server Error — Apps Script check করুন"
-        );
-
-      }finally{
-
+      } catch (err) {
+        console.error(err);
+        showToast("❌ Server Error — Apps Script check করুন");
+      } finally {
         btn.disabled = false;
         btn.innerText = "💸 CONFIRM WITHDRAW";
-
       }
-
     }
 
-    function openMushroomWithdraw(){document.getElementById("mushroomWithdrawAmount").innerText=mushroomWallet+" 🍄",openModal("mushroomWithdrawModal")}
+    function openMushroomWithdraw() {
+      $("mushroomWithdrawAmount").innerText = mushroomWallet + " 🍄";
+      openModal("mushroomWithdrawModal");
+    }
 
-    function mushroomWhatsAppWithdraw(){
-
-      if(Number(mushroomWallet) <= 0){
-        showToast("🍄 Mushroom Wallet খালি");
-        return;
-      }
-
-      const name =
-        document.getElementById("mushroomWithdrawName")
-        .value.trim();
-
-      const phone =
-        document.getElementById("mushroomWithdrawPhone")
-        .value.trim();
-
-      if(!name){
-        showToast("⚠️ আপনার নাম লিখুন");
-        return;
-      }
-
-      if(phone.replace(/\D/g,"").length < 10){
-        showToast("⚠️ সঠিক ফোন নম্বর দিন");
-        return;
-      }
+    function mushroomWhatsAppWithdraw() {
+      if (mushroomWallet <= 0) return showToast("🍄 Mushroom Wallet খালি");
+      
+      const name = $("mushroomWithdrawName").value.trim();
+      const phone = $("mushroomWithdrawPhone").value.trim();
+      if (!name) return showToast("⚠️ আপনার নাম লিখুন");
+      if (phone.replace(/\D/g, "").length < 10) return showToast("⚠️ সঠিক ফোন নম্বর দিন");
 
       const amount = mushroomWallet;
-
-      const requestId =
-        "KM-" +
-        Date.now().toString(36).toUpperCase();
-
-      const message =
-    `🍄 KUNDU CARE
-    Mushroom Withdraw Request
-
-    👤 নাম: ${name}
-    📱 ফোন: ${phone}
-
-    🍄 Mushroom Balance: ${amount}
-
-    🆔 Request ID: ${requestId}
-
-    আমি আমার Mushroom Wallet-এর ${amount} 🍄 Withdraw করতে চাই।`;
-
-      const url =
-        "https://wa.me/" +
-        MUSHROOM_WHATSAPP +
-        "?text=" +
-        encodeURIComponent(message);
-
-      window.open(url,"_blank");
+      const requestId = "KM-" + Date.now().toString(36).toUpperCase();
+      const message = `🍄 KUNDU CARE\nMushroom Withdraw Request\n\n👤 নাম: ${name}\n📱 ফোন: ${phone}\n\n🍄 Mushroom Balance: ${amount}\n\n🆔 Request ID: ${requestId}\n\nআমি আমার Mushroom Wallet-এর ${amount} 🍄 Withdraw করতে চাই।`;
+      
+      window.open(`https://wa.me/${MUSHROOM_WHATSAPP}?text=${encodeURIComponent(message)}`, "_blank");
 
       mushroomWallet = 0;
-
       updateWalletUI();
-
-      document.getElementById("mushroomWithdrawName").value = "";
-      document.getElementById("mushroomWithdrawPhone").value = "";
-
+      $("mushroomWithdrawName").value = "";
+      $("mushroomWithdrawPhone").value = "";
       closeModal("mushroomWithdrawModal");
-
-      showToast(
-        "✅ WhatsApp Withdraw Request তৈরি হয়েছে!"
-      );
-
+      showToast("✅ WhatsApp Withdraw Request তৈরি হয়েছে!");
     }
+
+    // Modal background click to close
+    document.querySelectorAll(".modal-overlay").forEach(overlay => {
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay) overlay.classList.remove("active");
+      });
+    });
   </script>
 </body>
 </html>
