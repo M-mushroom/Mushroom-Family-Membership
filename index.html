@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mushroom Family Mambarship - Kundu Care</title>
+  <title>Kundu Mushroom Farm - Kundu Care</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
     body{background:#f4f6f9;color:#333;padding:15px;max-width:480px;margin:0 auto;padding-bottom:100px}
-    button{cursor:pointer;border:none;outline:none}
+    button{cursor:pointer;border:none;outline:none;user-select:none}
+    
     .app-header{background:linear-gradient(135deg,#2e7d32,#1b5e20);color:#fff;padding:15px 18px;border-radius:16px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(46,125,50,.2)}
     .app-header h1{font-size:17px;font-weight:700;line-height:1.2}
     .app-header p{font-size:11px;opacity:.85;margin-top:2px}
     
-    /* PREMIUM VISIT SHOP BUTTON */
-    .shop-link-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:105px;padding:10px 15px;overflow:hidden;color:#fff;text-decoration:none;font-size:11px;font-weight:900;border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 5px 18px rgba(0,0,0,.20),inset 0 1px 1px rgba(255,255,255,.35);animation:shopPulse 2.5s ease-in-out infinite}
+    /* VISIT SHOP BUTTON */
+    .shop-link-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:105px;padding:10px 15px;overflow:hidden;color:#fff;text-decoration:none;font-size:11px;font-weight:900;border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 5px 18px rgba(0,0,0,.20);animation:shopPulse 2.5s ease-in-out infinite}
     @keyframes shopPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
     .shop-link-btn::after{content:"";position:absolute;top:-100%;left:-70%;width:45%;height:300%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:rotate(25deg);animation:shopShine 3s infinite}
     @keyframes shopShine{0%{left:-70%}60%,100%{left:140%}}
@@ -37,7 +38,6 @@
     /* WALLET GRID & CARDS */
     .wallet-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
     .mini-wallet{padding:15px;border-radius:16px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.05);transition:transform .3s ease,box-shadow .3s ease}
-    .mini-wallet:hover{transform:translateY(-3px)}
     .mini-wallet-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:18px}
     .icon-green{background:#e8f5e9;color:#2e7d32}.icon-orange{background:#fff3e0;color:#ff8f00}
     .cash-wallet{border:1px solid #c8e6c9;background:linear-gradient(135deg,#fff,#f1fff3);animation:walletGreen 3s ease-in-out infinite}
@@ -46,8 +46,7 @@
     @keyframes walletBlue{0%,100%{box-shadow:0 4px 12px rgba(3,169,244,.06)}50%{box-shadow:0 7px 20px rgba(3,169,244,.15)}}
     .mini-wallet small{display:block;font-size:11px;color:#666;margin-bottom:2px}
     .mini-wallet strong{display:block;font-size:18px;color:#222}
-
-    /* PREMIUM CASH OUT BUTTONS */
+      /* CASH OUT BUTTONS */
     .premium-cash-btn,.premium-whatsapp-btn{position:relative;width:100%;min-height:40px;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;overflow:hidden;border-radius:12px;color:#fff;font-size:10px;font-weight:900;transition:transform .2s ease,box-shadow .2s ease}
     .premium-cash-btn{background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);box-shadow:0 6px 18px rgba(46,125,50,.32)}
     .premium-whatsapp-btn{background:linear-gradient(135deg,#0288d1,#03a9f4,#29b6f6);box-shadow:0 6px 18px rgba(3,169,244,.32)}
@@ -67,13 +66,11 @@
     .quick:nth-child(4) .quick-image{animation-delay:.6s}
     @keyframes quickFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
     .quick-image.verify{width:60px;height:60px}.quick-image.scratch,.quick-image.refer{width:58px;height:58px}
-    .quick:active .quick-image{transform:scale(.94)}
-
-    /* MODALS & OVERLAYS */
-    .modal-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:9999;padding:15px;backdrop-filter:blur(2px)}
+    .quick:active .quick-image{transform:scale(.94)}/* MODALS & OVERLAYS */
+    .modal-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:99999;padding:15px;backdrop-filter:blur(2px)}
     .modal-overlay.active{display:flex}
     .modal-content{background:#fff;width:100%;max-width:360px;border-radius:20px;padding:20px;position:relative;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,.2)}
-    .close-modal{position:absolute;top:12px;right:15px;font-size:22px;background:none;color:#888}
+    .close-modal{position:absolute;top:12px;right:15px;font-size:22px;background:none;color:#888;border:none}
     .verify-input{width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:8px;font-size:13px}
     .primary-btn{width:100%;padding:12px;background:#2e7d32;color:#fff;font-weight:700;border-radius:10px;margin-top:10px;font-size:14px}
     .primary-btn:disabled{background:#ccc!important;cursor:not-allowed}
@@ -85,29 +82,20 @@
     #scratchCanvas{position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer}
     .scanner-box{width:140px;height:140px;margin:15px auto;position:relative;border-radius:12px;overflow:hidden}
     .scanner-gif{width:100%;height:100%;object-fit:cover}
-    #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}/* PREMIUM BOTTOM NAV */
+    #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}
+    
+    /* BOTTOM NAV */
     .bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;height:82px!important;padding:8px 8px 7px!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(46,125,50,.12)!important;box-shadow:0 -8px 25px rgba(0,0,0,.10)!important;border-radius:22px 22px 0 0;display:flex;justify-content:space-around;z-index:999}
     .nav-item{position:relative;width:24%;height:68px;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;background:none;transition:transform .25s ease,background .25s ease,color .25s ease}
-    .nav-item span:first-child{font-size:26px!important;line-height:30px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.12));transition:transform .3s ease}
+    .nav-item span:first-child{font-size:24px!important;line-height:28px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.12))}
     .nav-item span:last-child{font-size:11px!important;font-weight:800;letter-spacing:.2px}
-    .nav-item:hover,.nav-item:active{transform:translateY(-3px)}
     .nav-item:active span:first-child{transform:scale(.85)}
     .nav-item.active{color:#2e7d32!important;background:linear-gradient(135deg,rgba(232,245,233,.95),rgba(200,230,201,.55));box-shadow:0 5px 16px rgba(46,125,50,.15),inset 0 1px 0 rgba(255,255,255,.9)}
     .nav-item.active span:first-child{animation:navFloat 2s ease-in-out infinite}
-    @keyframes navFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.08)}}
-
-    @media(max-width:380px){
-      .bottom-nav{height:76px!important}
-      .nav-item{height:62px}
-      .nav-item span:first-child{font-size:22px!important}
-      .nav-item span:last-child{font-size:10px!important}
-      .membership-title{font-size:14px}
-    }
+    @keyframes navFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.06)}}
   </style>
 </head>
-<body>
-
-  <audio id="clapSound" preload="none" src="clap.mp3"></audio>
+<body><audio id="clapSound" preload="none" src="clap.mp3"></audio>
   <audio id="rewardMoneySound" preload="none" src="Money%20sound.mp3"></audio>
   <audio id="withdrawMoneySound" preload="none" src="money.mp3"></audio>
 
@@ -133,7 +121,7 @@
         <span>🪙 Scratch</span>
       </div>
     </div>
-    <button class="membership-btn">JOIN NOW →</button>
+    <button class="membership-btn" onclick="openScannerModal()">JOIN NOW →</button>
   </div>
 
   <!-- WALLETS -->
@@ -171,12 +159,13 @@
       <p>Refer</p>
     </button>
   </div>
-      <!-- BOTTOM NAV -->
+
+  <!-- BOTTOM NAV -->
   <div class="bottom-nav">
-    <button class="nav-item active" onclick="closeAllModals()"><span style="font-size:18px">🏠</span><span>Home</span></button>
-    <button class="nav-item" onclick="openSpinModal()"><span style="font-size:18px">🎰</span><span>SPIN</span></button>
-    <button class="nav-item" onclick="openScratchModal()"><span style="font-size:18px">🪙</span><span>SCRATCH</span></button>
-    <button class="nav-item" onclick="openReferralModal()"><span style="font-size:18px">👥</span><span>Refer</span></button>
+    <button class="nav-item active" id="navHome" onclick="switchTab('home')"><span>🏠</span><span>Home</span></button>
+    <button class="nav-item" id="navSpin" onclick="switchTab('spin')"><span>🎰</span><span>SPIN</span></button>
+    <button class="nav-item" id="navScratch" onclick="switchTab('scratch')"><span>🪙</span><span>SCRATCH</span></button>
+    <button class="nav-item" id="navRefer" onclick="switchTab('refer')"><span>👥</span><span>Refer</span></button>
   </div>
 
   <!-- QR SCANNER MODAL -->
@@ -246,11 +235,13 @@
       <button class="close-modal" onclick="closeModal('mushroomWithdrawModal')">&times;</button>
       <h3>🍄 Mushroom Withdraw</h3>
       <div id="mushroomWithdrawAmount" style="font-size:28px;font-weight:800;color:#ff8f00;margin:10px 0;">0 🍄</div>
-      <input id="mushroomWithdrawName" class="verify-input" type="text" placeholder="আপনার নাম" autocomplete="name">
-      <input id="mushroomWithdrawPhone" class="verify-input" type="tel" placeholder="ফোন নম্বর" maxlength="15" autocomplete="tel">
+      <input id="mushroomWithdrawName" class="verify-input" type="text" placeholder="আপনার নাম">
+      <input id="mushroomWithdrawPhone" class="verify-input" type="tel" placeholder="ফোন নম্বর" maxlength="15">
       <button id="mushroomWithdrawButton" class="primary-btn" style="background:#25D366;" onclick="mushroomWhatsAppWithdraw()">📲 CONFIRM WITHDRAW</button>
     </div>
-  </div><div id="toast"></div>
+  </div>
+
+  <div id="toast"></div>
 
   <script>
     const API_URL="https://script.google.com/macros/s/AKfycbyOUqeB0hYZPVY7vjlP1uxAqhgFjis8dPcS8HHRmRDlz7sKRjvgGDQLIC9Fres0LSLreg/exec",API_SECRET="KUNDU_CARE_2026_SECURE",CUSTOMER_ID="KM001",MUSHROOM_WHATSAPP="917047643951";
@@ -269,17 +260,46 @@
     function setActiveRewardType(e){localStorage.setItem(ACTIVE_TYPE_KEY,e)}
     function clearActiveRewardSession(){localStorage.removeItem(ACTIVE_CODE_KEY),localStorage.removeItem(ACTIVE_TYPE_KEY)}
 
-    const spinRewards=[{type:"cash",amount:25,label:"₹25 💵"},{type:"cash",amount:15,label:"₹15 💵"},{type:"cash",amount:30,label:"₹30 💵"},{type:"mushroom",amount:200,label:"200 🍄"},{type:"mushroom",amount:150,label:"150 🍄"},{type:"cash",amount:10,label:"₹10 💵"}];
-    const openModal=e=>document.getElementById(e).classList.add("active"),closeModal=e=>document.getElementById(e).classList.remove("active"),closeAllModals=()=>document.querySelectorAll(".modal-overlay").forEach(e=>e.classList.remove("active"));
+    const spinRewards=[{type:"cash",amount:25,label:"₹25 💵"},{type:"cash",amount:15,label:"₹15 💵"},{type:"cash",amount:30,label:"₹30 💵"},{type:"mushroom",amount:200,label:"200 🍄"},{type:"mushroom",amount:150,label:"150 🍄"},{type:"cash",amount:10,label:"₹10 💵"}];function openModal(id){
+      closeAllModals();
+      const el = document.getElementById(id);
+      if(el) el.classList.add("active");
+    }
+    
+    function closeModal(id){
+      const el = document.getElementById(id);
+      if(el) el.classList.remove("active");
+    }
+    
+    function closeAllModals(){
+      document.querySelectorAll(".modal-overlay").forEach(e=>e.classList.remove("active"));
+    }
+
+    function switchTab(type){
+      document.querySelectorAll(".nav-item").forEach(b=>b.classList.remove("active"));
+      if(type === 'home'){
+        document.getElementById("navHome").classList.add("active");
+        closeAllModals();
+      } else if(type === 'spin'){
+        document.getElementById("navSpin").classList.add("active");
+        openSpinModal();
+      } else if(type === 'scratch'){
+        document.getElementById("navScratch").classList.add("active");
+        openScratchModal();
+      } else if(type === 'refer'){
+        document.getElementById("navRefer").classList.add("active");
+        openReferralModal();
+      }
+    }
 
     function showToast(e){const t=document.getElementById("toast");t.innerText=e,t.style.display="block",setTimeout(()=>{t.style.display="none"},3000)}
 
     const clapAudio=document.getElementById("clapSound"),moneyAudio=document.getElementById("rewardMoneySound"),withdrawAudio=document.getElementById("withdrawMoneySound");
-    function unlockAudio(){[clapAudio,moneyAudio,withdrawAudio].forEach(e=>{e.muted=!0,e.play().then(()=>{e.pause(),e.currentTime=0,e.muted=!1}).catch(()=>{})})}
-    document.addEventListener("touchstart",unlockAudio,{once:!0}),document.addEventListener("click",unlockAudio,{once:!0});
+    function unlockAudio(){[clapAudio,moneyAudio,withdrawAudio].forEach(e=>{e&&e.play?e.play().then(()=>{e.pause(),e.currentTime=0}).catch(()=>{}):null})}
+    document.addEventListener("click",unlockAudio,{once:!0});
 
-    async function playRewardSoundSequence(){try{clapAudio.currentTime=0,await clapAudio.play(),setTimeout(async()=>{moneyAudio.currentTime=0,await moneyAudio.play()},1000)}catch(e){}}
-    function launchConfetti(){for(let e=0;e<50;e++){const t=document.createElement("div");t.innerHTML=["🎉","✨","💰","🍄"][Math.floor(4*Math.random())],t.style.cssText=`position:fixed;left:${100*Math.random()}vw;top:-20px;font-size:${14+14*Math.random()}px;z-index:99999;pointer-events:none;transition:transform 2s linear, opacity 2s;`,document.body.appendChild(t),setTimeout(()=>{t.style.transform=`translate(${200*(Math.random()-.5)}px, ${window.innerHeight+50}px) rotate(360deg)`,t.style.opacity="0"},20),setTimeout(()=>t.remove(),2200)}}
+    async function playRewardSoundSequence(){try{if(clapAudio){clapAudio.currentTime=0;await clapAudio.play();}setTimeout(async()=>{if(moneyAudio){moneyAudio.currentTime=0;await moneyAudio.play();}},1000)}catch(e){}}
+    function launchConfetti(){for(let e=0;e<35;e++){const t=document.createElement("div");t.innerHTML=["🎉","✨","💰","🍄"][Math.floor(4*Math.random())],t.style.cssText=`position:fixed;left:${100*Math.random()}vw;top:-20px;font-size:${14+14*Math.random()}px;z-index:999999;pointer-events:none;transition:transform 2s linear, opacity 2s;`,document.body.appendChild(t),setTimeout(()=>{t.style.transform=`translate(${200*(Math.random()-.5)}px, ${window.innerHeight+50}px) rotate(360deg)`,t.style.opacity="0"},20),setTimeout(()=>t.remove(),2200)}}
 
     function addRewardToWallet(e){e&&("cash"===e.type?(wallet+=Number(e.amount),document.getElementById("cashWalletBalance").innerText=wallet.toFixed(2),showToast(`💰 ₹${e.amount} Cash Wallet-এ জমা হয়েছে`)):(mushroomWallet+=Number(e.amount),document.getElementById("mushroomWalletBalance").innerText=mushroomWallet,showToast(`🍄 ${e.amount} Mushroom Wallet-এ জমা হয়েছে`)))}
 
@@ -293,6 +313,7 @@
     function startSpin(){const e=getActiveCode();if(!e)return showToast("🎫 আগে Reward Code Verify করুন"),closeModal("spinModal"),void openScannerModal();if(isCodeUsed(e))return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে"),closeModal("spinModal"),void clearActiveRewardSession();if("spin"!==getActiveRewardType())return void showToast("⚠️ এই Code Spin-এর জন্য অনুমোদিত নয়");if(!isSpinning){isSpinning=!0;const t=document.getElementById("spinButton");t.disabled=!0;const o=Math.floor(Math.random()*spinRewards.length),a=2*Math.PI/spinRewards.length,n=1.5*Math.PI-(o*a+a/2)+16*Math.PI;let r=null;requestAnimationFrame(function c(d){r||(r=d);const s=(d-r)/3000;if(s<1)currentAngle=(1-Math.pow(1-s,3))*n,drawWheel(),requestAnimationFrame(c);else{currentAngle=n,drawWheel(),isSpinning=!1,t.disabled=!1;const r=spinRewards[o];addRewardToWallet(r),markCodeUsed(e),launchConfetti(),playRewardSoundSequence(),showToast(`🎉 ${r.label} জিতেছেন!`),closeModal("spinModal")}})}}
 
     function openScratchModal(){const e=getActiveCode();if(!e)return showToast("🎫 আগে একটি Reward Code Verify করুন"),void openScannerModal();if(isCodeUsed(e))return clearActiveRewardSession(),void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");setActiveRewardType("scratch"),openModal("scratchModal"),initScratchCard()}
+
     function initScratchCard(){const e=document.getElementById("scratchCanvas");if(e){const t=e.getContext("2d");currentScratchReward=spinRewards[Math.floor(Math.random()*spinRewards.length)],document.getElementById("scratchPrizeText").innerText=currentScratchReward.label,document.getElementById("scratchClaimBtn").style.display="none",isScratchClaimed=!1,t.globalCompositeOperation="source-over",t.fillStyle="#b0bec5",t.fillRect(0,0,220,140),t.fillStyle="#37474f",t.font="bold 14px sans-serif",t.textAlign="center",t.fillText("এখানে ঘষুন 🪙",110,75);let o=!1;e.onmousedown=e.ontouchstart=()=>o=!0,e.onmouseup=e.ontouchend=()=>o=!1,e.onmousemove=e.ontouchmove=n=>{if(!o)return;const a=e.getBoundingClientRect(),r=n.clientX??n.touches&&n.touches[0]?.clientX,c=n.clientY??n.touches&&n.touches[0]?.clientY;if(null==r||null==c)return;const d=r-a.left,s=c-a.top;t.globalCompositeOperation="destination-out",t.beginPath(),t.arc(d,s,16,0,2*Math.PI),t.fill();const i=t.getImageData(0,0,e.width,e.height);let l=0;for(let e=3;e<i.data.length;e+=4)0===i.data[e]&&l++;l/(e.width*e.height)>=.4&&(document.getElementById("scratchClaimBtn").style.display="block")}}}
 
     function claimScratchReward(){if(!isScratchClaimed){const e=getActiveCode();if(!e)return showToast("🎫 Reward Code পাওয়া যায়নি"),void closeModal("scratchModal");if(isCodeUsed(e))return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে"),closeModal("scratchModal"),void clearActiveRewardSession();if("scratch"!==getActiveRewardType())return void showToast("⚠️ এই Code Scratch-এর জন্য অনুমোদিত নয়");if(!currentScratchReward)return void showToast("⚠️ Scratch Reward পাওয়া যায়নি");isScratchClaimed=!0,addRewardToWallet(currentScratchReward),markCodeUsed(e),launchConfetti(),playRewardSoundSequence(),showToast(`🎉 ${currentScratchReward.label} জিতেছেন!`),closeModal("scratchModal")}}
@@ -303,12 +324,11 @@
     function shareReferral(){const e="🍄 Kundu Care-এ Join করুন এবং Reward পান!";navigator.share?navigator.share({title:"Kundu Care",text:e}):(navigator.clipboard.writeText(e),showToast("👥 Link কপি হয়েছে!"))}
     function openCashWithdraw(){document.getElementById("cashWithdrawAmount").innerText="₹"+wallet.toFixed(2),openModal("withdrawModal")}
 
-    async function confirmWithdraw(){const e=Number(wallet||0);if(e<=0)return void showToast("⚠️ Balance নেই");const t=document.getElementById("withdrawName").value.trim(),o=document.getElementById("withdrawPhone").value.trim();if(!t||!o)return void showToast("নাম ও ফোন নম্বর দিন");const a=document.getElementById("withdrawConfirmBtn");a.disabled=!0,a.innerText="⏳ Processing...";try{const n=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({secret:API_SECRET,action:"cashWithdraw",customerId:CUSTOMER_ID,name:t,phone:o,amount:e})}),r=await n.json();r.success?(wallet=0,document.getElementById("cashWalletBalance").innerText="0.00",function(){try{withdrawAudio.currentTime=0,withdrawAudio.play()}catch(e){}}(),showToast("✅ Withdraw Request পাঠানো হয়েছে"),closeModal("withdrawModal")):showToast("❌ "+r.message)}catch(e){console.error(e),showToast("❌ Server Error")}finally{a.disabled=!1,a.innerText="💸 CONFIRM WITHDRAW"}}
+    async function confirmWithdraw(){const e=Number(wallet||0);if(e<=0)return void showToast("⚠️ Balance নেই");const t=document.getElementById("withdrawName").value.trim(),o=document.getElementById("withdrawPhone").value.trim();if(!t||!o)return void showToast("নাম ও ফোন নম্বর দিন");const a=document.getElementById("withdrawConfirmBtn");a.disabled=!0,a.innerText="⏳ Processing...";try{const n=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({secret:API_SECRET,action:"cashWithdraw",customerId:CUSTOMER_ID,name:t,phone:o,amount:e})}),r=await n.json();r.success?(wallet=0,document.getElementById("cashWalletBalance").innerText="0.00",function(){try{if(withdrawAudio){withdrawAudio.currentTime=0;withdrawAudio.play();}}catch(e){}}(),showToast("✅ Withdraw Request পাঠানো হয়েছে"),closeModal("withdrawModal")):showToast("❌ "+r.message)}catch(e){console.error(e),showToast("❌ Server Error")}finally{a.disabled=!1,a.innerText="💸 CONFIRM WITHDRAW"}}
 
     function openMushroomWithdraw(){document.getElementById("mushroomWithdrawAmount").innerText=mushroomWallet+" 🍄",openModal("mushroomWithdrawModal")}
     function mushroomWhatsAppWithdraw(){if(mushroomWallet<=0)return void showToast("🍄 Mushroom Wallet খালি");const e=document.getElementById("mushroomWithdrawName").value.trim(),t=document.getElementById("mushroomWithdrawPhone").value.trim();if(!e)return void showToast("⚠️ আপনার নাম লিখুন");if(t.replace(/\D/g,"").length<10)return void showToast("⚠️ সঠিক ফোন নম্বর দিন");const o=mushroomWallet,a="KM-"+Date.now().toString(36).toUpperCase(),n=`https://wa.me/${MUSHROOM_WHATSAPP}?text=`+encodeURIComponent(`🍄 KUNDU CARE\nMushroom Withdraw Request\n\n👤 নাম: ${e}\n📱 ফোন: ${t}\n\n🍄 Mushroom Balance: ${o}\n\n🆔 Request ID: ${a}\n\nআমি আমার Mushroom Wallet-এর ${o} 🍄 Withdraw করতে চাই।`);window.open(n,"_blank"),mushroomWallet=0,document.getElementById("mushroomWalletBalance").innerText="0",document.getElementById("mushroomWithdrawName").value="",document.getElementById("mushroomWithdrawPhone").value="",showToast("✅ Withdraw Request WhatsApp-এ তৈরি হয়েছে!"),closeModal("mushroomWithdrawModal")}
   </script>
 </body>
 </html>
-
-              
+                    
