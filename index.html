@@ -46,7 +46,8 @@
     @keyframes walletBlue{0%,100%{box-shadow:0 4px 12px rgba(3,169,244,.06)}50%{box-shadow:0 7px 20px rgba(3,169,244,.15)}}
     .mini-wallet small{display:block;font-size:11px;color:#666;margin-bottom:2px}
     .mini-wallet strong{display:block;font-size:18px;color:#222}
-      /* CASH OUT BUTTONS */
+
+    /* CASH OUT BUTTONS */
     .premium-cash-btn,.premium-whatsapp-btn{position:relative;width:100%;min-height:40px;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;overflow:hidden;border-radius:12px;color:#fff;font-size:10px;font-weight:900;transition:transform .2s ease,box-shadow .2s ease}
     .premium-cash-btn{background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);box-shadow:0 6px 18px rgba(46,125,50,.32)}
     .premium-whatsapp-btn{background:linear-gradient(135deg,#0288d1,#03a9f4,#29b6f6);box-shadow:0 6px 18px rgba(3,169,244,.32)}
@@ -66,7 +67,9 @@
     .quick:nth-child(4) .quick-image{animation-delay:.6s}
     @keyframes quickFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
     .quick-image.verify{width:60px;height:60px}.quick-image.scratch,.quick-image.refer{width:58px;height:58px}
-    .quick:active .quick-image{transform:scale(.94)}/* MODALS & OVERLAYS */
+    .quick:active .quick-image{transform:scale(.94)}
+
+    /* MODALS & OVERLAYS */
     .modal-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:99999;padding:15px;backdrop-filter:blur(2px)}
     .modal-overlay.active{display:flex}
     .modal-content{background:#fff;width:100%;max-width:360px;border-radius:20px;padding:20px;position:relative;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,.2)}
@@ -83,8 +86,7 @@
     .scanner-box{width:140px;height:140px;margin:15px auto;position:relative;border-radius:12px;overflow:hidden}
     .scanner-gif{width:100%;height:100%;object-fit:cover}
     #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}
-    
-    /* BOTTOM NAV */
+/* BOTTOM NAV */
     .bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;height:82px!important;padding:8px 8px 7px!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(46,125,50,.12)!important;box-shadow:0 -8px 25px rgba(0,0,0,.10)!important;border-radius:22px 22px 0 0;display:flex;justify-content:space-around;z-index:999}
     .nav-item{position:relative;width:24%;height:68px;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;background:none;transition:transform .25s ease,background .25s ease,color .25s ease}
     .nav-item span:first-child{font-size:24px!important;line-height:28px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.12))}
@@ -259,8 +261,9 @@
     function setActiveCode(e){localStorage.setItem(ACTIVE_CODE_KEY,e)}
     function setActiveRewardType(e){localStorage.setItem(ACTIVE_TYPE_KEY,e)}
     function clearActiveRewardSession(){localStorage.removeItem(ACTIVE_CODE_KEY),localStorage.removeItem(ACTIVE_TYPE_KEY)}
-
-    const spinRewards=[{type:"cash",amount:25,label:"₹25 💵"},{type:"cash",amount:15,label:"₹15 💵"},{type:"cash",amount:30,label:"₹30 💵"},{type:"mushroom",amount:200,label:"200 🍄"},{type:"mushroom",amount:150,label:"150 🍄"},{type:"cash",amount:10,label:"₹10 💵"}];function openModal(id){
+const spinRewards=[{type:"cash",amount:25,label:"₹25 💵"},{type:"cash",amount:15,label:"₹15 💵"},{type:"cash",amount:30,label:"₹30 💵"},{type:"mushroom",amount:200,label:"200 🍄"},{type:"mushroom",amount:150,label:"150 🍄"},{type:"cash",amount:10,label:"₹10 💵"}];
+    
+    function openModal(id){
       closeAllModals();
       const el = document.getElementById(id);
       if(el) el.classList.add("active");
@@ -305,9 +308,7 @@
 
     async function verifyRewardCode(){const e=document.getElementById("rewardCodeInput"),t=e.value.trim().toUpperCase();if(!t)return void showToast("⚠️ কুপন কোডটি লিখুন");if(!VALID_REWARD_CODES.has(t))return void showToast("❌ Invalid Reward Code");if(isCodeUsed(t))return void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার করা হয়েছে");const o=getActiveCode();if(o&&o!==t)return void showToast("⚠️ আগে থাকা Reward সম্পূর্ণ করুন");setActiveCode(t),e.value="",closeModal("scannerModal"),showToast("✅ Code Verified! এখন SPIN অথবা SCRATCH করুন"),launchConfetti()}
 
-    function openSpinModal(){const e=getActiveCode();if(!e)return showToast("🎫 আগে একটি Reward Code Verify করুন"),void openScannerModal();if(isCodeUsed(e))return clearActiveRewardSession(),void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");setActiveRewardType("spin"),openModal("spinModal"),drawWheel()}
-
-    let currentAngle=0;
+    function openSpinModal(){const e=getActiveCode();if(!e)return showToast("🎫 আগে একটি Reward Code Verify করুন"),void openScannerModal();if(isCodeUsed(e))return clearActiveRewardSession(),void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");setActiveRewardType("spin"),openModal("spinModal"),drawWheel()}let currentAngle=0;
     function drawWheel(){const e=document.getElementById("spinCanvas");if(e){const t=e.getContext("2d"),o=2*Math.PI/spinRewards.length,a=["#2e7d32","#ff8f00","#43a047","#ffa726","#66bb6a","#ffb74d"];t.clearRect(0,0,240,240);for(let n=0;n<spinRewards.length;n++){const r=currentAngle+n*o;t.beginPath(),t.fillStyle=a[n],t.moveTo(120,120),t.arc(120,120,115,r,r+o),t.fill(),t.save(),t.translate(120,120),t.rotate(r+o/2),t.textAlign="right",t.fillStyle="#fff",t.font="bold 12px sans-serif",t.fillText(spinRewards[n].label,100,4),t.restore()}}}
 
     function startSpin(){const e=getActiveCode();if(!e)return showToast("🎫 আগে Reward Code Verify করুন"),closeModal("spinModal"),void openScannerModal();if(isCodeUsed(e))return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে"),closeModal("spinModal"),void clearActiveRewardSession();if("spin"!==getActiveRewardType())return void showToast("⚠️ এই Code Spin-এর জন্য অনুমোদিত নয়");if(!isSpinning){isSpinning=!0;const t=document.getElementById("spinButton");t.disabled=!0;const o=Math.floor(Math.random()*spinRewards.length),a=2*Math.PI/spinRewards.length,n=1.5*Math.PI-(o*a+a/2)+16*Math.PI;let r=null;requestAnimationFrame(function c(d){r||(r=d);const s=(d-r)/3000;if(s<1)currentAngle=(1-Math.pow(1-s,3))*n,drawWheel(),requestAnimationFrame(c);else{currentAngle=n,drawWheel(),isSpinning=!1,t.disabled=!1;const r=spinRewards[o];addRewardToWallet(r),markCodeUsed(e),launchConfetti(),playRewardSoundSequence(),showToast(`🎉 ${r.label} জিতেছেন!`),closeModal("spinModal")}})}}
@@ -331,4 +332,3 @@
   </script>
 </body>
 </html>
-                    
