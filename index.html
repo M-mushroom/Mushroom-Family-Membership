@@ -3,31 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mushroom Family Membership - Kundu Care</title>
+  <title>Mushroom Family Mambarship - Kundu Care</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
-    body{background:#f4f6f9;color:#333;padding:15px;max-width:480px;margin:0 auto;padding-bottom:85px}
+    body{background:#f4f6f9;color:#333;padding:15px;max-width:480px;margin:0 auto;padding-bottom:100px}
     button{cursor:pointer;border:none;outline:none}
     .app-header{background:linear-gradient(135deg,#2e7d32,#1b5e20);color:#fff;padding:15px 18px;border-radius:16px;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 12px rgba(46,125,50,.2)}
     .app-header h1{font-size:17px;font-weight:700;line-height:1.2}
     .app-header p{font-size:11px;opacity:.85;margin-top:2px}
-    .shop-link-btn{background:#ff8f00;color:#fff;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:700;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+    
+    /* PREMIUM VISIT SHOP BUTTON */
+    .shop-link-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;min-width:105px;padding:10px 15px;overflow:hidden;color:#fff;text-decoration:none;font-size:11px;font-weight:900;border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.08));border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 5px 18px rgba(0,0,0,.20),inset 0 1px 1px rgba(255,255,255,.35);animation:shopPulse 2.5s ease-in-out infinite}
+    @keyframes shopPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+    .shop-link-btn::after{content:"";position:absolute;top:-100%;left:-70%;width:45%;height:300%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);transform:rotate(25deg);animation:shopShine 3s infinite}
+    @keyframes shopShine{0%{left:-70%}60%,100%{left:140%}}
+    .shop-link-btn:active{transform:scale(.92)}
+
+    /* MUSHROOM FAMILY MEMBERSHIP CARD */
+    .family-membership-card{position:relative;min-height:110px;margin:0 0 15px 0;padding:16px;display:flex;align-items:center;gap:12px;border-radius:22px;overflow:hidden;color:#fff;background:linear-gradient(135deg,#173d20,#2e7d32 50%,#66bb6a);box-shadow:0 10px 28px rgba(46,125,50,.30);animation:membershipPulse 3s ease-in-out infinite}
+    @keyframes membershipPulse{0%,100%{box-shadow:0 10px 28px rgba(46,125,50,.25)}50%{box-shadow:0 10px 35px rgba(46,125,50,.48)}}
+    .membership-icon{position:relative;z-index:2;min-width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:16px;font-size:28px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(10px);animation:membershipFloat 2.5s ease-in-out infinite}
+    @keyframes membershipFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(2deg)}}
+    .membership-content{position:relative;z-index:2;flex:1}
+    .membership-title{font-size:15px;font-weight:900}
+    .membership-subtitle{margin-top:2px;font-size:10px;opacity:.9}
+    .membership-badges{display:flex;gap:4px;margin-top:7px}
+    .membership-badges span{padding:3px 6px;border-radius:20px;font-size:8px;font-weight:800;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.18)}
+    .membership-btn{position:relative;z-index:2;padding:8px 10px;border-radius:12px;color:#2e7d32;background:#fff;font-size:9px;font-weight:900;box-shadow:0 4px 12px rgba(0,0,0,.18);transition:.2s}
+    .membership-btn:active{transform:scale(.9)}
+    .membership-shine{position:absolute;top:-50%;left:-100px;width:55px;height:220%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:rotate(20deg);animation:membershipShine 3.5s infinite}
+    @keyframes membershipShine{0%{left:-100px}55%,100%{left:120%}}
+
+    /* WALLET GRID & CARDS */
     .wallet-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-    .mini-wallet{padding:15px;border-radius:16px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+    .mini-wallet{padding:15px;border-radius:16px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.05);transition:transform .3s ease,box-shadow .3s ease}
+    .mini-wallet:hover{transform:translateY(-3px)}
     .mini-wallet-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:18px}
     .icon-green{background:#e8f5e9;color:#2e7d32}.icon-orange{background:#fff3e0;color:#ff8f00}
-    .cash-wallet{border:1px solid #c8e6c9;background:linear-gradient(135deg,#fff,#f1fff3)}
-    .mushroom-wallet{border:1px solid #ffe0b2;background:linear-gradient(135deg,#fff,#fff8ed)}
+    .cash-wallet{border:1px solid #c8e6c9;background:linear-gradient(135deg,#fff,#f1fff3);animation:walletGreen 3s ease-in-out infinite}
+    .mushroom-wallet{border:1px solid #ffe0b2;background:linear-gradient(135deg,#fff,#fff8ed);animation:walletBlue 3s ease-in-out infinite}
+    @keyframes walletGreen{0%,100%{box-shadow:0 4px 12px rgba(46,125,50,.06)}50%{box-shadow:0 7px 20px rgba(46,125,50,.15)}}
+    @keyframes walletBlue{0%,100%{box-shadow:0 4px 12px rgba(3,169,244,.06)}50%{box-shadow:0 7px 20px rgba(3,169,244,.15)}}
     .mini-wallet small{display:block;font-size:11px;color:#666;margin-bottom:2px}
     .mini-wallet strong{display:block;font-size:18px;color:#222}
-    .wallet-withdraw-btn{width:100%;margin-top:9px;padding:8px 5px;border:0;border-radius:10px;background:#2e7d32;color:#fff;font-size:10px;font-weight:800;transition:transform .2s}
-    .wallet-withdraw-btn:active{transform:scale(.95)}.mushroom-btn{background:#ff8f00}
+
+    /* PREMIUM CASH OUT BUTTONS */
+    .premium-cash-btn,.premium-whatsapp-btn{position:relative;width:100%;min-height:40px;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;overflow:hidden;border-radius:12px;color:#fff;font-size:10px;font-weight:900;transition:transform .2s ease,box-shadow .2s ease}
+    .premium-cash-btn{background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);box-shadow:0 6px 18px rgba(46,125,50,.32)}
+    .premium-whatsapp-btn{background:linear-gradient(135deg,#0288d1,#03a9f4,#29b6f6);box-shadow:0 6px 18px rgba(3,169,244,.32)}
+    .premium-cash-btn span,.premium-whatsapp-btn span{font-size:16px;animation:buttonFloat 2s ease-in-out infinite}
+    @keyframes buttonFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+    .premium-cash-btn::before,.premium-whatsapp-btn::before{content:"";position:absolute;top:-100%;left:-80%;width:45%;height:300%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);transform:rotate(25deg);animation:buttonShine 3s infinite}
+    @keyframes buttonShine{0%{left:-80%}55%,100%{left:140%}}
+    .premium-cash-btn:active,.premium-whatsapp-btn:active{transform:scale(.93);box-shadow:0 2px 7px rgba(0,0,0,.25)}
+
+    /* QUICK ACTIONS */
     .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;background:#fff;padding:15px 10px;border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.05)}
-    .quick{background:none;display:flex;flex-direction:column;align-items:center;text-align:center}
+    .quick{background:none;display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .25s ease}
     .quick p{font-size:11px;font-weight:600;color:#444}
-    .quick-image{width:55px;height:55px;object-fit:contain;display:block;margin:0 auto 6px;border-radius:14px;transition:transform .25s}
+    .quick-image{width:55px;height:55px;object-fit:contain;display:block;margin:0 auto 6px;border-radius:14px;transition:transform .25s;animation:quickFloat 3s ease-in-out infinite;filter:drop-shadow(0 5px 7px rgba(0,0,0,.12))}
+    .quick:nth-child(2) .quick-image{animation-delay:.2s}
+    .quick:nth-child(3) .quick-image{animation-delay:.4s}
+    .quick:nth-child(4) .quick-image{animation-delay:.6s}
+    @keyframes quickFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
     .quick-image.verify{width:60px;height:60px}.quick-image.scratch,.quick-image.refer{width:58px;height:58px}
     .quick:active .quick-image{transform:scale(.94)}
+
+    /* MODALS & OVERLAYS */
     .modal-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:9999;padding:15px;backdrop-filter:blur(2px)}
     .modal-overlay.active{display:flex}
     .modal-content{background:#fff;width:100%;max-width:360px;border-radius:20px;padding:20px;position:relative;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,.2)}
@@ -43,39 +85,74 @@
     #scratchCanvas{position:absolute;top:0;left:0;width:100%;height:100%;cursor:pointer}
     .scanner-box{width:140px;height:140px;margin:15px auto;position:relative;border-radius:12px;overflow:hidden}
     .scanner-gif{width:100%;height:100%;object-fit:cover}
-    #toast{position:fixed;bottom:75px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}
-    .bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:#fff;display:flex;justify-around;padding:10px 0;box-shadow:0 -2px 10px rgba(0,0,0,.05);border-top:1px solid #eee;z-index:999}
-    .nav-item{background:none;display:flex;flex-direction:column;align-items:center;font-size:10px;color:#666}
-    .nav-item.active{color:#2e7d32;font-weight:700}
+    #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}/* PREMIUM BOTTOM NAV */
+    .bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;height:82px!important;padding:8px 8px 7px!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(46,125,50,.12)!important;box-shadow:0 -8px 25px rgba(0,0,0,.10)!important;border-radius:22px 22px 0 0;display:flex;justify-content:space-around;z-index:999}
+    .nav-item{position:relative;width:24%;height:68px;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;background:none;transition:transform .25s ease,background .25s ease,color .25s ease}
+    .nav-item span:first-child{font-size:26px!important;line-height:30px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.12));transition:transform .3s ease}
+    .nav-item span:last-child{font-size:11px!important;font-weight:800;letter-spacing:.2px}
+    .nav-item:hover,.nav-item:active{transform:translateY(-3px)}
+    .nav-item:active span:first-child{transform:scale(.85)}
+    .nav-item.active{color:#2e7d32!important;background:linear-gradient(135deg,rgba(232,245,233,.95),rgba(200,230,201,.55));box-shadow:0 5px 16px rgba(46,125,50,.15),inset 0 1px 0 rgba(255,255,255,.9)}
+    .nav-item.active span:first-child{animation:navFloat 2s ease-in-out infinite}
+    @keyframes navFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-4px) scale(1.08)}}
+
+    @media(max-width:380px){
+      .bottom-nav{height:76px!important}
+      .nav-item{height:62px}
+      .nav-item span:first-child{font-size:22px!important}
+      .nav-item span:last-child{font-size:10px!important}
+      .membership-title{font-size:14px}
+    }
   </style>
 </head>
-<body><audio id="clapSound" preload="none" src="clap.mp3"></audio>
+<body>
+
+  <audio id="clapSound" preload="none" src="clap.mp3"></audio>
   <audio id="rewardMoneySound" preload="none" src="Money%20sound.mp3"></audio>
   <audio id="withdrawMoneySound" preload="none" src="money.mp3"></audio>
 
+  <!-- HEADER -->
   <div class="app-header">
     <div>
-      <h1>Mushroom Family Membership</h1>
+      <h1>Kundu Mushroom Farm</h1>
       <p>Kundu Care Rewards & Shop</p>
     </div>
     <a href="https://kundu-mushroom-farm.store.shoopy.in" target="_blank" class="shop-link-btn">🛍️ Visit Shop</a>
   </div>
 
+  <!-- MUSHROOM FAMILY MEMBERSHIP CARD -->
+  <div class="family-membership-card">
+    <div class="membership-shine"></div>
+    <div class="membership-icon">🍄</div>
+    <div class="membership-content">
+      <div class="membership-title">Mushroom Family</div>
+      <div class="membership-subtitle">🎁 Exclusive Member Benefits</div>
+      <div class="membership-badges">
+        <span>💰 Cashback</span>
+        <span>🎰 Spin</span>
+        <span>🪙 Scratch</span>
+      </div>
+    </div>
+    <button class="membership-btn">JOIN NOW →</button>
+  </div>
+
+  <!-- WALLETS -->
   <div class="wallet-grid">
     <div class="mini-wallet cash-wallet">
       <div class="mini-wallet-icon icon-green">💰</div>
       <small>Cash Wallet</small>
       <strong>₹<span id="cashWalletBalance">120.00</span></strong>
-      <button class="wallet-withdraw-btn" onclick="openCashWithdraw()">💸 Cash Out</button>
+      <button class="premium-cash-btn" onclick="openCashWithdraw()"><span>💸</span><b>Cash Out</b></button>
     </div>
     <div class="mini-wallet mushroom-wallet">
       <div class="mini-wallet-icon icon-orange">🍄</div>
       <small>Mushroom Wallet</small>
       <strong><span id="mushroomWalletBalance">450</span> 🍄</strong>
-      <button class="wallet-withdraw-btn mushroom-btn" onclick="openMushroomWithdraw()">📲 WhatsApp Withdraw</button>
+      <button class="premium-whatsapp-btn" onclick="openMushroomWithdraw()"><span>📲</span><b>WhatsApp Cash Out</b></button>
     </div>
   </div>
 
+  <!-- QUICK ACTIONS -->
   <div class="quick-grid">
     <button class="quick" onclick="openScannerModal()">
       <img src="Scaner.gif" class="quick-image verify" alt="Scanner">
@@ -94,11 +171,11 @@
       <p>Refer</p>
     </button>
   </div>
-
+      <!-- BOTTOM NAV -->
   <div class="bottom-nav">
     <button class="nav-item active" onclick="closeAllModals()"><span style="font-size:18px">🏠</span><span>Home</span></button>
-    <button class="nav-item" onclick="openSpinModal()"><span style="font-size:18px">🎰</span><span>Spin</span></button>
-    <button class="nav-item" onclick="openScratchModal()"><span style="font-size:18px">🪙</span><span>Scratch</span></button>
+    <button class="nav-item" onclick="openSpinModal()"><span style="font-size:18px">🎰</span><span>SPIN</span></button>
+    <button class="nav-item" onclick="openScratchModal()"><span style="font-size:18px">🪙</span><span>SCRATCH</span></button>
     <button class="nav-item" onclick="openReferralModal()"><span style="font-size:18px">👥</span><span>Refer</span></button>
   </div>
 
@@ -113,7 +190,9 @@
       <div class="scanner-box"><img src="Scaner.gif" class="scanner-gif" alt="QR"></div>
       <button class="primary-btn" style="background:#444;" onclick="startRealScanner()">📷 Open Camera</button>
     </div>
-                </div> <!-- SPIN WHEEL MODAL -->
+  </div>
+
+  <!-- SPIN WHEEL MODAL -->
   <div class="modal-overlay" id="spinModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('spinModal')">&times;</button>
@@ -137,7 +216,9 @@
       </div>
       <button id="scratchClaimBtn" class="primary-btn" style="display:none;" onclick="claimScratchReward()">✨ Claim Reward</button>
     </div>
-  </div><!-- REFERRAL MODAL -->
+  </div>
+
+  <!-- REFERRAL MODAL -->
   <div class="modal-overlay" id="referralModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('referralModal')">&times;</button>
@@ -163,541 +244,71 @@
   <div class="modal-overlay" id="mushroomWithdrawModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('mushroomWithdrawModal')">&times;</button>
-
       <h3>🍄 Mushroom Withdraw</h3>
-
-      <div id="mushroomWithdrawAmount" style="font-size:28px;font-weight:800;color:#ff8f00;margin:10px 0;">
-        0 🍄
-      </div>
-
+      <div id="mushroomWithdrawAmount" style="font-size:28px;font-weight:800;color:#ff8f00;margin:10px 0;">0 🍄</div>
       <input id="mushroomWithdrawName" class="verify-input" type="text" placeholder="আপনার নাম" autocomplete="name">
       <input id="mushroomWithdrawPhone" class="verify-input" type="tel" placeholder="ফোন নম্বর" maxlength="15" autocomplete="tel">
-
-      <button id="mushroomWithdrawButton" class="primary-btn" style="background:#25D366;" onclick="mushroomWhatsAppWithdraw()">
-        📲 CONFIRM WITHDRAW
-      </button>
+      <button id="mushroomWithdrawButton" class="primary-btn" style="background:#25D366;" onclick="mushroomWhatsAppWithdraw()">📲 CONFIRM WITHDRAW</button>
     </div>
-  </div>
-
-  <div id="toast"></div>
+  </div><div id="toast"></div>
 
   <script>
-    // Updated API Configurations
-    const API_URL = "https://script.google.com/macros/s/AKfycbyOUqeB0hYZPVY7vjlP1uxAqhgFjis8dPcS8HHRmRDlz7sKRjvgGDQLIC9Fres0LSLreg/exec";
-    const API_SECRET = "KUNDU_CARE_2026_SECURE";
-    const CUSTOMER_ID = "KM001";
-    const MUSHROOM_WHATSAPP = "917047643951";
+    const API_URL="https://script.google.com/macros/s/AKfycbyOUqeB0hYZPVY7vjlP1uxAqhgFjis8dPcS8HHRmRDlz7sKRjvgGDQLIC9Fres0LSLreg/exec",API_SECRET="KUNDU_CARE_2026_SECURE",CUSTOMER_ID="KM001",MUSHROOM_WHATSAPP="917047643951";
+    const VALID_REWARD_CODES=new Set(["85NB","34CD","72KF","19QX","46MT","83RA","27LP","91ZW","54HG","68VC","42JP","76XR","13BM","59QK","87DL","25NF","63TZ","48CW","97HS","31VG","56PK","82RM","14YX","69JB","37QN","95KC","21WF","74MD","43RX","88LP","16GH","52ZT","79BV","35NK","61QD","28XF","94MR","47TC","73HJ","89WP","24KS","58DL","92FQ","17XZ","66NB","39RK","81CV","45GM","53YP","78TJ","12AB","23CD","34EF","45GH","56JK","67LM","78NP","89QR","90ST","11UV","22WX","33YZ","44AC","55BD","66CE","77DF","88EG","99FH","10GJ","20HK","30IL","40JM","50KN","60LP","70MQ","80NR","90PS","15QT","25RU","35SV","45TW","55UX","65VY","75WA","85XB","95YC","18ZD","28AE","38BF","48CG","58DH","68EJ","78FK","88GL","98HM","19JN","29KP","39LQ","49MR","59NS","64PT","71QW","86RX","93SY","57TZ","62UA","41VB","36WC","26XD","15YE","84ZF","73AG","52BH","91CI","47DJ","68EK","32FL","79GM","54HN","83IP","27JQ","96KR","18LS","45MT","69NU","37OV","82PW","14QX","58RY","71SZ","23TA","46UB","95VC","31WD","67XE","89YF","12ZG","53AH","76BI","98CJ","43DK","57EL","81FM","24GN","69HO","35IP","72JQ","46KR","93LS","18MT","54NU","87OV","21PW","65QX","39RY","74SZ","16TA","82UB","48VC","95WD","27XE","61YF","83ZG","42AH","79BI","15CJ","56DK","94EL","38FM","67GN","29HO","73IP","85JQ","41KR","62LS","97MT","34NU","58OV","76PW","19QX","44RA","63SB","28TC","91UD","57VE","36WF","82XG","14YH","75ZI","49AJ","68BK","23CL","95DM","17EN","54FO","79GP","31HQ","86IR","42JS","65KT","27LU","93MV","18NW","56OX","74PY","39QZ","81RA","45SB","62TC","97UD","13VE","58WF","26XG","84YH","71ZI","35AJ","69BK","92CL","47DM","16EN","53FO","78GP","24HQ","61IR","89JS","32KT","75LU","48MV","96NW","17OX","64PY","28QZ","83RA","41SB","59TC","72UD","36VE","95WF","14XG","67YH","82ZI","25AJ","43BK","91CL","58DM","76EN","39FO","64GP","18HQ","57IR","93JS","21KT","85LU","46MV","73NW","29OX","61PY","94QZ","37RA","52SB","68TC","15UD","84VE","32WF","79XG","46YH","91ZI","27AJ","53BK","75CL","18DM","62EN","49FO","87GP","35HQ","71IR","26JS","94KT","58LU","83MV","12NW","69OX","47PY","95QZ","31RA","76SB","54TC","89UD","23VE","67WF","42XG","81YH","36ZI","92AJ","57BK","14CL","73DM","48EN","65FO","29GP","86HQ","51IR","78JS","34KT","97LU","25MV","63NW","18OX","49PY","72QZ","41RA","85SB","27TC","69UD","53VE","91WF","16XG","74YH","38ZI","62AJ","95BK","43CL","81DM","24EN","56FO","78GP","31HQ","64IR","92JS","17KT","85LU","46MV","73NW","29OX","51PY","68QZ","34RA","79SB","15TC","87UD","42VE","63WF","28XG","94YH","71ZI","36AJ","58BK","82CL","19DM","67EN","45FO","93GP","21HQ","76IR","54JS","89KT","32LU","65MV","18NW","47OX","83PY","26QZ","59RA","74SB","13TC","68UD","91VE","35WF","57XG","82YH","24ZI","69AJ","43BK","78CL","16DM","95EN","31FO","64GP","52HQ","87IR","23JS","76KT","48LU","91MV","35NW","62OX","84PY","17QZ","53RA","79SB","46TC","28UD","65VE","93WF","14XG","57YH","81ZI","39AJ","72BK","25CL","68DM","47EN","86FO","19GP","54HQ","73IR","32JS","95KT","41LU","67MV","82NW","26OX","58PY","94QZ","15RA","63SB","87TC","34UD","71VE","49WF","92XG","38YH","56ZI","24AJ","69BK","83CL","17DM","45EN","78FO","31GP","64HQ","86IR","29JS","57KT","93LU","42MV","75NW","18OX","61PY","84QZ","35RA","72SB","49TC","96UD","27VE","53WF","81XG","16YH","68ZI","43AJ","95BK","37CL","62DM","89EN","14FO","76GP","51HQ","28IR","63JS","85KT","47LU","91MV","36NW","74OX","52PY","69QZ","18RA","83SB","45TC","27UD","64VE","92WF","31XG","58YH","76ZI","13AJ","54BK","87CL","29DM","61EN","73FO","48GP","95HQ","26IR","82JS","39KT","67LU","15MV","94NW","43OX","71PY","58QZ","32RA","86SB","24TC","79UD","53VE","68WF","17XG","91YH"]);
 
-    // Valid Reward Codes Database
-    const VALID_REWARD_CODES = new Set([
-      "85NB","34CD","72KF","19QX","46MT","83RA","27LP","91ZW","54HG","68VC","42JP","76XR","13BM","59QK","87DL","25NF","63TZ","48CW","97HS","31VG","56PK","82RM","14YX","69JB","37QN","95KC","21WF","74MD","43RX","88LP","16GH","52ZT","79BV","35NK","61QD","28XF","94MR","47TC","73HJ","89WP","24KS","58DL","92FQ","17XZ","66NB","39RK","81CV","45GM","53YP","78TJ",
-      "12AB","23CD","34EF","45GH","56JK","67LM","78NP","89QR","90ST","11UV","22WX","33YZ","44AC","55BD","66CE","77DF","88EG","99FH","10GJ","20HK","30IL","40JM","50KN","60LP","70MQ","80NR","90PS","15QT","25RU","35SV","45TW","55UX","65VY","75WA","85XB","95YC","18ZD","28AE","38BF","48CG","58DH","68EJ","78FK","88GL","98HM","19JN","29KP","39LQ","49MR","59NS",
-      "64PT","71QW","86RX","93SY","57TZ","62UA","41VB","36WC","26XD","15YE","84ZF","73AG","52BH","91CI","47DJ","68EK","32FL","79GM","54HN","83IP","27JQ","96KR","18LS","45MT","69NU","37OV","82PW","14QX","58RY","71SZ","23TA","46UB","95VC","31WD","67XE","89YF","12ZG","53AH","76BI","98CJ",
-      "43DK","57EL","81FM","24GN","69HO","35IP","72JQ","46KR","93LS","18MT","54NU","87OV","21PW","65QX","39RY","74SZ","16TA","82UB","48VC","95WD","27XE","61YF","83ZG","42AH","79BI","15CJ","56DK","94EL","38FM","67GN","29HO","73IP","85JQ","41KR","62LS","97MT","34NU","58OV","76PW","19QX",
-      "44RA","63SB","28TC","91UD","57VE","36WF","82XG","14YH","75ZI","49AJ","68BK","23CL","95DM","17EN","54FO","79GP","31HQ","86IR","42JS","65KT","27LU","93MV","18NW","56OX","74PY","39QZ","81RA","45SB","62TC","97UD","13VE","58WF","26XG","84YH","71ZI","35AJ","69BK","92CL","47DM","16EN",
-      "53FO","78GP","24HQ","61IR","89JS","32KT","75LU","48MV","96NW","17OX","64PY","28QZ","83RA","41SB","59TC","72UD","36VE","95WF","14XG","67YH","82ZI","25AJ","43BK","91CL","58DM","76EN","39FO","64GP","18HQ","57IR","93JS","21KT","85LU","46MV","73NW","29OX","61PY","94QZ","37RA","52SB",
-      "68TC","15UD","84VE","32WF","79XG","46YH","91ZI","27AJ","53BK","75CL","18DM","62EN","49FO","87GP","35HQ","71IR","26JS","94KT","58LU","83MV","12NW","69OX","47PY","95QZ","31RA","76SB","54TC","89UD","23VE","67WF","42XG","81YH","36ZI","92AJ","57BK","14CL","73DM","48EN","65FO","29GP",
-      "86HQ","51IR","78JS","34KT","97LU","25MV","63NW","18OX","49PY","72QZ","41RA","85SB","27TC","69UD","53VE","91WF","16XG","74YH","38ZI","62AJ","95BK","43CL","81DM","24EN","56FO","78GP","31HQ","64IR","92JS","17KT","85LU","46MV","73NW","29OX","51PY","68QZ","34RA","79SB","15TC","87UD",
-      "42VE","63WF","28XG","94YH","71ZI","36AJ","58BK","82CL","19DM","67EN","45FO","93GP","21HQ","76IR","54JS","89KT","32LU","65MV","18NW","47OX","83PY","26QZ","59RA","74SB","13TC","68UD","91VE","35WF","57XG","82YH","24ZI","69AJ","43BK","78CL","16DM","95EN","31FO","64GP","52HQ","87IR",
-      "23JS","76KT","48LU","91MV","35NW","62OX","84PY","17QZ","53RA","79SB","46TC","28UD","65VE","93WF","14XG","57YH","81ZI","39AJ","72BK","25CL","68DM","47EN","86FO","19GP","54HQ","73IR","32JS","95KT","41LU","67MV","82NW","26OX","58PY","94QZ","15RA","63SB","87TC","34UD","71VE","49WF",
-      "92XG","38YH","56ZI","24AJ","69BK","83CL","17DM","45EN","78FO","31GP","64HQ","86IR","29JS","57KT","93LU","42MV","75NW","18OX","61PY","84QZ","35RA","72SB","49TC","96UD","27VE","53WF","81XG","16YH","68ZI","43AJ","95BK","37CL","62DM","89EN","14FO","76GP","51HQ","28IR","63JS","85KT",
-      "47LU","91MV","36NW","74OX","52PY","69QZ","18RA","83SB","45TC","27UD","64VE","92WF","31XG","58YH","76ZI","13AJ","54BK","87CL","29DM","61EN","73FO","48GP","95HQ","26IR","82JS","39KT","67LU","15MV","94NW","43OX","71PY","58QZ","32RA","86SB","24TC","79UD","53VE","68WF","17XG","91YH"
-    ]);
+    let wallet=120.00,mushroomWallet=450,isSpinning=!1,isScratchClaimed=!1,currentScratchReward=null;
+    const USED_CODES_KEY="KUNDU_USED_REWARD_CODES_V1",ACTIVE_CODE_KEY="KUNDU_ACTIVE_REWARD_CODE_V1",ACTIVE_TYPE_KEY="KUNDU_ACTIVE_REWARD_TYPE_V1";
 
-    // Wallet States & Flags
-    let wallet = 120.00;
-    let mushroomWallet = 450;
-    let isSpinning = false, isScratchClaimed = false, currentScratchReward = null;
+    function getUsedCodes(){try{const e=localStorage.getItem(USED_CODES_KEY);return e?JSON.parse(e):[]}catch(e){return[]}}
+    function saveUsedCodes(e){localStorage.setItem(USED_CODES_KEY,JSON.stringify([...new Set(e)]))}
+    function isCodeUsed(e){return getUsedCodes().includes(e)}
+    function markCodeUsed(e){const t=getUsedCodes();t.includes(e)||(t.push(e),saveUsedCodes(t)),localStorage.removeItem(ACTIVE_CODE_KEY),localStorage.removeItem(ACTIVE_TYPE_KEY)}
+    function getActiveCode(){return localStorage.getItem(ACTIVE_CODE_KEY)}
+    function getActiveRewardType(){return localStorage.getItem(ACTIVE_TYPE_KEY)}
+    function setActiveCode(e){localStorage.setItem(ACTIVE_CODE_KEY,e)}
+    function setActiveRewardType(e){localStorage.setItem(ACTIVE_TYPE_KEY,e)}
+    function clearActiveRewardSession(){localStorage.removeItem(ACTIVE_CODE_KEY),localStorage.removeItem(ACTIVE_TYPE_KEY)}
 
-    // ONE-TIME REWARD CODE SYSTEM
-    const USED_CODES_KEY = "KUNDU_USED_REWARD_CODES_V1";
-    const ACTIVE_CODE_KEY = "KUNDU_ACTIVE_REWARD_CODE_V1";
-    const ACTIVE_TYPE_KEY = "KUNDU_ACTIVE_REWARD_TYPE_V1";
+    const spinRewards=[{type:"cash",amount:25,label:"₹25 💵"},{type:"cash",amount:15,label:"₹15 💵"},{type:"cash",amount:30,label:"₹30 💵"},{type:"mushroom",amount:200,label:"200 🍄"},{type:"mushroom",amount:150,label:"150 🍄"},{type:"cash",amount:10,label:"₹10 💵"}];
+    const openModal=e=>document.getElementById(e).classList.add("active"),closeModal=e=>document.getElementById(e).classList.remove("active"),closeAllModals=()=>document.querySelectorAll(".modal-overlay").forEach(e=>e.classList.remove("active"));
 
-    function getUsedCodes() {
-      try {
-        const data = localStorage.getItem(USED_CODES_KEY);
-        return data ? JSON.parse(data) : [];
-      } catch (e) {
-        return [];
-      }
-    }
+    function showToast(e){const t=document.getElementById("toast");t.innerText=e,t.style.display="block",setTimeout(()=>{t.style.display="none"},3000)}
 
-    function saveUsedCodes(codes) {
-      localStorage.setItem(USED_CODES_KEY, JSON.stringify([...new Set(codes)]));
-    }
+    const clapAudio=document.getElementById("clapSound"),moneyAudio=document.getElementById("rewardMoneySound"),withdrawAudio=document.getElementById("withdrawMoneySound");
+    function unlockAudio(){[clapAudio,moneyAudio,withdrawAudio].forEach(e=>{e.muted=!0,e.play().then(()=>{e.pause(),e.currentTime=0,e.muted=!1}).catch(()=>{})})}
+    document.addEventListener("touchstart",unlockAudio,{once:!0}),document.addEventListener("click",unlockAudio,{once:!0});
 
-    function isCodeUsed(code) {
-      return getUsedCodes().includes(code);
-    }
+    async function playRewardSoundSequence(){try{clapAudio.currentTime=0,await clapAudio.play(),setTimeout(async()=>{moneyAudio.currentTime=0,await moneyAudio.play()},1000)}catch(e){}}
+    function launchConfetti(){for(let e=0;e<50;e++){const t=document.createElement("div");t.innerHTML=["🎉","✨","💰","🍄"][Math.floor(4*Math.random())],t.style.cssText=`position:fixed;left:${100*Math.random()}vw;top:-20px;font-size:${14+14*Math.random()}px;z-index:99999;pointer-events:none;transition:transform 2s linear, opacity 2s;`,document.body.appendChild(t),setTimeout(()=>{t.style.transform=`translate(${200*(Math.random()-.5)}px, ${window.innerHeight+50}px) rotate(360deg)`,t.style.opacity="0"},20),setTimeout(()=>t.remove(),2200)}}
 
-    function markCodeUsed(code) {
-      const used = getUsedCodes();
-      if (!used.includes(code)) {
-        used.push(code);
-        saveUsedCodes(used);
-      }
-      localStorage.removeItem(ACTIVE_CODE_KEY);
-      localStorage.removeItem(ACTIVE_TYPE_KEY);
-    }
+    function addRewardToWallet(e){e&&("cash"===e.type?(wallet+=Number(e.amount),document.getElementById("cashWalletBalance").innerText=wallet.toFixed(2),showToast(`💰 ₹${e.amount} Cash Wallet-এ জমা হয়েছে`)):(mushroomWallet+=Number(e.amount),document.getElementById("mushroomWalletBalance").innerText=mushroomWallet,showToast(`🍄 ${e.amount} Mushroom Wallet-এ জমা হয়েছে`)))}
 
-    function getActiveCode() { return localStorage.getItem(ACTIVE_CODE_KEY); }
-    function getActiveRewardType() { return localStorage.getItem(ACTIVE_TYPE_KEY); }
-    function setActiveCode(code) { localStorage.setItem(ACTIVE_CODE_KEY, code); }
-    function setActiveRewardType(type) { localStorage.setItem(ACTIVE_TYPE_KEY, type); }
-    function clearActiveRewardSession() {
-      localStorage.removeItem(ACTIVE_CODE_KEY);
-      localStorage.removeItem(ACTIVE_TYPE_KEY);
-    }
+    async function verifyRewardCode(){const e=document.getElementById("rewardCodeInput"),t=e.value.trim().toUpperCase();if(!t)return void showToast("⚠️ কুপন কোডটি লিখুন");if(!VALID_REWARD_CODES.has(t))return void showToast("❌ Invalid Reward Code");if(isCodeUsed(t))return void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার করা হয়েছে");const o=getActiveCode();if(o&&o!==t)return void showToast("⚠️ আগে থাকা Reward সম্পূর্ণ করুন");setActiveCode(t),e.value="",closeModal("scannerModal"),showToast("✅ Code Verified! এখন SPIN অথবা SCRATCH করুন"),launchConfetti()}
 
-    const spinRewards = [
-      { type: "cash", amount: 25, label: "₹25 💵" },
-      { type: "cash", amount: 15, label: "₹15 💵" },
-      { type: "cash", amount: 30, label: "₹30 💵" },
-      { type: "mushroom", amount: 200, label: "200 🍄" },
-      { type: "mushroom", amount: 150, label: "150 🍄" },
-      { type: "cash", amount: 10, label: "₹10 💵" }
-    ];
+    function openSpinModal(){const e=getActiveCode();if(!e)return showToast("🎫 আগে একটি Reward Code Verify করুন"),void openScannerModal();if(isCodeUsed(e))return clearActiveRewardSession(),void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");setActiveRewardType("spin"),openModal("spinModal"),drawWheel()}
 
-    // Helper Utility Functions
-    const openModal = id => document.getElementById(id).classList.add("active");
-    const closeModal = id => document.getElementById(id).classList.remove("active");
-    const closeAllModals = () => document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+    let currentAngle=0;
+    function drawWheel(){const e=document.getElementById("spinCanvas");if(e){const t=e.getContext("2d"),o=2*Math.PI/spinRewards.length,a=["#2e7d32","#ff8f00","#43a047","#ffa726","#66bb6a","#ffb74d"];t.clearRect(0,0,240,240);for(let n=0;n<spinRewards.length;n++){const r=currentAngle+n*o;t.beginPath(),t.fillStyle=a[n],t.moveTo(120,120),t.arc(120,120,115,r,r+o),t.fill(),t.save(),t.translate(120,120),t.rotate(r+o/2),t.textAlign="right",t.fillStyle="#fff",t.font="bold 12px sans-serif",t.fillText(spinRewards[n].label,100,4),t.restore()}}}
 
-    function showToast(msg) {
-      const t = document.getElementById("toast");
-      t.innerText = msg; t.style.display = "block";
-      setTimeout(() => { t.style.display = "none"; }, 3000);
-    }
-         // Audio Engine
-    const clapAudio = document.getElementById("clapSound");
-    const moneyAudio = document.getElementById("rewardMoneySound");
-    const withdrawAudio = document.getElementById("withdrawMoneySound");
+    function startSpin(){const e=getActiveCode();if(!e)return showToast("🎫 আগে Reward Code Verify করুন"),closeModal("spinModal"),void openScannerModal();if(isCodeUsed(e))return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে"),closeModal("spinModal"),void clearActiveRewardSession();if("spin"!==getActiveRewardType())return void showToast("⚠️ এই Code Spin-এর জন্য অনুমোদিত নয়");if(!isSpinning){isSpinning=!0;const t=document.getElementById("spinButton");t.disabled=!0;const o=Math.floor(Math.random()*spinRewards.length),a=2*Math.PI/spinRewards.length,n=1.5*Math.PI-(o*a+a/2)+16*Math.PI;let r=null;requestAnimationFrame(function c(d){r||(r=d);const s=(d-r)/3000;if(s<1)currentAngle=(1-Math.pow(1-s,3))*n,drawWheel(),requestAnimationFrame(c);else{currentAngle=n,drawWheel(),isSpinning=!1,t.disabled=!1;const r=spinRewards[o];addRewardToWallet(r),markCodeUsed(e),launchConfetti(),playRewardSoundSequence(),showToast(`🎉 ${r.label} জিতেছেন!`),closeModal("spinModal")}})}}
 
-    function unlockAudio() {
-      [clapAudio, moneyAudio, withdrawAudio].forEach(a => {
-        a.muted = true; a.play().then(() => { a.pause(); a.currentTime = 0; a.muted = false; }).catch(()=>{});
-      });
-    }
-    document.addEventListener("touchstart", unlockAudio, { once: true });
-    document.addEventListener("click", unlockAudio, { once: true });
+    function openScratchModal(){const e=getActiveCode();if(!e)return showToast("🎫 আগে একটি Reward Code Verify করুন"),void openScannerModal();if(isCodeUsed(e))return clearActiveRewardSession(),void showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");setActiveRewardType("scratch"),openModal("scratchModal"),initScratchCard()}
+    function initScratchCard(){const e=document.getElementById("scratchCanvas");if(e){const t=e.getContext("2d");currentScratchReward=spinRewards[Math.floor(Math.random()*spinRewards.length)],document.getElementById("scratchPrizeText").innerText=currentScratchReward.label,document.getElementById("scratchClaimBtn").style.display="none",isScratchClaimed=!1,t.globalCompositeOperation="source-over",t.fillStyle="#b0bec5",t.fillRect(0,0,220,140),t.fillStyle="#37474f",t.font="bold 14px sans-serif",t.textAlign="center",t.fillText("এখানে ঘষুন 🪙",110,75);let o=!1;e.onmousedown=e.ontouchstart=()=>o=!0,e.onmouseup=e.ontouchend=()=>o=!1,e.onmousemove=e.ontouchmove=n=>{if(!o)return;const a=e.getBoundingClientRect(),r=n.clientX??n.touches&&n.touches[0]?.clientX,c=n.clientY??n.touches&&n.touches[0]?.clientY;if(null==r||null==c)return;const d=r-a.left,s=c-a.top;t.globalCompositeOperation="destination-out",t.beginPath(),t.arc(d,s,16,0,2*Math.PI),t.fill();const i=t.getImageData(0,0,e.width,e.height);let l=0;for(let e=3;e<i.data.length;e+=4)0===i.data[e]&&l++;l/(e.width*e.height)>=.4&&(document.getElementById("scratchClaimBtn").style.display="block")}}}
 
-    async function playRewardSoundSequence() {
-      try {
-        clapAudio.currentTime = 0; await clapAudio.play();
-        setTimeout(async () => { moneyAudio.currentTime = 0; await moneyAudio.play(); }, 1000);
-      } catch (e) {}
-    }
+    function claimScratchReward(){if(!isScratchClaimed){const e=getActiveCode();if(!e)return showToast("🎫 Reward Code পাওয়া যায়নি"),void closeModal("scratchModal");if(isCodeUsed(e))return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে"),closeModal("scratchModal"),void clearActiveRewardSession();if("scratch"!==getActiveRewardType())return void showToast("⚠️ এই Code Scratch-এর জন্য অনুমোদিত নয়");if(!currentScratchReward)return void showToast("⚠️ Scratch Reward পাওয়া যায়নি");isScratchClaimed=!0,addRewardToWallet(currentScratchReward),markCodeUsed(e),launchConfetti(),playRewardSoundSequence(),showToast(`🎉 ${currentScratchReward.label} জিতেছেন!`),closeModal("scratchModal")}}
 
-    function launchConfetti() {
-      for (let i = 0; i < 50; i++) {
-        const c = document.createElement("div");
-        c.innerHTML = ["🎉","✨","💰","🍄"][Math.floor(Math.random()*4)];
-        c.style.cssText = `position:fixed;left:${Math.random()*100}vw;top:-20px;font-size:${14+Math.random()*14}px;z-index:99999;pointer-events:none;transition:transform 2s linear, opacity 2s;`;
-        document.body.appendChild(c);
-        setTimeout(() => {
-          c.style.transform = `translate(${(Math.random()-.5)*200}px, ${window.innerHeight+50}px) rotate(360deg)`;
-          c.style.opacity = "0";
-        }, 20);
-        setTimeout(() => c.remove(), 2200);
-      }
-    }
+    function openScannerModal(){openModal("scannerModal")}
+    function startRealScanner(){navigator.mediaDevices?.getUserMedia?navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}).then(e=>{showToast("📷 Camera চালু হয়েছে"),setTimeout(()=>e.getTracks().forEach(e=>e.stop()),3000)}).catch(()=>showToast("⚠️ Camera Permission দিন")):showToast("⚠️ Camera support করছে না")}
+    function openReferralModal(){openModal("referralModal")}
+    function shareReferral(){const e="🍄 Kundu Care-এ Join করুন এবং Reward পান!";navigator.share?navigator.share({title:"Kundu Care",text:e}):(navigator.clipboard.writeText(e),showToast("👥 Link কপি হয়েছে!"))}
+    function openCashWithdraw(){document.getElementById("cashWithdrawAmount").innerText="₹"+wallet.toFixed(2),openModal("withdrawModal")}
 
-    function addRewardToWallet(reward) {
-      if (!reward) return;
-      if (reward.type === "cash") {
-        wallet += Number(reward.amount);
-        document.getElementById("cashWalletBalance").innerText = wallet.toFixed(2);
-        showToast(`💰 ₹${reward.amount} Cash Wallet-এ জমা হয়েছে`);
-      } else {
-        mushroomWallet += Number(reward.amount);
-        document.getElementById("mushroomWalletBalance").innerText = mushroomWallet;
-        showToast(`🍄 ${reward.amount} Mushroom Wallet-এ জমা হয়েছে`);
-      }
-    }
+    async function confirmWithdraw(){const e=Number(wallet||0);if(e<=0)return void showToast("⚠️ Balance নেই");const t=document.getElementById("withdrawName").value.trim(),o=document.getElementById("withdrawPhone").value.trim();if(!t||!o)return void showToast("নাম ও ফোন নম্বর দিন");const a=document.getElementById("withdrawConfirmBtn");a.disabled=!0,a.innerText="⏳ Processing...";try{const n=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({secret:API_SECRET,action:"cashWithdraw",customerId:CUSTOMER_ID,name:t,phone:o,amount:e})}),r=await n.json();r.success?(wallet=0,document.getElementById("cashWalletBalance").innerText="0.00",function(){try{withdrawAudio.currentTime=0,withdrawAudio.play()}catch(e){}}(),showToast("✅ Withdraw Request পাঠানো হয়েছে"),closeModal("withdrawModal")):showToast("❌ "+r.message)}catch(e){console.error(e),showToast("❌ Server Error")}finally{a.disabled=!1,a.innerText="💸 CONFIRM WITHDRAW"}}
 
-    // Code Verification Engine
-    async function verifyRewardCode() {
-      const codeInput = document.getElementById("rewardCodeInput");
-      const code = codeInput.value.trim().toUpperCase();
-
-      if (!code) {
-        showToast("⚠️ কুপন কোডটি লিখুন");
-        return;
-      }
-
-      if (!VALID_REWARD_CODES.has(code)) {
-        showToast("❌ Invalid Reward Code");
-        return;
-      }
-
-      if (isCodeUsed(code)) {
-        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার করা হয়েছে");
-        return;
-      }
-
-      const oldActiveCode = getActiveCode();
-      if (oldActiveCode && oldActiveCode !== code) {
-        showToast("⚠️ আগে থাকা Reward সম্পূর্ণ করুন");
-        return;
-      }
-
-      setActiveCode(code);
-      codeInput.value = "";
-      closeModal("scannerModal");
-
-      showToast("✅ Code Verified! এখন SPIN অথবা SCRATCH করুন");
-      launchConfetti();
-    }
-
-    // Spin Handlers
-    function openSpinModal() {
-      const code = getActiveCode();
-
-      if (!code) {
-        showToast("🎫 আগে একটি Reward Code Verify করুন");
-        openScannerModal();
-        return;
-      }
-
-      if (isCodeUsed(code)) {
-        clearActiveRewardSession();
-        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
-        return;
-      }
-
-      setActiveRewardType("spin");
-      openModal("spinModal");
-      drawWheel();
-    }
-
-    let currentAngle = 0;
-    function drawWheel() {
-      const canvas = document.getElementById("spinCanvas"); if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      const arc = (2 * Math.PI) / spinRewards.length;
-      const colors = ["#2e7d32", "#ff8f00", "#43a047", "#ffa726", "#66bb6a", "#ffb74d"];
-      ctx.clearRect(0,0,240,240);
-
-      for (let i = 0; i < spinRewards.length; i++) {
-        const angle = currentAngle + i * arc;
-        ctx.beginPath(); ctx.fillStyle = colors[i];
-        ctx.moveTo(120, 120); ctx.arc(120, 120, 115, angle, angle + arc); ctx.fill();
-        ctx.save(); ctx.translate(120, 120); ctx.rotate(angle + arc / 2);
-        ctx.textAlign = "right"; ctx.fillStyle = "#fff"; ctx.font = "bold 12px sans-serif";
-        ctx.fillText(spinRewards[i].label, 100, 4); ctx.restore();
-      }
-    }
-
-    function startSpin() {
-      const code = getActiveCode();
-
-      if (!code) {
-        showToast("🎫 আগে Reward Code Verify করুন");
-        closeModal("spinModal");
-        openScannerModal();
-        return;
-      }
-
-      if (isCodeUsed(code)) {
-        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
-        closeModal("spinModal");
-        clearActiveRewardSession();
-        return;
-      }
-
-      const rewardType = getActiveRewardType();
-      if (rewardType !== "spin") {
-        showToast("⚠️ এই Code Spin-এর জন্য অনুমোদিত নয়");
-        return;
-      }
-
-      if (isSpinning) return;
-      isSpinning = true;
-
-      const spinButton = document.getElementById("spinButton");
-      spinButton.disabled = true;
-
-      const winIdx = Math.floor(Math.random() * spinRewards.length);
-      const arc = (2 * Math.PI) / spinRewards.length;
-      const target = (3 * Math.PI / 2) - (winIdx * arc + arc / 2) + (8 * Math.PI * 2);
-
-      let start = null;
-
-      function animate(t) {
-        if (!start) start = t;
-        const progress = (t - start) / 3000;
-
-        if (progress < 1) {
-          currentAngle = (1 - Math.pow(1 - progress, 3)) * target;
-          drawWheel();
-          requestAnimationFrame(animate);
-        } else {
-          currentAngle = target;
-          drawWheel();
-          isSpinning = false;
-          spinButton.disabled = false;
-
-          const reward = spinRewards[winIdx];
-          addRewardToWallet(reward);
-          markCodeUsed(code);
-
-          launchConfetti();
-          playRewardSoundSequence();
-          showToast(`🎉 ${reward.label} জিতেছেন!`);
-          closeModal("spinModal");
-        }
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    // Scratch Handlers
-    function openScratchModal() {
-      const code = getActiveCode();
-
-      if (!code) {
-        showToast("🎫 আগে একটি Reward Code Verify করুন");
-        openScannerModal();
-        return;
-      }
-
-      if (isCodeUsed(code)) {
-        clearActiveRewardSession();
-        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
-        return;
-      }
-
-      setActiveRewardType("scratch");
-      openModal("scratchModal");
-      initScratchCard();
-    }
-
-    function initScratchCard() {
-      const canvas = document.getElementById("scratchCanvas"); if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      currentScratchReward = spinRewards[Math.floor(Math.random() * spinRewards.length)];
-      document.getElementById("scratchPrizeText").innerText = currentScratchReward.label;
-      document.getElementById("scratchClaimBtn").style.display = "none";
-      isScratchClaimed = false;
-
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "#b0bec5"; ctx.fillRect(0, 0, 220, 140);
-      ctx.fillStyle = "#37474f"; ctx.font = "bold 14px sans-serif"; ctx.textAlign = "center";
-      ctx.fillText("এখানে ঘষুন 🪙", 110, 75);
-
-      let drawing = false;
-
-      function scratch(e) {
-        if (!drawing) return;
-
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.clientX ?? (e.touches && e.touches[0]?.clientX);
-        const clientY = e.clientY ?? (e.touches && e.touches[0]?.clientY);
-
-        if (clientX == null || clientY == null) return;
-
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-
-        ctx.globalCompositeOperation = "destination-out";
-        ctx.beginPath();
-        ctx.arc(x, y, 16, 0, Math.PI * 2);
-        ctx.fill();
-
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        let transparent = 0;
-
-        for (let i = 3; i < imageData.data.length; i += 4) {
-          if (imageData.data[i] === 0) {
-            transparent++;
-          }
-        }
-
-        const percentage = transparent / (canvas.width * canvas.height);
-
-        if (percentage >= 0.40) {
-          document.getElementById("scratchClaimBtn").style.display = "block";
-        }
-      }
-
-      canvas.onmousedown = canvas.ontouchstart = () => drawing = true;
-      canvas.onmouseup = canvas.ontouchend = () => drawing = false;
-      canvas.onmousemove = canvas.ontouchmove = scratch;
-    }
-
-    function claimScratchReward() {
-      if (isScratchClaimed) return;
-
-      const code = getActiveCode();
-
-      if (!code) {
-        showToast("🎫 Reward Code পাওয়া যায়নি");
-        closeModal("scratchModal");
-        return;
-      }
-
-      if (isCodeUsed(code)) {
-        showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
-        closeModal("scratchModal");
-        clearActiveRewardSession();
-        return;
-      }
-
-      const rewardType = getActiveRewardType();
-      if (rewardType !== "scratch") {
-        showToast("⚠️ এই Code Scratch-এর জন্য অনুমোদিত নয়");
-        return;
-      }
-
-      if (!currentScratchReward) {
-        showToast("⚠️ Scratch Reward পাওয়া যায়নি");
-        return;
-      }
-
-      isScratchClaimed = true;
-      addRewardToWallet(currentScratchReward);
-      markCodeUsed(code);
-
-      launchConfetti();
-      playRewardSoundSequence();
-      showToast(`🎉 ${currentScratchReward.label} জিতেছেন!`);
-      closeModal("scratchModal");
-    }
-
-    // Modals & Camera Triggers
-    function openScannerModal() { openModal("scannerModal"); }
-    function startRealScanner() {
-      if (!navigator.mediaDevices?.getUserMedia) return showToast("⚠️ Camera support করছে না");
-      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(s => {
-        showToast("📷 Camera চালু হয়েছে"); setTimeout(() => s.getTracks().forEach(t => t.stop()), 3000);
-      }).catch(() => showToast("⚠️ Camera Permission দিন"));
-    }
-
-    function openReferralModal() { openModal("referralModal"); }
-    function shareReferral() {
-      const msg = "🍄 Kundu Care-এ Join করুন এবং Reward পান!";
-      if (navigator.share) navigator.share({ title: "Kundu Care", text: msg });
-      else { navigator.clipboard.writeText(msg); showToast("👥 Link কপি হয়েছে!"); }
-    }
-
-    function openCashWithdraw() {
-      document.getElementById("cashWithdrawAmount").innerText = "₹" + wallet.toFixed(2);
-      openModal("withdrawModal");
-    }
-
-    // Updated confirmWithdraw Function
-    async function confirmWithdraw(){
-      const amount = Number(wallet || 0);
-
-      if(amount <= 0){
-        showToast("⚠️ Balance নেই");
-        return;
-      }
-
-      const name = document.getElementById("withdrawName").value.trim();
-      const phone = document.getElementById("withdrawPhone").value.trim();
-
-      if(!name || !phone){
-        showToast("নাম ও ফোন নম্বর দিন");
-        return;
-      }
-
-      const btn = document.getElementById("withdrawConfirmBtn");
-      btn.disabled = true;
-      btn.innerText = "⏳ Processing...";
-
-      try {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          },
-          body: JSON.stringify({
-            secret: API_SECRET,
-            action: "cashWithdraw",
-            customerId: CUSTOMER_ID,
-            name: name,
-            phone: phone,
-            amount: amount
-          })
-        });
-
-        const data = await res.json();
-
-        if(data.success){
-          wallet = 0;
-          document.getElementById("cashWalletBalance").innerText = "0.00";
-          try { withdrawAudio.currentTime = 0; await withdrawAudio.play(); } catch(e){}
-          showToast("✅ Withdraw Request পাঠানো হয়েছে");
-          closeModal("withdrawModal");
-        } else {
-          showToast("❌ " + data.message);
-        }
-      } catch(e) {
-        console.error(e);
-        showToast("❌ Server Error");
-      } finally {
-        btn.disabled = false;
-        btn.innerText = "💸 CONFIRM WITHDRAW";
-      }
-    }
-
-    // Mushroom Withdraw WhatsApp Integration
-    function openMushroomWithdraw() {
-      document.getElementById("mushroomWithdrawAmount").innerText = mushroomWallet + " 🍄";
-      openModal("mushroomWithdrawModal");
-    }
-
-    function mushroomWhatsAppWithdraw() {
-      if (mushroomWallet <= 0) {
-        showToast("🍄 Mushroom Wallet খালি");
-        return;
-      }
-
-      const name = document.getElementById("mushroomWithdrawName").value.trim();
-      const phone = document.getElementById("mushroomWithdrawPhone").value.trim();
-
-      if (!name) {
-        showToast("⚠️ আপনার নাম লিখুন");
-        return;
-      }
-
-      const cleanPhone = phone.replace(/\D/g, "");
-      if (cleanPhone.length < 10) {
-        showToast("⚠️ সঠিক ফোন নম্বর দিন");
-        return;
-      }
-
-      const amount = mushroomWallet;
-      const reqId = "KM-" + Date.now().toString(36).toUpperCase();
-
-      const msg = 
-`🍄 KUNDU CARE
-Mushroom Withdraw Request
-
-👤 নাম: ${name}
-📱 ফোন: ${phone}
-
-🍄 Mushroom Balance: ${amount}
-
-🆔 Request ID: ${reqId}
-
-আমি আমার Mushroom Wallet-এর ${amount} 🍄 Withdraw করতে চাই।`;
-
-      const whatsappURL = `https://wa.me/${MUSHROOM_WHATSAPP}?text=${encodeURIComponent(msg)}`;
-      window.open(whatsappURL, "_blank");
-
-      mushroomWallet = 0;
-      document.getElementById("mushroomWalletBalance").innerText = "0";
-      document.getElementById("mushroomWithdrawName").value = "";
-      document.getElementById("mushroomWithdrawPhone").value = "";
-
-      showToast("✅ Withdraw Request WhatsApp-এ তৈরি হয়েছে!");
-      closeModal("mushroomWithdrawModal");
-    }
+    function openMushroomWithdraw(){document.getElementById("mushroomWithdrawAmount").innerText=mushroomWallet+" 🍄",openModal("mushroomWithdrawModal")}
+    function mushroomWhatsAppWithdraw(){if(mushroomWallet<=0)return void showToast("🍄 Mushroom Wallet খালি");const e=document.getElementById("mushroomWithdrawName").value.trim(),t=document.getElementById("mushroomWithdrawPhone").value.trim();if(!e)return void showToast("⚠️ আপনার নাম লিখুন");if(t.replace(/\D/g,"").length<10)return void showToast("⚠️ সঠিক ফোন নম্বর দিন");const o=mushroomWallet,a="KM-"+Date.now().toString(36).toUpperCase(),n=`https://wa.me/${MUSHROOM_WHATSAPP}?text=`+encodeURIComponent(`🍄 KUNDU CARE\nMushroom Withdraw Request\n\n👤 নাম: ${e}\n📱 ফোন: ${t}\n\n🍄 Mushroom Balance: ${o}\n\n🆔 Request ID: ${a}\n\nআমি আমার Mushroom Wallet-এর ${o} 🍄 Withdraw করতে চাই।`);window.open(n,"_blank"),mushroomWallet=0,document.getElementById("mushroomWalletBalance").innerText="0",document.getElementById("mushroomWithdrawName").value="",document.getElementById("mushroomWithdrawPhone").value="",showToast("✅ Withdraw Request WhatsApp-এ তৈরি হয়েছে!"),closeModal("mushroomWithdrawModal")}
   </script>
 </body>
 </html>
 
-      
+              
