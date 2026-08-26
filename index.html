@@ -1144,6 +1144,9 @@
         clearActiveRewardSession();
         return;
       }
+      clearActiveRewardSession();
+        return;
+      }
       if (getActiveRewardType() !== "scratch") return showToast("⚠️ এই Code Scratch-এর জন্য অনুমোদিত নয়");
       if (!currentScratchReward) return showToast("⚠️ Reward পাওয়া যায়নি");
 
