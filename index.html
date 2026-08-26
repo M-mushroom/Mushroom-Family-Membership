@@ -96,13 +96,65 @@
     .nav-item.active{color:#2e7d32!important;background:linear-gradient(135deg,rgba(232,245,233,.95),rgba(200,230,201,.55));box-shadow:0 5px 16px rgba(46,125,50,.15),inset 0 1px 0 rgba(255,255,255,.9)}
     .nav-item.active span:first-child{animation:navFloat 2s ease-in-out infinite}
     @keyframes navFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.06)}}
+
+    /* PREMIUM REWARD ACTIVITY */
+    .reward-live-panel{position:relative;margin:0 0 20px;padding:15px;border-radius:20px;overflow:hidden;background:radial-gradient(circle at 10% 0%,rgba(76,175,80,.14),transparent 35%),radial-gradient(circle at 100% 100%,rgba(255,152,0,.12),transparent 35%),#fff;border:1px solid rgba(46,125,50,.10);box-shadow:0 8px 25px rgba(0,0,0,.07)}
+    .reward-live-panel::before{content:"";position:absolute;top:0;left:-100%;width:70%;height:2px;background:linear-gradient(90deg,transparent,#66bb6a,#ffb300,transparent);animation:rewardTopShine 3s linear infinite}
+    @keyframes rewardTopShine{0%{left:-100%}100%{left:150%}}
+    .reward-live-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+    .reward-live-title{font-size:14px;font-weight:900;color:#222}
+    .reward-live-subtitle{margin-top:3px;font-size:9px;color:#888}
+    .live-status{display:flex;align-items:center;gap:5px;padding:5px 8px;border-radius:20px;background:#e8f5e9;color:#2e7d32;font-size:8px;font-weight:900;box-shadow:inset 0 0 0 1px rgba(46,125,50,.08)}
+    .live-dot{width:7px;height:7px;border-radius:50%;background:#43a047;box-shadow:0 0 0 0 rgba(67,160,71,.5);animation:liveDotPulse 1.5s infinite}
+    @keyframes liveDotPulse{0%{box-shadow:0 0 0 0 rgba(67,160,71,.55)}70%{box-shadow:0 0 0 7px rgba(67,160,71,0)}100%{box-shadow:0 0 0 0 rgba(67,160,71,0)}}
+    .reward-activity-feed{position:relative;min-height:66px;overflow:hidden}
+    .reward-activity-card{display:flex;align-items:center;gap:10px;padding:10px;border-radius:15px;background:linear-gradient(135deg,#f8fff8,#ffffff);border:1px solid rgba(46,125,50,.09);box-shadow:0 4px 12px rgba(0,0,0,.045);animation:activityIn .55s cubic-bezier(.2,.8,.2,1)}
+    @keyframes activityIn{0%{opacity:0;transform:translateY(18px) scale(.96)}100%{opacity:1;transform:translateY(0) scale(1)}}
+    .reward-activity-avatar{position:relative;width:39px;height:39px;min-width:39px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(135deg,#e8f5e9,#fff3e0);box-shadow:0 4px 10px rgba(0,0,0,.08)}
+    .reward-activity-avatar::after{content:"";position:absolute;right:-2px;bottom:-2px;width:9px;height:9px;border-radius:50%;background:#43a047;border:2px solid #fff}
+    .reward-activity-info{flex:1;min-width:0}
+    .reward-activity-name{font-size:11px;font-weight:900;color:#222;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .reward-activity-text{margin-top:2px;font-size:9px;color:#777}
+    .reward-activity-reward{padding:6px 8px;border-radius:10px;background:linear-gradient(135deg,#fff8e1,#fff3cd);color:#e65100;font-size:9px;font-weight:900;white-space:nowrap;box-shadow:inset 0 0 0 1px rgba(255,152,0,.12)}
+    .reward-activity-time{margin-top:3px;font-size:7px;color:#aaa;text-align:right}
+
+    /* COUNTDOWN TIMER */
+    .reward-timer{margin:7px auto 0;display:flex;align-items:center;justify-content:center;gap:5px;width:max-content;padding:5px 9px;border-radius:20px;background:linear-gradient(135deg,#fff8e1,#fff3e0);border:1px solid rgba(255,152,0,.15);color:#e65100;font-size:8px;font-weight:900;box-shadow:0 3px 10px rgba(255,152,0,.08);animation:timerGlow 2s ease-in-out infinite}
+    .reward-timer-icon{font-size:11px}
+    .reward-timer-number{min-width:15px;text-align:center;font-size:10px;color:#d84315}
+    @keyframes timerGlow{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+    .quick-timer-wrap{min-height:20px;margin-top:2px}
+
+    /* CLAIM CODE & QR SCANNER UI */
+    .claim-code-section{margin-top:16px;padding:13px;border-radius:15px;background:linear-gradient(135deg,#f8fff9,#edf8ef);border:1px solid #c8e6c9;box-shadow:0 5px 15px rgba(46,125,50,.08);text-align:left}
+    .claim-code-title{font-size:13px;font-weight:900;color:#2e7d32}
+    .claim-code-subtitle{margin-top:3px;margin-bottom:9px;font-size:9px;color:#777}
+    .claim-code-row{display:flex;gap:7px;align-items:center}
+    .claim-code-input{flex:1;margin:0!important;height:42px;font-size:13px;font-weight:800;letter-spacing:1px;text-align:center;border:1px solid #bdbdbd;background:#fff}
+    .claim-code-input:focus{border-color:#2e7d32;box-shadow:0 0 0 3px rgba(46,125,50,.10)}
+    .claim-code-btn{height:42px;padding:0 13px;border-radius:9px;color:#fff;background:linear-gradient(135deg,#1b5e20,#2e7d32,#43a047);font-size:10px;font-weight:900;box-shadow:0 5px 12px rgba(46,125,50,.25);white-space:nowrap;transition:transform .2s ease,box-shadow .2s ease}
+    .claim-code-btn:active{transform:scale(.93)}
+    .scanner-divider{display:flex;align-items:center;gap:8px;margin:15px 0 5px;color:#999;font-size:9px;font-weight:700}
+    .scanner-divider::before,.scanner-divider::after{content:"";flex:1;height:1px;background:#e0e0e0}
+    .scanner-divider span{white-space:nowrap}
+
+    /* PROMO VIDEO WATCH NOW BADGE */
+    .promo-video-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+    .promo-brand-title{font-size:12px;font-weight:900;color:#2e7d32}
+    .watch-now-badge{position:relative;display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:20px;color:#fff;background:linear-gradient(135deg,#d32f2f,#f44336,#ff7043);font-size:9px;font-weight:900;white-space:nowrap;box-shadow:0 4px 12px rgba(211,47,47,.30);animation:watchNowPulse 1.6s ease-in-out infinite}
+    .watch-now-badge::after{content:"";position:absolute;inset:-4px;border-radius:24px;border:2px solid rgba(244,67,54,.35);animation:watchNowRing 1.6s ease-out infinite}
+    .watch-dot{width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 7px rgba(255,255,255,.9);animation:watchDotBlink .9s ease-in-out infinite}
+    @keyframes watchNowPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+    @keyframes watchNowRing{0%{transform:scale(.85);opacity:.8}100%{transform:scale(1.25);opacity:0}}
+    @keyframes watchDotBlink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
   </style>
 </head>
 <body>
-
-  <audio id="clapSound" preload="none" src="clap.mp3"></audio>
+<audio id="clapSound" preload="none" src="clap.mp3"></audio>
   <audio id="rewardMoneySound" preload="none" src="Money%20sound.mp3"></audio>
-  <audio id="withdrawMoneySound" preload="none" src="money.mp3"></audio><!-- HEADER -->
+  <audio id="withdrawMoneySound" preload="none" src="money.mp3"></audio>
+
+  <!-- HEADER -->
   <div class="app-header">
     <div>
       <h1>Kundu Mushroom Farm</h1>
@@ -132,35 +184,68 @@
     <div class="mini-wallet cash-wallet">
       <div class="mini-wallet-icon icon-green">💰</div>
       <small>Cash Wallet</small>
-      <strong>₹<span id="cashWalletBalance">120.00</span></strong>
+      <strong>₹<span id="cashWalletBalance">0.00</span></strong>
       <button class="premium-cash-btn" onclick="openCashWithdraw()"><span>💸</span><b>Cash Out</b></button>
     </div>
     <div class="mini-wallet mushroom-wallet">
       <div class="mini-wallet-icon icon-orange">🍄</div>
       <small>Mushroom Wallet</small>
-      <strong><span id="mushroomWalletBalance">450</span> 🍄</strong>
+      <strong><span id="mushroomWalletBalance">0</span> 🍄</strong>
       <button class="premium-whatsapp-btn" onclick="openMushroomWithdraw()"><span>📲</span><b>WhatsApp Cash Out</b></button>
     </div>
   </div>
-
-  <!-- QUICK ACTIONS -->
+<!-- QUICK ACTIONS -->
   <div class="quick-grid">
     <button class="quick" onclick="openScannerModal()">
       <img src="Scaner.gif" class="quick-image verify" alt="Scanner">
       <p>Verify QR</p>
+      <div class="quick-timer-wrap">
+        <div class="reward-timer" style="background:#e8f5e9;color:#2e7d32;">
+          <span class="reward-timer-icon">🔑</span>
+          <span>কোড লিখুন</span>
+        </div>
+      </div>
     </button>
     <button class="quick" onclick="openScratchModal()">
       <img src="splash2.gif" class="quick-image scratch" alt="Scratch">
       <p>Scratch</p>
+      <div class="quick-timer-wrap">
+        <div class="reward-timer">
+          <span class="reward-timer-icon">⏱️</span>
+          <span>পরের Reward</span>
+          <span id="scratchTimer" class="reward-timer-number">04</span>
+        </div>
+      </div>
     </button>
     <button class="quick" onclick="openSpinModal()">
       <img src="splash02.gif" class="quick-image" alt="Spin">
       <p>SPIN করুন</p>
+      <div class="quick-timer-wrap">
+        <div class="reward-timer">
+          <span class="reward-timer-icon">⏱️</span>
+          <span>পরের Spin</span>
+          <span id="spinTimer" class="reward-timer-number">04</span>
+        </div>
+      </div>
     </button>
     <button class="quick" onclick="openReferralModal()">
       <img src="referral.jpg" class="quick-image refer" alt="Refer">
       <p>Refer</p>
     </button>
+  </div>
+
+  <!-- LIVE REWARD ACTIVITY -->
+  <div class="reward-live-panel">
+    <div class="reward-live-header">
+      <div>
+        <div class="reward-live-title">✨ Live Reward Activity</div>
+        <div class="reward-live-subtitle">Demo activity • প্রতি ৪ সেকেন্ডে আপডেট</div>
+      </div>
+      <div class="live-status">
+        <span class="live-dot"></span> LIVE
+      </div>
+    </div>
+    <div id="rewardActivityFeed" class="reward-activity-feed"></div>
   </div>
 
   <!-- BOTTOM NAV -->
@@ -176,11 +261,42 @@
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('scannerModal')">&times;</button>
       <h3>📷 Scan & Claim QR Code</h3>
-      <input id="rewardCodeInput" class="verify-input" type="text" placeholder="কুপন/QR কোড লিখুন" style="text-transform:uppercase;">
-      <button class="primary-btn" onclick="verifyRewardCode()">✅ Claim Code</button>
-      <div style="margin:12px 0;font-size:11px;color:#888;">অথবা ক্যামেরা ব্যবহার করুন</div>
-      <div class="scanner-box"><img src="Scaner.gif" class="scanner-gif" alt="QR"></div>
-      <button class="primary-btn" style="background:#444;" onclick="startRealScanner()">📷 Open Camera</button>
+      
+      <!-- CLAIM CODE - TOP SECTION -->
+      <div class="claim-code-section">
+        <div class="claim-code-title">🎫 Claim Code</div>
+        <div class="claim-code-subtitle">QR না থাকলে এখানে Code লিখুন</div>
+        <div class="claim-code-row">
+          <input id="rewardCodeInput" class="verify-input claim-code-input" type="text" placeholder="যেমন: 85NB" maxlength="12" autocomplete="off" autocapitalize="characters" style="text-transform:uppercase;">
+          <button class="claim-code-btn" onclick="verifyRewardCode()">✅ Claim</button>
+        </div>
+      </div>
+
+      <!-- DIVIDER -->
+      <div class="scanner-divider">
+        <span>অথবা QR Scan করুন</span>
+      </div>
+
+      <!-- REAL QR SCANNER AREA -->
+      <div class="scanner-box" id="realScannerBox">
+        <div id="qrReader"></div>
+        <div id="scannerPlaceholder" class="scanner-placeholder">
+          <div class="scanner-placeholder-icon">📷</div>
+          <div>Open Camera চাপুন</div>
+          <small>QR Code-এর দিকে Camera ধরুন</small>
+        </div>
+        <div class="scanner-overlay-ui">
+          <div class="scanner-corners">
+            <i class="corner tl"></i><i class="corner tr"></i>
+            <i class="corner bl"></i><i class="corner br"></i>
+          </div>
+          <div class="scanner-line"></div>
+        </div>
+      </div>
+
+      <div id="cameraStatus" style="font-size:10px;color:#777;margin-top:8px;">Camera বন্ধ আছে</div>
+      <button id="openCameraBtn" class="primary-btn" style="background:#444;" onclick="startRealScanner()">📷 Open Camera</button>
+      <button id="stopCameraBtn" class="primary-btn" style="display:none;background:#d32f2f;" onclick="stopRealScanner()">🛑 Stop Camera</button>
     </div>
   </div>
 
@@ -244,9 +360,7 @@
     </div>
   </div>
 
-  <div id="toast"></div>
-
-  <script>
+  <div id="toast"></div><script>
     const API_URL = "https://script.google.com/macros/s/AKfycbyOUqeB0hYZPVY7vjlP1uxAqhgFjis8dPcS8HHRmRDlz7sKRjvgGDQLIC9Fres0LSLreg/exec";
     const API_SECRET = "KUNDU_CARE_2026_SECURE";
     const CUSTOMER_ID = "KM001";
@@ -254,8 +368,8 @@
 
     const VALID_REWARD_CODES = new Set(["85NB","34CD","72KF","19QX","46MT","83RA","27LP","91ZW","54HG","68VC","42JP","76XR","13BM","59QK","87DL","25NF","63TZ","48CW","97HS","31VG","56PK","82RM","14YX","69JB","37QN","95KC","21WF","74MD","43RX","88LP","16GH","52ZT","79BV","35NK","61QD","28XF","94MR","47TC","73HJ","89WP","24KS","58DL","92FQ","17XZ","66NB","39RK","81CV","45GM","53YP","78TJ","12AB","23CD","34EF","45GH","56JK","67LM","78NP","89QR","90ST","11UV","22WX","33YZ","44AC","55BD","66CE","77DF","88EG","99FH","10GJ","20HK","30IL","40JM","50KN","60LP","70MQ","80NR","90PS","15QT","25RU","35SV","45TW","55UX","65VY","75WA","85XB","95YC","18ZD","28AE","38BF","48CG","58DH","68EJ","78FK","88GL","98HM","19JN","29KP","39LQ","49MR","59NS","64PT","71QW","86RX","93SY","57TZ","62UA","41VB","36WC","26XD","15YE","84ZF","73AG","52BH","91CI","47DJ","68EK","32FL","79GM","54HN","83IP","27JQ","96KR","18LS","45MT","69NU","37OV","82PW","14QX","58RY","71SZ","23TA","46UB","95VC","31WD","67XE","89YF","12ZG","53AH","76BI","98CJ","43DK","57EL","81FM","24GN","69HO","35IP","72JQ","46KR","93LS","18MT","54NU","87OV","21PW","65QX","39RY","74SZ","16TA","82UB","48VC","95WD","27XE","61YF","83ZG","42AH","79BI","15CJ","56DK","94EL","38FM","67GN","29HO","73IP","85JQ","41KR","62LS","97MT","34NU","58OV","76PW","19QX","44RA","63SB","28TC","91UD","57VE","36WF","82XG","14YH","75ZI","49AJ","68BK","23CL","95DM","17EN","54FO","79GP","31HQ","86IR","42JS","65KT","27LU","93MV","18NW","56OX","74PY","39QZ","81RA","45SB","62TC","97UD","13VE","58WF","26XG","84YH","71ZI","35AJ","69BK","92CL","47DM","16EN","53FO","78GP","24HQ","61IR","89JS","32KT","75LU","48MV","96NW","17OX","64PY","28QZ","83RA","41SB","59TC","72UD","36VE","95WF","14XG","67YH","82ZI","25AJ","43BK","91CL","58DM","76EN","39FO","64GP","18HQ","57IR","93JS","21KT","85LU","46MV","73NW","29OX","61PY","94QZ","37RA","52SB","68TC","15UD","84VE","32WF","79XG","46YH","91ZI","27AJ","53BK","75CL","18DM","62EN","49FO","87GP","35HQ","71IR","26JS","94KT","58LU","83MV","12NW","69OX","47PY","95QZ","31RA","76SB","54TC","89UD","23VE","67WF","42XG","81YH","36ZI","92AJ","57BK","14CL","73DM","48EN","65FO","29GP","86HQ","51IR","78JS","34KT","97LU","25MV","63NW","18OX","49PY","72QZ","41RA","85SB","27TC","69UD","53VE","91WF","16XG","74YH","38ZI","62AJ","95BK","43CL","81DM","24EN","56FO","78GP","31HQ","64IR","92JS","17KT","85LU","46MV","73NW","29OX","51PY","68QZ","34RA","79SB","15TC","87UD","42VE","63WF","28XG","94YH","71ZI","36AJ","58BK","82CL","19DM","67EN","45FO","93GP","21HQ","76IR","54JS","89KT","32LU","65MV","18NW","47OX","83PY","26QZ","59RA","74SB","13TC","68UD","91VE","35WF","57XG","82YH","24ZI","69AJ","43BK","78CL","16DM","95EN","31FO","64GP","52HQ","87IR","23JS","76KT","48LU","91MV","35NW","62OX","84PY","17QZ","53RA","79SB","46TC","28UD","65VE","93WF","14XG","57YH","81ZI","39AJ","72BK","25CL","68DM","47EN","86FO","19GP","54HQ","73IR","32JS","95KT","41LU","67MV","82NW","26OX","58PY","94QZ","15RA","63SB","87TC","34UD","71VE","49WF","92XG","38YH","56ZI","24AJ","69BK","83CL","17DM","45EN","78FO","31GP","64HQ","86IR","29JS","57KT","93LU","42MV","75NW","18OX","61PY","84QZ","35RA","72SB","49TC","96UD","27VE","53WF","81XG","16YH","68ZI","43AJ","95BK","37CL","62DM","89EN","14FO","76GP","51HQ","28IR","63JS","85KT","47LU","91MV","36NW","74OX","52PY","69QZ","18RA","83SB","45TC","27UD","64VE","92WF","31XG","58YH","76ZI","13AJ","54BK","87CL","29DM","61EN","73FO","48GP","95HQ","26IR","82JS","39KT","67LU","15MV","94NW","43OX","71PY","58QZ","32RA","86SB","24TC","79UD","53VE","68WF","17XG","91YH"]);
 
-    let wallet = 120.00;
-    let mushroomWallet = 450;
+    let wallet = 0.00;
+    let mushroomWallet = 0;
     let isSpinning = false;
     let isScratchClaimed = false;
     let currentScratchReward = null;
@@ -264,7 +378,6 @@
     const USED_CODES_KEY = "KUNDU_USED_REWARD_CODES_V1";
     const ACTIVE_CODE_KEY = "KUNDU_ACTIVE_REWARD_CODE_V1";
     const ACTIVE_TYPE_KEY = "KUNDU_ACTIVE_REWARD_TYPE_V1";
-
     const spinRewards = [
       {type: "cash", amount: 25, label: "₹25 💵"},
       {type: "cash", amount: 15, label: "₹15 💵"},
@@ -273,6 +386,77 @@
       {type: "mushroom", amount: 150, label: "150 🍄"},
       {type: "cash", amount: 10, label: "₹10 💵"}
     ];
+
+    /* DEMO REWARD USERS FEED DATA */
+    const demoRewardUsers = [
+      {name:"রাহুল দাস", gender:"male", city:"Kharagpur"},
+      {name:"সুমন কুণ্ডু", gender:"male", city:"Midnapore"},
+      {name:"অরিন্দম ঘোষ", gender:"male", city:"Kharagpur"},
+      {name:"সৌরভ পাল", gender:"male", city:"Jhargram"},
+      {name:"অভিষেক মাইতি", gender:"male", city:"Midnapore"},
+      {name:"শুভম দে", gender:"male", city:"Kharagpur"},
+      {name:"রাকেশ জানা", gender:"male", city:"Debra"},
+      {name:"বাপ্পা দাস", gender:"male", city:"Dantan"},
+      {name:"সায়ন ঘোষ", gender:"male", city:"Kharagpur"},
+      {name:"তন্ময় পাল", gender:"male", city:"Midnapore"},
+      {name:"অমিত কুণ্ডু", gender:"male", city:"Kharagpur"},
+      {name:"রাজু মাইতি", gender:"male", city:"Jhargram"},
+      {name:"দেবাশীষ দে", gender:"male", city:"Kharagpur"},
+      {name:"মৌসুমী দাস", gender:"female", city:"Kharagpur"},
+      {name:"স্নেহা পাল", gender:"female", city:"Midnapore"},
+      {name:"পায়েল ঘোষ", gender:"female", city:"Kharagpur"},
+      {name:"রিয়া মাইতি", gender:"female", city:"Jhargram"},
+      {name:"সায়ন্তিকা দে", gender:"female", city:"Kharagpur"},
+      {name:"প্রিয়া কুণ্ডু", gender:"female", city:"Midnapore"},
+      {name:"মধুমিতা পাল", gender:"female", city:"Kharagpur"},
+      {name:"তৃষা জানা", gender:"female", city:"Debra"},
+      {name:"অনন্যা দাস", gender:"female", city:"Kharagpur"},
+      {name:"সোহিনী ঘোষ", gender:"female", city:"Midnapore"},
+      {name:"রিমি মাইতি", gender:"female", city:"Kharagpur"},
+      {name:"পূজা দে", gender:"female", city:"Jhargram"},
+      {name:"Rahul", gender:"male", city:"Kolkata"},
+      {name:"Amit", gender:"male", city:"Kharagpur"},
+      {name:"Arjun", gender:"male", city:"Midnapore"},
+      {name:"Rohan", gender:"male", city:"Kolkata"},
+      {name:"Sourav", gender:"male", city:"Kharagpur"},
+      {name:"Raj", gender:"male", city:"Haldia"},
+      {name:"Akash", gender:"male", city:"Kolkata"},
+      {name:"Vivek", gender:"male", city:"Midnapore"},
+      {name:"Ankit", gender:"male", city:"Kharagpur"},
+      {name:"Rakesh", gender:"male", city:"Kolkata"},
+      {name:"Sayan", gender:"male", city:"Kharagpur"},
+      {name:"Dev", gender:"male", city:"Midnapore"},
+      {name:"Ravi", gender:"male", city:"Kolkata"},
+      {name:"Priya", gender:"female", city:"Kolkata"},
+      {name:"Sneha", gender:"female", city:"Kharagpur"},
+      {name:"Riya", gender:"female", city:"Midnapore"},
+      {name:"Ananya", gender:"female", city:"Kolkata"},
+      {name:"Pooja", gender:"female", city:"Kharagpur"},
+      {name:"Tina", gender:"female", city:"Haldia"},
+      {name:"Neha", gender:"female", city:"Kolkata"},
+      {name:"Payel", gender:"female", city:"Midnapore"},
+      {name:"Moumita", gender:"female", city:"Kharagpur"},
+      {name:"Sohini", gender:"female", city:"Kolkata"},
+      {name:"Trisha", gender:"female", city:"Kharagpur"},
+      {name:"Madhumita", gender:"female", city:"Midnapore"},
+      {name:"Rimi", gender:"female", city:"Kolkata"},
+      {name:"Diya", gender:"female", city:"Kharagpur"}
+    ];
+
+    const demoRewardOptions = [
+      {type:"cash", label:"₹25 Cash", icon:"💰"},
+      {type:"cash", label:"₹30 Cash", icon:"💵"},
+      {type:"cash", label:"₹40 Cash", icon:"💸"},
+      {type:"cash", label:"₹49 Cash", icon:"💰"},
+      {type:"mushroom", label:"500 🍄", icon:"🍄"},
+      {type:"mushroom", label:"100 🍄", icon:"🍄"},
+      {type:"mushroom", label:"150 🍄", icon:"🍄"},
+      {type:"mushroom", label:"200 🍄", icon:"🍄"}
+    ];
+
+    let activityIndex = 0;
+    let activityTimer = null;
+    let rewardCountdown = 4;
 
     const clapAudio = document.getElementById("clapSound");
     const moneyAudio = document.getElementById("rewardMoneySound");
@@ -385,7 +569,9 @@
         }, 20);
         setTimeout(() => c.remove(), 2200);
       }
-    }function addRewardToWallet(reward) {
+    }
+
+    function addRewardToWallet(reward) {
       if (!reward) return;
       if (reward.type === "cash") {
         wallet += Number(reward.amount);
@@ -438,9 +624,23 @@
       navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
         .then(stream => {
           showToast("📷 Camera চালু হয়েছে");
-          setTimeout(() => stream.getTracks().forEach(t => t.stop()), 5000);
+          $("cameraStatus").innerText = "Camera সক্রিয় আছে";
+          $("openCameraBtn").style.display = "none";
+          $("stopCameraBtn").style.display = "block";
+          window.activeStream = stream;
         })
         .catch(() => showToast("⚠️ Camera Permission দিন"));
+    }
+
+    function stopRealScanner() {
+      if (window.activeStream) {
+        window.activeStream.getTracks().forEach(t => t.stop());
+        window.activeStream = null;
+      }
+      $("cameraStatus").innerText = "Camera বন্ধ আছে";
+      $("openCameraBtn").style.display = "block";
+      $("stopCameraBtn").style.display = "none";
+      showToast("🛑 Camera বন্ধ করা হয়েছে");
     }
 
     function drawWheel() {
@@ -587,11 +787,7 @@
       };
       
       canvas.onmouseup = canvas.onmouseleave = canvas.ontouchend = () => isDrawing = false;
-      
-      canvas.onmousemove = (e) => {
-        if (isDrawing) scratchPoint(e);
-      };
-      
+      canvas.onmousemove = (e) => { if (isDrawing) scratchPoint(e); };
       canvas.ontouchmove = (e) => {
         if (isDrawing) {
           scratchPoint(e);
@@ -599,10 +795,7 @@
           $("scratchClaimBtn").style.display = "block";
         }
       };
-      
-      canvas.onmousemove = () => {
-        if (isDrawing) $("scratchClaimBtn").style.display = "block";
-      };
+      canvas.onmousemove = () => { if (isDrawing) $("scratchClaimBtn").style.display = "block"; };
     }
 
     function claimScratchReward() {
@@ -722,12 +915,67 @@
       showToast("✅ WhatsApp Withdraw Request তৈরি হয়েছে!");
     }
 
+     /* DEMO REWARD ACTIVITY SYSTEM */
+    function getRandomDemoUser() {
+      return demoRewardUsers[Math.floor(Math.random() * demoRewardUsers.length)];
+    }
+
+    function getRandomDemoReward() {
+      return demoRewardOptions[Math.floor(Math.random() * demoRewardOptions.length)];
+    }
+
+    function getGenderEmoji(gender) {
+      return gender === "female" ? "👩" : "👨";
+    }
+
+    function showDemoRewardActivity() {
+      const feed = $("rewardActivityFeed");
+      if (!feed) return;
+      const user = getRandomDemoUser();
+      const reward = getRandomDemoReward();
+
+      const card = document.createElement("div");
+      card.className = "reward-activity-card";
+      card.innerHTML = `
+        <div class="reward-activity-avatar">${getGenderEmoji(user.gender)}</div>
+        <div class="reward-activity-info">
+          <div class="reward-activity-name">${user.name}</div>
+          <div class="reward-activity-text">🎉 Reward ${reward.type === "cash" ? "Cashback" : "Mushroom"} পেয়েছেন</div>
+          <div class="reward-activity-time">এখনই • ${user.city}</div>
+        </div>
+        <div class="reward-activity-reward">${reward.icon} ${reward.label}</div>
+      `;
+      feed.innerHTML = "";
+      feed.appendChild(card);
+      activityIndex++;
+    }
+
+    function startDemoRewardActivity() {
+      showDemoRewardActivity();
+      clearInterval(activityTimer);
+      activityTimer = setInterval(showDemoRewardActivity, 4000);
+    }
+
+    /* 4-SECOND TIMER FOR SPIN/SCRATCH BUTTONS */
+    function updateRewardCountdown() {
+      rewardCountdown--;
+      if (rewardCountdown < 0) rewardCountdown = 4;
+      const spinTimer = $("spinTimer");
+      const scratchTimer = $("scratchTimer");
+      if (spinTimer) spinTimer.innerText = String(rewardCountdown).padStart(2, "0");
+      if (scratchTimer) scratchTimer.innerText = String(rewardCountdown).padStart(2, "0");
+    }
+
     // Modal background click to close
     document.querySelectorAll(".modal-overlay").forEach(overlay => {
       overlay.addEventListener("click", e => {
         if (e.target === overlay) overlay.classList.remove("active");
       });
     });
+
+    // Initialize Timers & Activity Feed on load
+    setInterval(updateRewardCountdown, 1000);
+    startDemoRewardActivity();
   </script>
 </body>
-</html>
+</html>                                                                                    
