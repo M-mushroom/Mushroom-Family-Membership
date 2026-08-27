@@ -34,8 +34,7 @@
     .membership-btn:active{transform:scale(.9)}
     .membership-shine{position:absolute;top:-50%;left:-100px;width:55px;height:220%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:rotate(20deg);animation:membershipShine 3.5s infinite}
     @keyframes membershipShine{0%{left:-100px}55%,100%{left:120%}}
-
-    /* WALLET GRID & CARDS */
+                   /* WALLET GRID & CARDS */
     .wallet-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
     .mini-wallet{padding:15px;border-radius:16px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.05);transition:transform .3s ease,box-shadow .3s ease}
     .mini-wallet-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:18px}
@@ -81,9 +80,7 @@
     
     .scratch-wrapper{position:relative;width:220px;height:140px;margin:15px auto;border-radius:12px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.1)}
     .scanner-box{width:140px;height:140px;margin:15px auto;position:relative;border-radius:12px;overflow:hidden}
-    #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}
-    
-    /* BOTTOM NAV */
+    #toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.88);color:#fff;padding:10px 20px;border-radius:25px;font-size:12px;display:none;z-index:100000;text-align:center;max-width:90%}/* BOTTOM NAV */
     .bottom-nav{position:fixed;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;height:82px!important;padding:8px 8px 7px!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(46,125,50,.12)!important;box-shadow:0 -8px 25px rgba(0,0,0,.10)!important;border-radius:22px 22px 0 0;display:flex;justify-content:space-around;z-index:999}
     .nav-item{position:relative;width:24%;height:68px;border-radius:17px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#777;background:none;transition:transform .25s ease,background .25s ease,color .25s ease}
     .nav-item span:first-child{font-size:24px!important;line-height:28px;filter:drop-shadow(0 3px 5px rgba(0,0,0,.12))}
@@ -112,9 +109,7 @@
     .reward-activity-name{font-size:11px;font-weight:900;color:#222;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .reward-activity-text{margin-top:2px;font-size:9px;color:#777}
     .reward-activity-reward{padding:6px 8px;border-radius:10px;background:linear-gradient(135deg,#fff8e1,#fff3cd);color:#e65100;font-size:9px;font-weight:900;white-space:nowrap;box-shadow:inset 0 0 0 1px rgba(255,152,0,.12)}
-    .reward-activity-time{margin-top:3px;font-size:7px;color:#aaa;text-align:right}
-
-    /* CLAIM CODE & QR SCANNER UI */
+    .reward-activity-time{margin-top:3px;font-size:7px;color:#aaa;text-align:right}/* CLAIM CODE & QR SCANNER UI */
     .claim-code-section{margin-top:16px;padding:13px;border-radius:15px;background:linear-gradient(135deg,#f8fff9,#edf8ef);border:1px solid #c8e6c9;box-shadow:0 5px 15px rgba(46,125,50,.08);text-align:left}
     .claim-code-title{font-size:13px;font-weight:900;color:#2e7d32}
     .claim-code-subtitle{margin-top:3px;margin-bottom:9px;font-size:9px;color:#777}
@@ -145,10 +140,8 @@
     .scratch-prize{position:relative;z-index:2;margin-top:2px;font-size:32px;line-height:1;font-weight:1000;color:#fff;text-shadow:0 2px 0 #b45309,0 4px 10px rgba(0,0,0,.35);animation:prizeGlow 1.5s ease-in-out infinite}
     @keyframes prizeGlow{0%,100%{transform:scale(1);filter:drop-shadow(0 0 3px rgba(255,255,255,.4))}50%{transform:scale(1.12);filter:drop-shadow(0 0 12px rgba(255,255,255,.95))}}
     .scratch-reward-subtitle{position:relative;z-index:2;margin-top:5px;padding:3px 9px;border-radius:20px;font-size:8px;font-weight:900;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5);backdrop-filter:blur(5px)}
-    #scratchCanvas{z-index:5;touch-action:none}
+    #scratchCanvas{z-index:5;touch-action:none;position:absolute;top:0;left:0;}
     .scratch-wrapper.scratching{box-shadow:0 0 0 2px rgba(255,193,7,.35),0 0 25px rgba(255,152,0,.55),0 8px 25px rgba(0,0,0,.2)}
-    .scratch-wrapper.scratching .scratch-background{animation:rewardEnergy .9s ease-in-out infinite}
-    @keyframes rewardEnergy{0%,100%{filter:brightness(1)}50%{filter:brightness(1.15)}}
 
     /* FLYING REWARD SYSTEM & POPUP */
     #rewardAnimationLayer{position:fixed;inset:0;pointer-events:none;z-index:999999;overflow:hidden}
@@ -198,6 +191,7 @@
   </style>
 </head>
 <body>
+
   <!-- AUDIO ELEMENTS -->
   <audio id="clapSound" preload="none" src="clap.mp3"></audio>
   <audio id="rewardMoneySound" preload="none" src="Money%20sound.mp3"></audio>
@@ -229,9 +223,7 @@
       </div>
     </div>
     <button class="membership-btn" onclick="joinMushroomFamily()">JOIN NOW →</button>
-  </div>
-
-  <!-- WALLETS -->
+  </div><!-- WALLETS -->
   <div class="wallet-grid">
     <div class="mini-wallet cash-wallet">
       <div class="mini-wallet-icon icon-green">💵</div>
@@ -249,32 +241,29 @@
 
   <!-- 2x2 QUICK ACTIONS -->
   <div class="quick-grid">
-    <!-- Verify QR -->
     <button class="quick" onclick="openScannerModal()">
       <img src="Scaner.gif" class="quick-image verify" alt="Scanner">
       <p>Verify QR</p>
       <small>কোড লিখুন</small>
     </button>
-    <!-- SPIN -->
     <button class="quick" onclick="openSpinModal()">
       <img src="splash02.gif" class="quick-image" alt="Spin">
       <p>SPIN</p>
       <small>এখনই Spin করুন</small>
     </button>
-    <!-- Refer -->
     <button class="quick" onclick="openReferralModal()">
       <img src="referral.jpg" class="quick-image refer" alt="Refer">
       <p>Refer</p>
       <small>বন্ধুকে Invite করুন</small>
     </button>
-    <!-- Scratch -->
     <button class="quick" onclick="openScratchModal()">
       <img src="splash2.gif" class="quick-image scratch" alt="Scratch">
       <p>Scratch</p>
       <small>Scratch করে জিতুন</small>
     </button>
   </div>
-   <!-- LIVE REWARD ACTIVITY -->
+
+  <!-- LIVE REWARD ACTIVITY -->
   <div class="reward-live-panel">
     <div class="reward-live-header">
       <div>
@@ -322,9 +311,7 @@
       <button id="openCameraBtn" class="primary-btn" style="background:#444;" onclick="startRealScanner()">📷 Open Camera</button>
       <button id="stopCameraBtn" class="primary-btn" style="display:none;background:#d32f2f;" onclick="stopRealScanner()">🛑 Stop Camera</button>
     </div>
-  </div>
-
-  <!-- PRO SPIN WHEEL MODAL -->
+  </div><!-- PRO SPIN WHEEL MODAL -->
   <div class="modal-overlay" id="spinModal">
     <div class="pro-spin-modal">
       <button class="close-modal pro-close" onclick="closeModal('spinModal')">&times;</button>
@@ -360,12 +347,13 @@
     </div>
   </div>
 
-  <!-- PREMIUM SCRATCH CARD MODAL -->
+  <!-- AUTO-REWARD SCRATCH CARD MODAL -->
   <div class="modal-overlay" id="scratchModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('scratchModal')">&times;</button>
       <h3>🪙 Scratch Card</h3>
-      <div class="scratch-wrapper">
+
+      <div class="scratch-wrapper" id="scratchWrapper">
         <div class="scratch-background" id="scratchRewardArea">
           <div class="scratch-glow"></div>
           <div class="scratch-sparkles">
@@ -376,9 +364,17 @@
           <div class="scratch-prize" id="scratchPrizeText">₹25</div>
           <div class="scratch-reward-subtitle">🎉 YOU WON 🎉</div>
         </div>
+
         <canvas id="scratchCanvas" width="220" height="140"></canvas>
+
+        <div id="scratchPercent" style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);z-index:20;padding:4px 10px;border-radius:20px;background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:900;letter-spacing:.3px;pointer-events:none;backdrop-filter:blur(5px);">
+          0% Scratched
+        </div>
       </div>
-      <button id="scratchClaimBtn" class="primary-btn" style="display:none;" onclick="claimScratchReward()">✨ Claim Reward</button>
+
+      <div id="scratchRewardStatus" style="margin-top:10px;padding:8px 10px;border-radius:12px;background:#f5f5f5;color:#777;font-size:10px;font-weight:800;text-align:center;">
+        🪙 কার্ডটি ঘষে Reward প্রকাশ করুন
+      </div>
     </div>
   </div>
 
@@ -402,9 +398,7 @@
       <input id="withdrawPhone" class="verify-input" type="tel" placeholder="ফোন নম্বর" maxlength="15">
       <button id="withdrawConfirmBtn" class="primary-btn" onclick="confirmWithdraw()">💵 CONFIRM WITHDRAW</button>
     </div>
-  </div>
-
-  <!-- MUSHROOM WITHDRAW MODAL -->
+  </div><!-- MUSHROOM WITHDRAW MODAL -->
   <div class="modal-overlay" id="mushroomWithdrawModal">
     <div class="modal-content">
       <button class="close-modal" onclick="closeModal('mushroomWithdrawModal')">&times;</button>
@@ -438,10 +432,13 @@
     let wallet = 120.00;
     let mushroomWallet = 450;
     let isSpinning = false;
-    let isScratchClaimed = false;
-    let currentScratchReward = null;
     let currentAngle = 0;
+
+    let scratchRewardAdded = false;
+    let scratchCleanPercent = 0;
+    let scratchIsDrawing = false;
     let scratchSoundPlaying = false;
+    let currentScratchReward = null;
 
     const USED_CODES_KEY = "KUNDU_USED_REWARD_CODES_V1";
     const ACTIVE_CODE_KEY = "KUNDU_ACTIVE_REWARD_CODE_V1";
@@ -455,7 +452,6 @@
       {type: "mushroom", amount: 150, label: "150 🍄"},
       {type: "cash", amount: 19, label: "₹19 💵"}
     ];
-
     const demoRewardUsers = [
       {name:"রাহুল দাস", gender:"male", city:"আরাম বাগ"},
       {name:"সুমন কুণ্ডু", gender:"male", city:"সাওড়া"},
@@ -510,7 +506,7 @@
       const isCash = reward.type === "cash";
       const text = isCash 
         ? `অভিনন্দন! আপনি ${reward.amount} টাকা ক্যাশব্যাক পেয়েছেন।` 
-        : `অভিনন্দন! আপনি ${reward.amount} টি মাশরুম পয়েন্ট পেয়েছেন।`;
+        : `অভিনন্দন! আপনি ${reward.amount} টি মাশরুম ছাতু পেয়েছেন।`;
       
       const utter = new SpeechSynthesisUtterance(text);
       utter.lang = 'bn-IN';
@@ -521,8 +517,7 @@
         window.speechSynthesis.speak(utter);
       }, 2500);
     }
-
-    function joinMushroomFamily() {
+function joinMushroomFamily() {
       const whatsappNumber = "917047643951";
       const message = `🍄 KUNDU MUSHROOM FARM\n\n🎁 Mushroom Family Membership\n\nআমি Mushroom Family Membership-এ Join করতে চাই।\n\n👤 Name: \n📱 Phone: \n\nPlease help me join. 🙏`;
       window.open("https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message), "_blank");
@@ -663,7 +658,9 @@
         duration: 1100,
         easing: "cubic-bezier(.17,.84,.35,1)",
         fill: "forwards"
-      });animation.onfinish = () => {
+      });
+
+      animation.onfinish = () => {
         flying.remove();
         target.classList.remove("wallet-receive");
         void target.offsetWidth;
@@ -677,7 +674,6 @@
         }
       };
     }
-
     function showRewardWinAnimation(reward) {
       if (!reward) return;
       const isCash = reward.type === "cash";
@@ -777,32 +773,112 @@
       showToast("🛑 Camera বন্ধ করা হয়েছে");
     }
 
+    /* -------------------------------------------------------------
+       HIGH-DPI OPTIMIZED DRAW WHEEL FUNCTION
+    ------------------------------------------------------------- */
     function drawWheel() {
       const canvas = $("spinCanvas");
       if (!canvas) return;
+
       const ctx = canvas.getContext("2d");
-      const arc = 2 * Math.PI / spinRewards.length;
-      const colors = ["#2e7d32", "#ff8f00", "#43a047", "#ffa726", "#66bb6a", "#ffb74d"];
-      
-      ctx.clearRect(0, 0, 600, 600);
-      spinRewards.forEach((reward, i) => {
-        const angle = currentAngle + i * arc;
+      const dpr = window.devicePixelRatio || 1;
+
+      const rect = canvas.getBoundingClientRect();
+      const size = Math.min(rect.width || 260, rect.height || 260);
+
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const cx = size / 2;
+      const cy = size / 2;
+      const radius = size / 2 - 5;
+
+      const total = spinRewards.length;
+      if (!total) return;
+
+      const slice = (Math.PI * 2) / total;
+      ctx.clearRect(0, 0, size, size);
+
+      // Shadow
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.shadowColor = "rgba(0,0,0,0.25)";
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetY = 4;
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.restore();
+
+      const colors = ["#ff4757", "#ffa502", "#2ed573", "#1e90ff", "#a55eea", "#ff6b81"];
+
+      for (let i = 0; i < total; i++) {
+        const startAngle = currentAngle + i * slice;
+        const endAngle = startAngle + slice;
+
         ctx.beginPath();
-        ctx.fillStyle = colors[i];
-        ctx.moveTo(300, 300);
-        ctx.arc(300, 300, 290, angle, angle + arc);
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, startAngle, endAngle);
+        ctx.closePath();
+
+        ctx.fillStyle = colors[i % colors.length];
         ctx.fill();
-        
+
+        ctx.strokeStyle = "rgba(255,255,255,0.95)";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Text Position
+        const midAngle = startAngle + slice / 2;
+        const textRadius = radius * 0.61;
+        const textX = cx + Math.cos(midAngle) * textRadius;
+        const textY = cy + Math.sin(midAngle) * textRadius;
+
         ctx.save();
-        ctx.translate(300, 300);
-        ctx.rotate(angle + arc / 2);
-        ctx.textAlign = "right";
-        ctx.fillStyle = "#fff";
-        ctx.font = "bold 28px sans-serif";
-        ctx.fillText(reward.label, 260, 10);
+        ctx.translate(textX, textY);
+
+        let textAngle = midAngle + Math.PI / 2;
+        if (textAngle > Math.PI / 2 && textAngle < Math.PI * 1.5) {
+          textAngle += Math.PI;
+        }
+
+        ctx.rotate(textAngle);
+
+        let fontSize = Math.floor(radius * 0.115);
+        fontSize = Math.max(14, Math.min(fontSize, 24));
+
+        ctx.font = `900 ${fontSize}px Arial, sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        ctx.shadowColor = "rgba(0,0,0,0.35)";
+        ctx.shadowBlur = 3;
+        ctx.shadowOffsetX = 1;
+        ctx.shadowOffsetY = 2;
+
+        ctx.fillStyle = "#ffffff";
+        ctx.lineWidth = Math.max(2, fontSize * 0.10);
+        ctx.strokeStyle = "rgba(0,0,0,0.22)";
+
+        const rewardText = String(spinRewards[i].label);
+        ctx.strokeText(rewardText, 0, 0);
+        ctx.fillText(rewardText, 0, 0);
         ctx.restore();
-      });
-    }
+      }
+
+      // Outer Ring
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius - 1, 0, Math.PI * 2);
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 6;
+      ctx.stroke();
+      ctx.restore();
+    }window.addEventListener("resize", () => {
+      requestAnimationFrame(drawWheel);
+    });
 
     function openSpinModal() {
       const code = getActiveCode();
@@ -880,10 +956,14 @@
       requestAnimationFrame(animate);
     }
 
+    /* -------------------------------------------------------------
+       PREMIUM AUTO-SCRATCH SYSTEM (40% AUTO REWARD)
+    ------------------------------------------------------------- */
     function startScratchSound() {
       if (!scratchAudio) return;
       if (!scratchSoundPlaying) {
         scratchSoundPlaying = true;
+        scratchAudio.pause();
         scratchAudio.currentTime = 0;
         scratchAudio.volume = 0.55;
         scratchAudio.loop = true;
@@ -916,86 +996,111 @@
 
     function initScratchCard() {
       const canvas = $("scratchCanvas");
+      const wrapper = $("scratchWrapper");
       if (!canvas) return;
-      const ctx = canvas.getContext("2d");
-      const scratchWrapper = document.querySelector(".scratch-wrapper");
-      
+
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+      scratchRewardAdded = false;
+      scratchCleanPercent = 0;
+      scratchIsDrawing = false;
+
       currentScratchReward = spinRewards[Math.floor(Math.random() * spinRewards.length)];
-      $("scratchPrizeText").innerText = currentScratchReward.label;
-      $("scratchClaimBtn").style.display = "none";
-      isScratchClaimed = false;
-      
+
+      if ($("scratchPrizeText")) $("scratchPrizeText").innerText = currentScratchReward.label;
+      if ($("scratchPercent")) $("scratchPercent").innerText = "0% Scratched";
+
+      if ($("scratchRewardStatus")) {
+        $("scratchRewardStatus").innerText = "🪙 কার্ডটি ঘষে Reward প্রকাশ করুন";
+        $("scratchRewardStatus").style.background = "#f5f5f5";
+        $("scratchRewardStatus").style.color = "#777";
+      }
+
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "#b0bec5";
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const coverGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      coverGradient.addColorStop(0, "#90a4ae");
+      coverGradient.addColorStop(.45, "#cfd8dc");
+      coverGradient.addColorStop(.55, "#78909c");
+      coverGradient.addColorStop(1, "#b0bec5");
+
+      ctx.fillStyle = coverGradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#37474f";
-      ctx.font = "bold 14px sans-serif";
+
+      // Scratch Text overlay on surface
+      ctx.fillStyle = "#263238";
       ctx.textAlign = "center";
-      ctx.fillText("এখানে ঘষুন 🪙", 110, 75);
-      
-      let isDrawing = false;
-      const scratchPoint = (e) => {
-        if (scratchWrapper) scratchWrapper.classList.add("scratching");
+      ctx.textBaseline = "middle";
+      ctx.font = "900 15px sans-serif";
+      ctx.fillText("এখানে ঘষুন 🪙", canvas.width / 2, canvas.height / 2 - 8);
+      ctx.font = "700 9px sans-serif";
+      ctx.fillStyle = "rgba(38,50,56,.75)";
+      ctx.fillText("Scratch করে Reward দেখুন", canvas.width / 2, canvas.height / 2 + 14);
+
+      function scratchAt(e) {
+        if (scratchRewardAdded) return;
         const rect = canvas.getBoundingClientRect();
-        const touch = e.touches ? e.touches[0] : null;
-        const x = (touch ? touch.clientX : e.clientX) - rect.left;
-        const y = (touch ? touch.clientY : e.clientY) - rect.top;
-        
+        const touch = e.touches ? e.touches[0] : e;
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+
         ctx.globalCompositeOperation = "destination-out";
         ctx.beginPath();
-        ctx.arc(x, y, 16, 0, Math.PI * 2);
+        ctx.arc(x, y, 18, 0, Math.PI * 2);
         ctx.fill();
-      };
 
-      canvas.onmousedown = () => { isDrawing = true; startScratchSound(); };
-      canvas.ontouchstart = (e) => {
-        isDrawing = true;
-        startScratchSound();
-        scratchPoint(e);
-        e.preventDefault();
-      };
-      
-      canvas.onmouseup = canvas.onmouseleave = canvas.ontouchend = canvas.ontouchcancel = () => {
-        isDrawing = false;
+        checkScratchProgress(ctx, canvas);
+      }
+
+      canvas.onmousedown = (e) => { scratchIsDrawing = true; startScratchSound(); scratchAt(e); };
+      canvas.ontouchstart = (e) => { scratchIsDrawing = true; startScratchSound(); scratchAt(e); e.preventDefault(); };
+
+      canvas.onmousemove = (e) => { if (scratchIsDrawing) scratchAt(e); };
+      canvas.ontouchmove = (e) => { if (scratchIsDrawing) { scratchAt(e); e.preventDefault(); } };
+
+      canvas.onmouseup = canvas.onmouseleave = canvas.ontouchend = () => {
+        scratchIsDrawing = false;
         stopScratchSound();
-        if (scratchWrapper) scratchWrapper.classList.remove("scratching");
       };
-      canvas.onmouseout = () => {
-        if (isDrawing) {
-          isDrawing = false;
-          stopScratchSound();
-        }
-      };
-
-      canvas.onmousemove = (e) => { if (isDrawing) scratchPoint(e); };
-      canvas.ontouchmove = (e) => {
-        if (isDrawing) {
-          scratchPoint(e);
-          e.preventDefault();
-          $("scratchClaimBtn").style.display = "block";
-        }
-      };
-      canvas.onmousemove = () => { if (isDrawing) $("scratchClaimBtn").style.display = "block"; };
     }
 
-    function claimScratchReward() {
-      if (isScratchClaimed) return;
-      const code = getActiveCode();
-      if (!code) return showToast("🎫 Reward Code পাওয়া যায়নি");
-      if (isCodeUsed(code)) {
-        closeModal("scratchModal");
-        clearActiveRewardSession();
-        return showToast("❌ এই Code ইতিমধ্যেই ব্যবহার হয়েছে");
-      }
-      if (getActiveRewardType() !== "scratch") return showToast("⚠️ এই Code Scratch-এর জন্য অনুমোদিত নয়");
-      if (!currentScratchReward) return showToast("⚠️ Scratch Reward পাওয়া যায়নি");
+    function checkScratchProgress(ctx, canvas) {
+      if (scratchRewardAdded) return;
 
-      isScratchClaimed = true;
-      addRewardToWallet(currentScratchReward);
-      markCodeUsed(code);
-      launchConfetti();
-      playRewardSoundSequence();
-      closeModal("scratchModal");
+      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imgData.data;
+      let clearPixels = 0;
+      const totalPixels = data.length / 4;
+
+      for (let i = 3; i < data.length; i += 16) {
+        if (data[i] === 0) clearPixels++;
+      }
+
+      const percent = Math.min(100, Math.round((clearPixels / (totalPixels / 4)) * 100));
+      if ($("scratchPercent")) $("scratchPercent").innerText = percent + "% Scratched";
+
+      if (percent >= 40 && !scratchRewardAdded) {
+        scratchRewardAdded = true;
+        stopScratchSound();
+
+        // Clear canvas reveal completely
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if ($("scratchRewardStatus")) {
+          $("scratchRewardStatus").innerText = "🎉 Reward Wallet-এ যুক্ত হয়েছে!";
+          $("scratchRewardStatus").style.background = "#e8f5e9";
+          $("scratchRewardStatus").style.color = "#2e7d32";
+        }
+
+        const code = getActiveCode();
+        addRewardToWallet(currentScratchReward);
+        if (code) markCodeUsed(code);
+        launchConfetti();
+        playRewardSoundSequence();
+
+        setTimeout(() => { closeModal("scratchModal"); }, 1800);
+      }
     }
 
     function openReferralModal() { openModal("referralModal"); }
