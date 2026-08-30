@@ -333,7 +333,7 @@
     <div class="membership-shine"></div>
     <div class="membership-icon">🍄</div>
     <div class="membership-content">
-      <div class="membership-title">Mushroom Family</div>
+      <div class="membership-title">Mushroom Care🏬 ফার্ম</div>
       <div class="membership-subtitle">🎁 Exclusive Member Benefits</div>
       <div class="membership-badges">
         <span>💵 Cashback</span>
@@ -404,7 +404,7 @@
       <a href="https://maps.app.goo.gl/qUm4H8iQkxeq7kZr9?g_st=awb" target="_blank" class="google-order-box">
         <div class="order-icon">🛍️</div>
         <div class="order-info">
-          <strong>Google Online Order</strong>
+          <strong>Google Order</strong>
           <small>অনলাইনে অর্ডার করতে এখানে ক্লিক করুন</small>
         </div>
         <div class="order-btn">🛒 ORDER NOW →</div>
@@ -661,7 +661,7 @@
       speechSynthesis.cancel();
       const text = reward.type === "cash"
         ? `অভিনন্দন! আপনি ${reward.amount} টাকা ক্যাশব্যাক পেয়েছেন।`
-        : `অভিনন্দন! আপনি ${reward.amount} মাশরুম পেয়েছেন।`;
+        : `অভিনন্দন! আপনি ${reward.amount} গ্ৰাম মাশরুম পেয়েছেন।`;
       const u = new SpeechSynthesisUtterance(text);
       u.lang="bn-IN";
       u.rate=.9;
@@ -673,7 +673,7 @@
       speechSynthesis.cancel();
       const text = reward.type === "cash"
         ? `অভিনন্দন! আপনি ${reward.amount} টাকা ক্যাশব্যাক পেয়েছেন।`
-        : `অভিনন্দন! আপনি ${reward.amount} মাশরুম পেয়েছেন।`;
+        : `অভিনন্দন! আপনি ${reward.amount} গ্ৰাম মাশরুম পেয়েছেন।`;
       const u = new SpeechSynthesisUtterance(text);
       u.lang="bn-IN";
       u.rate=.9;
@@ -1192,7 +1192,7 @@
       ctx.textBaseline = "middle";
       ctx.fillStyle = "#263238";
       ctx.font = "900 15px sans-serif";
-      ctx.fillText("এখানে ঘষুন 🪙", canvas.width / 2, canvas.height / 2 - 8);
+      ctx.fillText("এখানে 👆 ঘষুন ", canvas.width / 2, canvas.height / 2 - 8);
       ctx.font = "700 9px sans-serif";
       ctx.fillStyle = "rgba(38,50,56,.75)";
       ctx.fillText("Scratch করে Reward দেখুন", canvas.width / 2, canvas.height / 2 + 14);
@@ -1238,7 +1238,7 @@
       const percent = Math.min(100, Math.round((clearPixels / totalSampled) * 100));
       if ($("scratchPercent")) $("scratchPercent").innerText = percent + "% Scratched";
 
-      if (percent >= 40 && !scratchRewardAdded) {
+      if (percent >= 24 && !scratchRewardAdded) {
         scratchRewardAdded = true;
         stopScratchSound();
 
